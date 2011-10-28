@@ -1,10 +1,9 @@
 Cannanerd::Application.routes.draw do
-  get "pages/home"
 
-  get "pages/contact"
-
-  get "pages/about"
-
+  root            :to => 'pages#home'
+  match 'about',  :to => 'pages#about'
+  match 'contact', :to => 'pages#contact'
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

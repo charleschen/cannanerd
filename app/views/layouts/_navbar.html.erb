@@ -1,0 +1,10 @@
+<% if content_for?(:navbar) %>
+<div id='subtitle'><h1><%= yield(:subtitle) %></h1></div>
+<div id='navbar' class='sg-8'>
+	<ul>
+		<li>View:</li>
+		<%= yield :navbar %>
+	</ul>
+	<div class='clear'></div>
+</div>
+<% end %>

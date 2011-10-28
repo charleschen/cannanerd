@@ -1,2 +1,14 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<% title 'Home'%>
+<% subtitle 'CannaNerd'%>
+
+<%= content_for :navbar do %>
+	<li><%= link_to 'Home', root_path %></li>
+	<li><%= link_to 'About', about_path %></li>
+	<li><%= link_to 'Contact', contact_path %></li>
+<% end %>
+
+<div class='sg-10'>
+	<p>
+		this is home page!
+	</p>
+</div>
