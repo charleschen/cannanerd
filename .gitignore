@@ -1,0 +1,33 @@
+.bundle
+db/*.sqlite3
+log/*.log
+*.log
+tmp/**/*
+tmp/*
+doc/api
+doc/app
+*.swp
+*~
+.DS_Store
+public/test
+
+dump.rdb
+.sass-cache/*
+.idea
+.redcar
+.rvmrc
+.stgit*
+*.swap
+*.swo
+nbproject
+patches-*
+
+*.sqlite3
+
+#  rails 3.1.0  files to ignore
+.sass-cache/
+
+# heroku config file #
+######################
+
+config/heroku.yml
