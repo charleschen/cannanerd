@@ -1,5 +1,16 @@
 Cannanerd::Application.routes.draw do
 
+  resources :users
+  
+  # match 'login', :to => 'user_sessions#new'
+  # match 'logout', :to => 'user_sessions#destroy'
+  
+  #resources :user_sessions, :only => [:new, :create, :destroy]
+
+  match 'login', :to => 'user_sessions#new'
+  post 'new_user_session', :to => 'user_sessions#create'
+  match 'logout', :to => 'user_sessions#destroy'
+
   root            :to => 'pages#home'
   match 'about',  :to => 'pages#about'
   match 'contact', :to => 'pages#contact'

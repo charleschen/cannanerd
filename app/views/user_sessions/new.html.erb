@@ -1,0 +1,15 @@
+<div class='sg-15'>
+<%= form_for @user_session, :as => :user_session, :url => new_user_session_path do |f| %>
+	<%= render 'shared/error_messages', :object => f.object %>
+	
+  <p>
+    <%= f.label :username %><br />
+    <%= f.text_field :username %>
+  </p>
+  <p>
+    <%= f.label :password %><br />
+    <%= f.password_field :password %>
+  </p>
+  <p><%= f.submit %></p>
+<% end %>
+</div>
