@@ -10,6 +10,8 @@ Cannanerd::Application.routes.draw do
   match 'login', :to => 'user_sessions#new'
   post 'new_user_session', :to => 'user_sessions#create'
   match 'logout', :to => 'user_sessions#destroy'
+  
+  resources :user_verifications, :only => [:show]
 
   root            :to => 'pages#home'
   match 'about',  :to => 'pages#about'

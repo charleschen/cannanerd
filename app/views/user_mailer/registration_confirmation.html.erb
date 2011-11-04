@@ -1,0 +1,5 @@
+<p>Hi, <%= @user.username %>.  Thank you for registration at Cannanerd!  To complete the registration link, please click on the following link below:</p>
+
+<p><%= link_to 'Verification Link', user_verification_url(@user.perishable_token) %></p>
+
+<p>If you did not sign up for an account at Cannanerd or if there is problem with the registration, please contact Cannanerd.</p>

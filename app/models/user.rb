@@ -20,4 +20,13 @@ class User < ActiveRecord::Base
     c.validates_format_of_login_field_options(:with => /\A\w[\w\.+\-_@' ]+$/)
   end
   attr_accessible :username, :email, :password, :password_confirmation
+  
+  def verify!
+    self.verified = true
+    save
+  end
+  
+  def deliver_registration_confirmation
+    UserMailer.registration_confirmation(self).deliver
+  end
 end

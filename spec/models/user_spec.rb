@@ -92,5 +92,35 @@ describe User do
     User.create(@attr.merge(:email => @attr[:email].upcase,
                             :username => 'charleschen')).should_not be_valid
   end
+  
+  describe '#verify!' do
+    let(:user) {Factory(:user)}
+    
+    it "should respond to verify!" do
+      user.should respond_to(:verify!)
+    end
+  
+    it "change the verified attribute to true" do
+      user.verify!
+      user.should be_verified
+    end
+  end
+  
+    
+  
+  describe '#deliver_registration_confirmation' do
+    let(:user) {Factory(:user)}
+    
+    it "should respond to :deliver_verification" do
+      user.should respond_to(:deliver_registration_confirmation)
+    end
+    
+    it "delivers email registration confirmation to user" do
+      user.deliver_registration_confirmation
+      last_email.to.should include(user.email)
+    end
+    
+    
+  end
 end
 
