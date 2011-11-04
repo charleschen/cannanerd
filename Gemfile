@@ -9,6 +9,7 @@ gem 'resque', :require => "resque/server"
 gem 'resque-scheduler'
 gem 'resque-status'
 gem 'exceptional'
+gem 'cantango'
 
 group :asset do
 	gem 'sass-rails', "~> 3.1.0"
@@ -33,15 +34,18 @@ group :test do
   gem 'rspec-rails', '2.7.0'
 	gem 'rspec-core', '2.7.1'
   #gem 'webrat', '0.7.1'
-  gem 'factory_girl_rails', '1.0'
+  gem 'factory_girl_rails', '1.3.0'
   gem 'sqlite3'
   gem 'fakeweb'
 	gem 'timecop'
 	gem 'capybara'
 	gem 'database_cleaner'
-	gem 'spork', '0.9.0.rc8'
+	gem 'spork', '0.9.0.rc9'
 	gem 'rb-fsevent'
 	gem 'guard-livereload'
+	gem 'guard-rspec'
+	gem 'guard-spork'
+	gem 'growl_notify'
 end
 
 group :production do
