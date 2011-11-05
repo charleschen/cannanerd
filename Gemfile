@@ -4,7 +4,6 @@ gem 'rails', '3.1.0'
 gem 'rake', '0.9.2.2'
 gem 'will_paginate', '3.0.2'
 gem 'authlogic'
-gem 'cancan'
 gem 'resque', :require => "resque/server"
 gem 'resque-scheduler'
 gem 'resque-status'
@@ -40,11 +39,9 @@ group :test do
 	gem 'timecop'
 	gem 'capybara'
 	gem 'database_cleaner'
-	gem 'spork', '0.9.0.rc9'
+	gem 'spork'
 	gem 'rb-fsevent'
 	gem 'guard-livereload'
-	gem 'guard-rspec'
-	gem 'guard-spork'
 	gem 'growl_notify'
 end
 

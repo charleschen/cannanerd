@@ -15,7 +15,14 @@
 			</ul>
 		</div>
 		<div class="sg-5">
-			<h2></h2>
+			<h2>Club</h2>
+			<ul>
+				<% if current_club %>
+					<li><%= link_to 'Logout', club_logout_path %></li>
+				<% else %>
+					<li><%= link_to 'Login', new_club_session_path %></li>
+				<% end %>
+			</ul>
 		</div>
 		<div class="sg-5">
 			<h2></h2>

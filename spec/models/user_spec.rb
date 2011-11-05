@@ -1,4 +1,34 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+# == Schema Information
+#
+# Table name: users
+#
+#  id                 :integer         not null, primary key
+#  name               :string(255)     not null
+#  email              :string(255)     not null
+#  crypted_password   :string(255)     not null
+#  password_salt      :string(255)     not null
+#  persistence_token  :string(255)     not null
+#  login_count        :integer         default(0), not null
+#  failed_login_count :integer         default(0), not null
+#  perishable_token   :string(255)     not null
+#  verified           :boolean         default(FALSE)
+#  current_login_ip   :string(255)
+#  created_at         :datetime
+#  updated_at         :datetime
+#
+
+#require File.dirname(__FILE__) + '/../spec_helper'
+require 'spec_helper'
+# require 'authlogic'
+# require 'action_mailer'
+# 
+# support_require 'database'
+# support_require 'database_cleaner'
+# support_require 'mailer_macros'
+# 
+# app_require 'app/models/user'
+# app_require 'app/models/user_session'
+# app_require 'app/mailers/user_mailer'
 
 describe User do
   before(:each) do
@@ -67,7 +97,9 @@ describe User do
   end
   
   describe '#verify!' do
-    let(:user) {Factory(:user)}
+    let(:user) do
+      user = User.create(@attr)  
+    end#{Factory(:user)}
     
     it "should respond to verify!" do
       user.should respond_to(:verify!)
@@ -82,7 +114,9 @@ describe User do
     
   
   describe '#deliver_registration_confirmation' do
-    let(:user) {Factory(:user)}
+    let(:user) do
+      user = User.create(@attr)  
+    end#{Factory(:user)}
     
     it "should respond to :deliver_verification" do
       user.should respond_to(:deliver_registration_confirmation)

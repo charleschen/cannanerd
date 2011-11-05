@@ -3,17 +3,21 @@
 # Table name: users
 #
 #  id                 :integer         not null, primary key
-#  username           :string(255)     not null
+#  name               :string(255)     not null
 #  email              :string(255)     not null
 #  crypted_password   :string(255)     not null
 #  password_salt      :string(255)     not null
 #  persistence_token  :string(255)     not null
 #  login_count        :integer         default(0), not null
 #  failed_login_count :integer         default(0), not null
+#  perishable_token   :string(255)     not null
+#  verified           :boolean         default(FALSE)
 #  current_login_ip   :string(255)
 #  created_at         :datetime
 #  updated_at         :datetime
 #
+
+require 'authlogic'
 
 class User < ActiveRecord::Base
   acts_as_authentic do |c|
@@ -24,7 +28,7 @@ class User < ActiveRecord::Base
     c.validate_email_field = false
     c.validate_login_field = false
   end
-  tango_user
+  #tango_user
   
   email_name_regex  = '[A-Z0-9_\.%\+\-\']+'
   domain_head_regex = '(?:[A-Z0-9\-]+\.)+'

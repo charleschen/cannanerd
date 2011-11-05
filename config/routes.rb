@@ -11,6 +11,11 @@ Cannanerd::Application.routes.draw do
   post 'new_user_session', :to => 'user_sessions#create'
   match 'logout', :to => 'user_sessions#destroy'
   
+  resources :clubs
+  resources :club_sessions, :only => [:new, :create, :destroy]
+  match 'club_logout', :to => 'club_sessions#destroy'
+  match 'club_login', :to => 'club_sessions#new'
+  
   resources :user_verifications, :only => [:show]
 
   root            :to => 'pages#home'

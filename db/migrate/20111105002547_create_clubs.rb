@@ -1,7 +1,8 @@
 class CreateClubs < ActiveRecord::Migration
   def change
     create_table :clubs do |t|
-      t.string :name
+      t.string :email,                      :null => false
+      t.string :name,                       :null => false
       t.string :crypted_password,           :null => false
       t.string :password_salt,              :null => false
       t.string :persistence_token,          :null => false
@@ -10,10 +11,11 @@ class CreateClubs < ActiveRecord::Migration
       t.integer :failed_login_count,        :null => false, :default => 0
       
       t.string  :perishable_token,          :null => false
-      t.boolean :verified
+      t.boolean :verified,                  :default = false
       t.float :lat
       t.float :lng
-      t.string :email
+
+      t.string :current_login_ip
 
       t.timestamps
     end
