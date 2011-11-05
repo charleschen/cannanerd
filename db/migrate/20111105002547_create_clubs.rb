@@ -1,8 +1,7 @@
-class CreateUsers < ActiveRecord::Migration
-  def self.up
-    create_table :users do |t|
-      t.string :name,                   :null => false
-      t.string :email,                      :null => false
+class CreateClubs < ActiveRecord::Migration
+  def change
+    create_table :clubs do |t|
+      t.string :name
       t.string :crypted_password,           :null => false
       t.string :password_salt,              :null => false
       t.string :persistence_token,          :null => false
@@ -11,15 +10,12 @@ class CreateUsers < ActiveRecord::Migration
       t.integer :failed_login_count,        :null => false, :default => 0
       
       t.string  :perishable_token,          :null => false
-      t.boolean :verified,                  :default => false
-      
-      t.string :current_login_ip
-      
+      t.boolean :verified
+      t.float :lat
+      t.float :lng
+      t.string :email
+
       t.timestamps
     end
-  end
-
-  def self.down
-    drop_table :users
   end
 end

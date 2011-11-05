@@ -1,25 +1,8 @@
-# == Schema Information
-#
-# Table name: users
-#
-#  id                 :integer         not null, primary key
-#  username           :string(255)     not null
-#  email              :string(255)     not null
-#  crypted_password   :string(255)     not null
-#  password_salt      :string(255)     not null
-#  persistence_token  :string(255)     not null
-#  login_count        :integer         default(0), not null
-#  failed_login_count :integer         default(0), not null
-#  current_login_ip   :string(255)
-#  created_at         :datetime
-#  updated_at         :datetime
-#
-
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe User do
   before(:each) do
-    @attr = { :username               => "cchen",
+    @attr = { :name                   => "Charles Chen",
               :email                  => 'ccchen@example.com',
               :password               => 'password',
               :password_confirmation  => 'password'
@@ -30,8 +13,8 @@ describe User do
     User.create().should_not be_valid()
   end
   
-  it "should require username" do
-    User.create(@attr.merge(:username => "")).should_not be_valid
+  it "should require name" do
+    User.create(@attr.merge(:name => "")).should_not be_valid
   end
   
   it "should require email" do
@@ -58,7 +41,7 @@ describe User do
                     foobar@3com.com
                     foobar@foo-bar.com }
     addresses.each do |address|
-      User.create!(@attr.merge(:username => Faker::Name.name,:email => address))
+      User.create!(@attr.merge(:name => Faker::Name.name,:email => address))
     end
   end
   
@@ -67,30 +50,20 @@ describe User do
                               THE_USER_foo.bar.org 
                               first.last@foo.}
     invalid_addresses.each do |invalid_address|
-      User.create(@attr.merge(:username => Faker::Name.name,:email => invalid_address)).should_not be_valid
+      User.create(@attr.merge(:name => Faker::Name.name,:email => invalid_address)).should_not be_valid
     end
   end
-
-  it "should reject duplicate username" do
-    User.create!(@attr)
-    User.create(@attr.merge(:email => 'cc@werd.com')).should_not be_valid
-  end
   
-  it "should reject duplicate username up to case" do
-    User.create!(@attr)
-    User.create(@attr.merge(:username => @attr[:username].upcase,
-                            :email => 'cc@werd.com')).should_not be_valid
-  end
   
   it "should reject duplicate email accounts" do
     User.create!(@attr)
-    User.create(@attr.merge(:username => 'charleschen'))
+    User.create(@attr.merge(:name => 'charleschen'))
   end
   
   it "should reject duplicate email user accounts up to case" do
     User.create!(@attr)
     User.create(@attr.merge(:email => @attr[:email].upcase,
-                            :username => 'charleschen')).should_not be_valid
+                            :name => 'charleschen')).should_not be_valid
   end
   
   describe '#verify!' do

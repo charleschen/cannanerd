@@ -17,9 +17,26 @@
 
 class User < ActiveRecord::Base
   acts_as_authentic do |c|
-    c.validates_format_of_login_field_options(:with => /\A\w[\w\.+\-_@' ]+$/)
+    #c.validates_format_of_login_field_options(:with => /\A\w[\w\.+\-_@' ]+$/)
+    #c.find_by_login_method = :find_by_email
+    c.session_class = UserSession
+    c.login_field = :email
+    c.validate_email_field = false
+    c.validate_login_field = false
   end
-  attr_accessible :username, :email, :password, :password_confirmation
+  tango_user
+  
+  email_name_regex  = '[A-Z0-9_\.%\+\-\']+'
+  domain_head_regex = '(?:[A-Z0-9\-]+\.)+'
+  domain_tld_regex  = '(?:[A-Z]{2,4}|museum|travel)'
+  email_regex = /^#{email_name_regex}@#{domain_head_regex}#{domain_tld_regex}$/i
+  
+  validates :email, :presence => true, 
+                    :uniqueness => { :case_sensitive => false},
+                    :format => { :with => email_regex}
+  validates :name, :presence => true
+  
+  attr_accessible :email, :name, :password, :password_confirmation
   
   def verify!
     self.verified = true
@@ -28,5 +45,5 @@ class User < ActiveRecord::Base
   
   def deliver_registration_confirmation
     UserMailer.registration_confirmation(self).deliver
-  end
+  end  
 end

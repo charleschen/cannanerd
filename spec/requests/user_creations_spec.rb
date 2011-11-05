@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "UserCreations" do
   before(:each) do
-    @attr = { :username => "Charles Chen",
+    @attr = { :name => "Charles Chen",
               :email    => "charleschen@gmail.com",
               :password => 'password'
             }
@@ -31,7 +31,7 @@ describe "UserCreations" do
     end
     
     it "should not create new user without same password" do
-      fill_in "user_username",  :with => @attr[:username]
+      fill_in "user_name",  :with => @attr[:name]
       fill_in "user_email",     :with => @attr[:email]
       fill_in "user_password",       :with => @attr[:password]
       fill_in "user_password_confirmation",       :with => 'werd'
@@ -48,7 +48,7 @@ describe "UserCreations" do
       visit root_path
       click_link 'Sign up'
       
-      fill_in "user_username",              :with => @attr[:username]
+      fill_in "user_name",              :with => @attr[:name]
       fill_in "user_email",                 :with => @attr[:email]
       fill_in "user_password",              :with => @attr[:password]
       fill_in "user_password_confirmation", :with => @attr[:password]
@@ -63,7 +63,7 @@ describe "UserCreations" do
     
     it "should email user with verification details" do
       click_button 'Create User'
-      user = User.find_by_username(@attr[:username])
+      user = User.find_by_email(@attr[:email])
       last_email.to.should include(user.email)
     end
   end

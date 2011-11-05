@@ -1,4 +1,4 @@
-<p>Hi, <%= @user.username %>.  Thank you for registration at Cannanerd!  To complete the registration link, please click on the following link below:</p>
+<p>Hi, <%= @user.name %>.  Thank you for registration at Cannanerd!  To complete the registration link, please click on the following link below:</p>
 
 <p><%= link_to 'Verification Link', user_verification_url(@user.perishable_token) %></p>
 
