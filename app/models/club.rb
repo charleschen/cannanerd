@@ -16,6 +16,7 @@
 #  email              :string(255)
 #  created_at         :datetime
 #  updated_at         :datetime
+#  roles_mask         :integer
 #
 
 require 'authlogic'
@@ -28,6 +29,7 @@ class Club < ActiveRecord::Base
     c.login_field = :email
     c.validate_email_field = false
     c.validate_login_field = false
+    c.maintain_sessions = false
   end
   
   email_name_regex  = '[A-Z0-9_\.%\+\-\']+'
@@ -42,6 +44,24 @@ class Club < ActiveRecord::Base
                     :format => email_regex
                     
   attr_accessible :email, :name, :password, :password_confirmation
+  
+  ROLES = %w[unregistered]
+  
+  def roles_list
+    ROLES.map(&:to_sym)
+  end
+  
+  def roles
+    ROLES.reject {|role| ((self.roles_mask || 0) & 2**ROLES.index(role)).zero? }
+  end
+  
+  def roles=(roles)
+    self.roles_mask = (roles & ROLES).map {|role| 2**ROLES.index(role)}.sum
+  end
+  
+  def has_role?(role)
+    roles_list.include? role.to_sym
+  end
   
   def verify!
     self.verified = true

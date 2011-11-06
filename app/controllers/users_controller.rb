@@ -15,6 +15,7 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     if @user.save
       @user.deliver_registration_confirmation
+      UserSession.create @user    # logs user in automatically
       flash[:notice] = "Registration successful"
       redirect_to root_url
     else

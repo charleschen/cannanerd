@@ -16,6 +16,7 @@
 #  email              :string(255)
 #  created_at         :datetime
 #  updated_at         :datetime
+#  roles_mask         :integer
 #
 
 require 'spec_helper'
@@ -103,6 +104,45 @@ describe Club do
     it "change the verified attribute to true" do
       club.verify!
       club.should be_verified
+    end
+  end
+  
+  describe 'roles' do
+    let(:club){Club.create(@attr)}
+    before(:each) do
+      @roles = %w[unregistered]
+    end
+    
+    it 'should have a global variable ROLES' do
+      Club::ROLES.should eq(@roles)
+    end
+    
+    it 'should respond :roles_list and give the right roles symbol list' do
+      club.should respond_to(:roles_list)
+      club.roles_list.should eq(@roles.map(&:to_sym))
+    end
+
+    it 'should respond to :roles' do
+      club.should respond_to(:roles)
+    end
+    
+    it 'should not have any roles' do
+      club.roles.should eq([])
+    end
+    
+    it 'should respond to :roles=' do
+      club.should respond_to(:roles=)
+    end
+    
+    it 'should change roles with roles setter' do
+      Club::ROLES.each do |role|
+        club.roles = [role]
+        club.roles.should eq([role])
+      end
+      
+      club.roles = Club::ROLES
+      club.has_role? Club::ROLES[0]
+      club.roles.should eq(Club::ROLES)
     end
   end
 end

@@ -15,6 +15,7 @@
 #  current_login_ip   :string(255)
 #  created_at         :datetime
 #  updated_at         :datetime
+#  roles_mask         :integer
 #
 
 require 'authlogic'
@@ -27,8 +28,8 @@ class User < ActiveRecord::Base
     c.login_field = :email
     c.validate_email_field = false
     c.validate_login_field = false
+    c.maintain_sessions = false
   end
-  #tango_user
   
   email_name_regex  = '[A-Z0-9_\.%\+\-\']+'
   domain_head_regex = '(?:[A-Z0-9\-]+\.)+'
@@ -41,6 +42,26 @@ class User < ActiveRecord::Base
   validates :name, :presence => true
   
   attr_accessible :email, :name, :password, :password_confirmation
+  
+  #tango_user
+  
+  ROLES = %w[member admin]
+  
+  def roles
+    ROLES.reject {|role| ((self.roles_mask || 0) & 2**ROLES.index(role)).zero? }
+  end
+  
+  def roles=(roles)
+    self.roles_mask = (roles & ROLES).map {|role| 2**ROLES.index(role)}.sum
+  end
+  
+  def roles_list
+    ROLES.map(&:to_sym)
+  end
+  
+  def has_role?(role)
+    roles_list.include? role.to_sym
+  end
   
   def verify!
     self.verified = true

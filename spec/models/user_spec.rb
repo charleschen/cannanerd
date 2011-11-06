@@ -15,6 +15,7 @@
 #  current_login_ip   :string(255)
 #  created_at         :datetime
 #  updated_at         :datetime
+#  roles_mask         :integer
 #
 
 #require File.dirname(__FILE__) + '/../spec_helper'
@@ -111,8 +112,6 @@ describe User do
     end
   end
   
-    
-  
   describe '#deliver_registration_confirmation' do
     let(:user) do
       user = User.create(@attr)  
@@ -126,8 +125,45 @@ describe User do
       user.deliver_registration_confirmation
       last_email.to.should include(user.email)
     end
+  end
+  
+  describe 'roles' do
+    let(:user){User.create(@attr)}
+    before(:each) do
+      @roles = %w[member admin]
+    end
     
+    it 'should have a global variable ROLES' do
+      User::ROLES.should eq(@roles)
+    end
     
+    it 'should respond :roles_list and give the right roles symbol list' do
+      user.should respond_to(:roles_list)
+      user.roles_list.should eq(@roles.map(&:to_sym))
+    end
+
+    it 'should respond to :roles' do
+      user.should respond_to(:roles)
+    end
+    
+    it 'should not have any roles' do
+      user.roles.should eq([])
+    end
+    
+    it 'should respond to :roles=' do
+      user.should respond_to(:roles=)
+    end
+    
+    it 'should change roles with roles setter' do
+      User::ROLES.each do |role|
+        user.roles = [role]
+        user.roles.should eq([role])
+      end
+      
+      user.roles = User::ROLES
+      user.has_role? User::ROLES[0]
+      user.roles.should eq(User::ROLES)
+    end
   end
 end
 

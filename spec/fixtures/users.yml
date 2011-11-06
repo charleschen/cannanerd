@@ -15,6 +15,7 @@
 #  current_login_ip   :string(255)
 #  created_at         :datetime
 #  updated_at         :datetime
+#  roles_mask         :integer
 #
 
 one:

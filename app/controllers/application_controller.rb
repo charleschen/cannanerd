@@ -27,5 +27,6 @@ class ApplicationController < ActionController::Base
     return @current_club if defined?(@current_club)
     @current_club = current_club_session && current_club_session.record
   end
-
+  
+  
 end
