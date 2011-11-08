@@ -37,6 +37,26 @@ div#subtitle{
 	}
 }
 
+/*************** flash **********************/
+
+div#flash{
+	//width: 100%;
+	height: 30px;
+	text-align: center;
+	margin: 0px 0px 0px 7px;
+	padding: 0;
+	div.error{
+		background: #F02C00;
+	}
+}
+
+
+
+
+
+
+
+
 /**************** navbar *****************/
 
 div#navbar{

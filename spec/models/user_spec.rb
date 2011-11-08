@@ -140,6 +140,11 @@ describe User do
       user.should respond_to(:role_symbols)
       user.role_symbols.should eq([User::ROLES[0].to_sym])
     end
+    
+    it 'should respond to :has_role? and return true to the right role' do
+      user.should respond_to(:has_role?)
+      user.should have_role(User::ROLES[0])
+    end
 
     it 'should respond to :roles' do
       user.should respond_to(:roles)

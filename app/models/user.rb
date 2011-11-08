@@ -58,6 +58,10 @@ class User < ActiveRecord::Base
     roles.map(&:to_sym)
   end
   
+  def has_role?(role)
+    roles.include? role
+  end
+  
   def verify!
     self.roles = ['member']
   end

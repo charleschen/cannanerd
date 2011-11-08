@@ -9,7 +9,8 @@ describe "UserVerifications" do
   it "verfies user" do
     visit user_verification_path(@user.perishable_token)
     @user.reload
-    @user.should be_verified
+    #@user.should be_verified
+    @user.should have_role('member')
     current_path.should eq(root_path)
   end
   

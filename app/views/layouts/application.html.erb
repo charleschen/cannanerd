@@ -9,6 +9,11 @@
 <body>
 	<%= render 'layouts/header' %>
 	<div id='wrapper'>
+		<div id='flash' class='sg-28'>
+		<% flash.each do |key,value| %>
+			<div class="<%= key %>"><%= value %></div>
+		<% end %>
+		</div>
 		<div id='container'>
 			<%= render 'layouts/navbar' %>
 			<div id='main'>
@@ -16,11 +21,6 @@
 				<div class='clear'></div>
 			</div>
 			<%= render 'layouts/footer' %>
-		</div>
-		<div class='flash'>
-		<% flash.each do |key,value| %>
-			<div class="<%= key %>"><%= value %></div>
-		<% end %>
 		</div>
 	</div>
 </body>

@@ -2,7 +2,7 @@ class UserVerificationsController < ApplicationController
   before_filter :load_user_using_perishable_token
 
   def show
-    unless @user.verified?
+    unless @user.has_role?('member')
       @user.verify!
       flash[:notice] = 'Thank you for verifying your account'
     else

@@ -2,6 +2,7 @@ require 'declarative_authorization'
 
 class ClubsController < ApplicationController
   filter_resource_access
+  
   def new
     @club = Club.new
   end

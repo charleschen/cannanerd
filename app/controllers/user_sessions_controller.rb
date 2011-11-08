@@ -6,6 +6,9 @@ class UserSessionsController < ApplicationController
   def create
     @user_session = UserSession.new(params[:user_session])
     if @user_session.save
+      if current_club
+        ClubSession.find.destroy
+      end
       flash[:notice] = "Logged in!"
       redirect_to root_url
     else
