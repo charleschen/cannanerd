@@ -3,20 +3,20 @@
 # Table name: clubs
 #
 #  id                 :integer         not null, primary key
-#  name               :string(255)
+#  email              :string(255)     not null
+#  name               :string(255)     not null
 #  crypted_password   :string(255)     not null
 #  password_salt      :string(255)     not null
 #  persistence_token  :string(255)     not null
 #  login_count        :integer         default(0), not null
 #  failed_login_count :integer         default(0), not null
 #  perishable_token   :string(255)     not null
-#  verified           :boolean
 #  lat                :float
 #  lng                :float
-#  email              :string(255)
+#  current_login_ip   :string(255)
 #  created_at         :datetime
 #  updated_at         :datetime
-#  roles_mask         :integer
+#  roles_mask         :integer         default(1)
 #
 
 require 'spec_helper'
@@ -94,32 +94,32 @@ describe Club do
                             :name => 'charleschen')).should_not be_valid
   end
   
-  describe '#verify!' do
+  describe '#register!' do
     let(:club) {Factory(:club)}
     
-    it "should respond to verify!" do
-      club.should respond_to(:verify!)
+    it "should respond to register!" do
+      club.should respond_to(:register!)
     end
   
     it "change the verified attribute to true" do
-      club.verify!
-      club.should be_verified
+      club.register!
+      club.roles.should eq(['registered'])
     end
   end
   
   describe 'roles' do
     let(:club){Club.create(@attr)}
     before(:each) do
-      @roles = %w[unregistered]
+      @roles = %w[unregistered registered]
     end
     
     it 'should have a global variable ROLES' do
       Club::ROLES.should eq(@roles)
     end
     
-    it 'should respond :roles_list and give the right roles symbol list' do
-      club.should respond_to(:roles_list)
-      club.roles_list.should eq(@roles.map(&:to_sym))
+    it 'should respond :role_symbols and give the right roles symbol list' do
+      club.should respond_to(:role_symbols)
+      club.role_symbols.should eq([Club::ROLES[0].to_sym])
     end
 
     it 'should respond to :roles' do
@@ -127,7 +127,7 @@ describe Club do
     end
     
     it 'should not have any roles' do
-      club.roles.should eq([])
+      club.roles.should eq(['unregistered'])
     end
     
     it 'should respond to :roles=' do
@@ -141,8 +141,8 @@ describe Club do
       end
       
       club.roles = Club::ROLES
-      club.has_role? Club::ROLES[0]
       club.roles.should eq(Club::ROLES)
+      club.role_symbols.should eq(Club::ROLES.map(&:to_sym))
     end
   end
 end

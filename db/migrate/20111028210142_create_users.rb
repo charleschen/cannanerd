@@ -11,7 +11,6 @@ class CreateUsers < ActiveRecord::Migration
       t.integer :failed_login_count,        :null => false, :default => 0
       
       t.string  :perishable_token,          :null => false
-      t.boolean :verified,                  :default => false
       
       t.string :current_login_ip
       

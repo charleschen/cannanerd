@@ -3,20 +3,20 @@
 # Table name: clubs
 #
 #  id                 :integer         not null, primary key
-#  name               :string(255)
+#  email              :string(255)     not null
+#  name               :string(255)     not null
 #  crypted_password   :string(255)     not null
 #  password_salt      :string(255)     not null
 #  persistence_token  :string(255)     not null
 #  login_count        :integer         default(0), not null
 #  failed_login_count :integer         default(0), not null
 #  perishable_token   :string(255)     not null
-#  verified           :boolean
 #  lat                :float
 #  lng                :float
-#  email              :string(255)
+#  current_login_ip   :string(255)
 #  created_at         :datetime
 #  updated_at         :datetime
-#  roles_mask         :integer
+#  roles_mask         :integer         default(1)
 #
 
 require 'authlogic'
@@ -45,11 +45,7 @@ class Club < ActiveRecord::Base
                     
   attr_accessible :email, :name, :password, :password_confirmation
   
-  ROLES = %w[unregistered]
-  
-  def roles_list
-    ROLES.map(&:to_sym)
-  end
+  ROLES = %w[unregistered registered]
   
   def roles
     ROLES.reject {|role| ((self.roles_mask || 0) & 2**ROLES.index(role)).zero? }
@@ -57,14 +53,14 @@ class Club < ActiveRecord::Base
   
   def roles=(roles)
     self.roles_mask = (roles & ROLES).map {|role| 2**ROLES.index(role)}.sum
+    save!
   end
   
-  def has_role?(role)
-    roles_list.include? role.to_sym
+  def role_symbols
+    roles.map(&:to_sym)
   end
   
-  def verify!
-    self.verified = true
-    save
+  def register!
+    self.roles = ['registered']
   end
 end

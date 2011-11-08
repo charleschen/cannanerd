@@ -11,11 +11,10 @@
 #  login_count        :integer         default(0), not null
 #  failed_login_count :integer         default(0), not null
 #  perishable_token   :string(255)     not null
-#  verified           :boolean         default(FALSE)
 #  current_login_ip   :string(255)
 #  created_at         :datetime
 #  updated_at         :datetime
-#  roles_mask         :integer
+#  roles_mask         :integer         default(1)
 #
 
 require 'authlogic'
@@ -43,9 +42,8 @@ class User < ActiveRecord::Base
   
   attr_accessible :email, :name, :password, :password_confirmation
   
-  #tango_user
   
-  ROLES = %w[member admin]
+  ROLES = %w[unverified_member member admin]
   
   def roles
     ROLES.reject {|role| ((self.roles_mask || 0) & 2**ROLES.index(role)).zero? }
@@ -53,19 +51,15 @@ class User < ActiveRecord::Base
   
   def roles=(roles)
     self.roles_mask = (roles & ROLES).map {|role| 2**ROLES.index(role)}.sum
+    save!
   end
   
-  def roles_list
-    ROLES.map(&:to_sym)
-  end
-  
-  def has_role?(role)
-    roles_list.include? role.to_sym
+  def role_symbols
+    roles.map(&:to_sym)
   end
   
   def verify!
-    self.verified = true
-    save
+    self.roles = ['member']
   end
   
   def deliver_registration_confirmation

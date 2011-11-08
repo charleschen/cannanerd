@@ -11,11 +11,10 @@
 #  login_count        :integer         default(0), not null
 #  failed_login_count :integer         default(0), not null
 #  perishable_token   :string(255)     not null
-#  verified           :boolean         default(FALSE)
 #  current_login_ip   :string(255)
 #  created_at         :datetime
 #  updated_at         :datetime
-#  roles_mask         :integer
+#  roles_mask         :integer         default(1)
 #
 
 #require File.dirname(__FILE__) + '/../spec_helper'
@@ -108,7 +107,7 @@ describe User do
   
     it "change the verified attribute to true" do
       user.verify!
-      user.should be_verified
+      user.roles.should eq(['member'])
     end
   end
   
@@ -130,7 +129,7 @@ describe User do
   describe 'roles' do
     let(:user){User.create(@attr)}
     before(:each) do
-      @roles = %w[member admin]
+      @roles = %w[unverified_member member admin]
     end
     
     it 'should have a global variable ROLES' do
@@ -138,16 +137,16 @@ describe User do
     end
     
     it 'should respond :roles_list and give the right roles symbol list' do
-      user.should respond_to(:roles_list)
-      user.roles_list.should eq(@roles.map(&:to_sym))
+      user.should respond_to(:role_symbols)
+      user.role_symbols.should eq([User::ROLES[0].to_sym])
     end
 
     it 'should respond to :roles' do
       user.should respond_to(:roles)
     end
     
-    it 'should not have any roles' do
-      user.roles.should eq([])
+    it 'should be unverified_member roles by default' do
+      user.roles.should eq(['unverified_member'])
     end
     
     it 'should respond to :roles=' do
@@ -161,8 +160,8 @@ describe User do
       end
       
       user.roles = User::ROLES
-      user.has_role? User::ROLES[0]
       user.roles.should eq(User::ROLES)
+      user.role_symbols.should eq(User::ROLES.map(&:to_sym))
     end
   end
 end

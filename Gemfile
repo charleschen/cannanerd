@@ -8,7 +8,7 @@ gem 'resque', :require => "resque/server"
 gem 'resque-scheduler'
 gem 'resque-status'
 gem 'exceptional'
-gem 'cantango'
+gem 'declarative_authorization'
 
 group :asset do
 	gem 'sass-rails', "~> 3.1.0"

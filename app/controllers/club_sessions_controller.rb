@@ -7,6 +7,9 @@ class ClubSessionsController < ApplicationController
     @club_session = ClubSession.new(params[:club_session])
     if @club_session.save
       flash[:notice] = "Club logged in!"
+      if current_user
+        #UserSession.find
+      end
       redirect_to root_url
     else
       flash[:error] = "Wrong password"
