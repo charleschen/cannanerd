@@ -42,8 +42,13 @@ class User < ActiveRecord::Base
   
   attr_accessible :email, :name, :password, :password_confirmation
   
-  
   ROLES = %w[unverified_member member admin]
+  
+  has_many :answerships, :dependent => :destroy, :foreign_key => 'user_id'
+  has_many :answered, :through => :answerships, :source => :answer
+  
+  
+  
   
   def roles
     ROLES.reject {|role| ((self.roles_mask || 0) & 2**ROLES.index(role)).zero? }
@@ -65,6 +70,22 @@ class User < ActiveRecord::Base
   def verify!
     self.roles = ['member']
   end
+  
+  ####################  Answership Functions  ####################  
+  
+  def has_answered?(answer)
+    !self.answerships.find_by_answer_id(answer).nil?
+  end
+  
+  def submit!(answer)
+    self.answerships.create(:answer_id => answer.id)
+  end
+  
+  def unsubmit!(answer)
+    self.answerships.find_by_answer_id(answer).destroy
+  end
+  
+  ####################  Email Functions  ####################  
   
   def deliver_registration_confirmation
     UserMailer.registration_confirmation(self).deliver

@@ -63,10 +63,30 @@ describe Answer do
     end
   end
   
+  describe 'answership relationship' do
+    before(:each) do
+      @answer = Answer.create(@attr)
+      @user = Factory(:user)
+    end
+    
+    it "should respond to :reverse_answerships association" do
+      @answer.should respond_to(:reverse_answerships)
+    end
+    
+    it "should respond to :responders" do
+      @answer.should respond_to(:responders)
+    end
+    
+    it "should include @answer in :answered after relationship created" do
+      @user.answerships.create(:answer_id => @answer.id)
+      @answer.reload
+      @answer.responders.should include(@user)
+    end
+  end
+  
   describe 'destruction' do
     before(:each) do
       @answer = Answer.create!(@attr)
-      @tag = Factory(:tag)
     end
     
     it "should be successsful with basic attributes" do
@@ -76,10 +96,18 @@ describe Answer do
     end
     
     it "should destroy tag association" do
-      @answer.answer_tags.create!(:tag_id => @tag.id)
+      tag = Factory(:tag)
+      @answer.answer_tags.create!(:tag_id => tag.id)
       lambda do
         @answer.destroy
       end.should change(AnswerTag,:count).from(1).to(0)
+    end
+    
+    it "should destroy answership association" do
+      user = Factory(:user)
+      #@answer.reverse_answerships.create(:user_id => user.id)
+      user.submit!(@answer)
+      lambda {@answer.destroy}.should change(Answership,:count).from(1).to(0)
     end
     
   end

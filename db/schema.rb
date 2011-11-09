@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111109004950) do
+ActiveRecord::Schema.define(:version => 20111109191105) do
 
   create_table "answer_tags", :force => true do |t|
     t.integer  "answer_id"
@@ -31,6 +31,17 @@ ActiveRecord::Schema.define(:version => 20111109004950) do
     t.datetime "updated_at"
   end
 
+  create_table "answerships", :force => true do |t|
+    t.integer  "answer_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "answerships", ["answer_id"], :name => "index_answerships_on_answer_id"
+  add_index "answerships", ["user_id", "answer_id"], :name => "index_answerships_on_user_id_and_answer_id", :unique => true
+  add_index "answerships", ["user_id"], :name => "index_answerships_on_user_id"
+
   create_table "clubs", :force => true do |t|
     t.string   "email",                             :null => false
     t.string   "name",                              :null => false
@@ -46,6 +57,11 @@ ActiveRecord::Schema.define(:version => 20111109004950) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "roles_mask",         :default => 1
+  end
+
+  create_table "questionaires", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "tags", :force => true do |t|
