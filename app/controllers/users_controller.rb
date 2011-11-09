@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  filter_resource_access
+  
   def index
     @users = User.all
   end

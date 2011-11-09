@@ -26,10 +26,12 @@ end
 
 
 def make_users
-  User.create!( :email                  => 'bob@gmail.com',
+  user = User.create!( :email                  => 'bob@gmail.com',
                 :name                   => "Bob Dylon",
                 :password               => "password",
                 :password_confirmation  => "password")
+                
+  user.roles = ['member']
                 
   5.times do |n|
     name = Faker::Name.name
@@ -43,10 +45,12 @@ def make_users
 end
 
 def make_clubs
-  Club.create!( :email                  => 'club@gmail.com',
+  club = Club.create!( :email                  => 'club@gmail.com',
                 :name                   => "Mj Club",
                 :password               => "password",
                 :password_confirmation  => "password")
+  
+  club.roles = ['registered']
   
   3.times do |n|
     name = Faker::Name.name

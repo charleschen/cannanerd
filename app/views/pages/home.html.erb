@@ -2,9 +2,12 @@
 <% subtitle 'CannaNerd'%>
 
 <%= content_for :navbar do %>
-	<li><%= link_to 'Home', root_path %></li>
-	<li><%= link_to 'About', about_path %></li>
-	<li><%= link_to 'Contact', contact_path %></li>
+	<% if current_user %>
+		<li><%= link_to 'User Page', user_path(current_user) %></li>
+	<% end %>
+	<% if current_club %>
+		<li><%= link_to 'Club Home Page', club_path(current_club) %></li>
+	<% end %>
 <% end %>
 
 <div id='home' class='sg-24 sgParent'>
