@@ -11,7 +11,25 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111105221252) do
+ActiveRecord::Schema.define(:version => 20111109004950) do
+
+  create_table "answer_tags", :force => true do |t|
+    t.integer  "answer_id"
+    t.integer  "tag_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "answer_tags", ["answer_id", "tag_id"], :name => "index_answer_tags_on_answer_id_and_tag_id", :unique => true
+  add_index "answer_tags", ["answer_id"], :name => "index_answer_tags_on_answer_id"
+  add_index "answer_tags", ["tag_id"], :name => "index_answer_tags_on_tag_id"
+
+  create_table "answers", :force => true do |t|
+    t.text     "content"
+    t.text     "old_content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "clubs", :force => true do |t|
     t.string   "email",                             :null => false
@@ -29,6 +47,16 @@ ActiveRecord::Schema.define(:version => 20111105221252) do
     t.datetime "updated_at"
     t.integer  "roles_mask",         :default => 1
   end
+
+  create_table "tags", :force => true do |t|
+    t.string   "name"
+    t.string   "category"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tags", ["category"], :name => "index_tags_on_category"
+  add_index "tags", ["name"], :name => "index_tags_on_name"
 
   create_table "users", :force => true do |t|
     t.string   "name",                              :null => false

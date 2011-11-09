@@ -11,3 +11,13 @@ Factory.define :club do |club|
   club.password               'password'
   club.password_confirmation  'password'
 end
+
+Factory.define :answer do |answer|
+  answer.content              'this is an answer'
+  answer.old_content          'this is the old answer'
+end
+
+Factory.define :tag do |tag|
+  tag.name                    'indica'
+  tag.category                'strain'
+end

@@ -2,7 +2,7 @@ require 'declarative_authorization'
 
 authorization do
   role :guest do
-    
+    has_permission_on :users, :to => [:create, :new]
   end
   
   role :unverified_member do    # 
