@@ -8,6 +8,10 @@
 	<% if current_club %>
 		<li><%= link_to 'Club Home Page', club_path(current_club) %></li>
 	<% end %>
+	
+	<% if permitted_to? :index, :questionaires %>
+		<li><%= link_to 'Questionaire', questionaires_path %></li>
+	<% end %>
 <% end %>
 
 <div id='home' class='sg-24 sgParent'>

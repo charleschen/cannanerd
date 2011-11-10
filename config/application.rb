@@ -11,6 +11,7 @@ if defined?(Bundler)
   if Rails.env == 'test'
     Bundler.setup *Rails.groups(:assets => %w(development test))
     require 'jquery-rails'
+    require 'declarative_authorization'
   else
     Bundler.require *Rails.groups(:assets => %w(development test))
   end

@@ -1,0 +1,27 @@
+<% title 'Questionaire Editor'%>
+<% subtitle 'CannaNerd'%>
+
+<%= content_for :navbar do %>
+	<% if current_user %>
+		<li><%= link_to 'User Page', user_path(current_user) %></li>
+	<% end %>
+	<% if current_club %>
+		<li><%= link_to 'Club Home Page', club_path(current_club) %></li>
+	<% end %>
+	
+	<% if permitted_to? :index, :questionaires %>
+		<li><%= link_to 'Questionaire', questionaires_path %></li>
+		<li><%= link_to 'Edit questionaire', edit_questionaire_path(@questionaire) %></li>
+	<% end %>
+<% end %>
+
+
+<div class='sgParent sg-24'>
+	<ol>
+		<% @questionaire.questions.each do |question| %>
+		<li>
+			<%= question.content %>
+		</li>
+		<% end %>
+	</ol>
+</div>

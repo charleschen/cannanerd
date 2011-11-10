@@ -17,6 +17,9 @@ Cannanerd::Application.routes.draw do
   match 'club_login', :to => 'club_sessions#new'
   
   resources :user_verifications, :only => [:show]
+  #resources :questionaires, :only => [:edit,:update,:index]
+
+  resources :questionaires
 
   root            :to => 'pages#home'
   match 'about',  :to => 'pages#about'

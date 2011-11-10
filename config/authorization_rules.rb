@@ -1,5 +1,3 @@
-require 'declarative_authorization'
-
 authorization do
   role :guest do
     has_permission_on :users, :to => [:create, :new]
@@ -24,6 +22,7 @@ authorization do
   role :admin do
     has_permission_on [:clubs], :to => [:new, :create, :edit, :show, :index]
     has_permission_on [:users], :to => [:new, :create, :edit, :show, :index]
+    has_permission_on [:questionaires], :to => [:index, :edit, :update]
   end
   
   role :unregistered do

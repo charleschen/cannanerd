@@ -1,0 +1,11 @@
+<%= form_for @questionaire do |f| %>
+	<%= render 'shared/error_messages', :object => f.object %>
+	
+	<%= f.fields_for :questions do |builder| %>
+		<%= render "question_fields", :f => builder %>
+	<% end %>
+	
+	<p><%= link_to_add_fields "Add Question", f, :questions %></p><br />
+	
+	<p><%= f.submit 'Update Questionaire' %></p>
+<% end %>
