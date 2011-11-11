@@ -6,6 +6,7 @@ class QuestionairesController < ApplicationController
   end
   
   def edit
+    @answer = Answer.new
   end
   
   def update
@@ -15,6 +16,8 @@ class QuestionairesController < ApplicationController
     else
       render :action => 'edit'
     end
+    
+    @temp_answer = "werd"
   end
   
   def index

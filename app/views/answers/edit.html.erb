@@ -1,6 +1,3 @@
-<% title 'Home'%>
-<% subtitle 'CannaNerd'%>
-
 <%= content_for :navbar do %>
 	<% if current_user %>
 		<li><%= link_to 'User Page', user_path(current_user) %></li>
@@ -12,9 +9,20 @@
 	<% if permitted_to? :index, :questionaires %>
 		<li><%= link_to 'Questionaire', questionaires_path %></li>
 		<li><%= link_to 'Answers', answers_path %></li>
-		<li><%= link_to 'Tags', tags_path %></li>
 	<% end %>
 <% end %>
 
-<div id='home' class='sg-24 sgParent'>
+<div class='sgParent sg-24'>
+<%= form_for @answer do |f| %>
+	<p>
+		<%= f.label :content %>: 
+		<%= @answer.content %>
+	</p>
+	
+	<p>
+		<%= f.label :tag_tokens, "Tags" %>
+		<%= f.text_area :tag_tokens, "data-pre" => @answer.tags.map(&:attributes).to_json %>
+	</p>
+	<%= f.submit 'Add Tag(s)' %>
+<% end %>
 </div>

@@ -17,9 +17,19 @@ Cannanerd::Application.routes.draw do
   match 'club_login', :to => 'club_sessions#new'
   
   resources :user_verifications, :only => [:show]
+  
+  match 'create_answer', :to => 'answers#create_answer'
+  
   #resources :questionaires, :only => [:edit,:update,:index]
 
-  resources :questionaires
+  resources :questionaires do
+  end
+  
+  resources :tags do
+    
+  end
+  
+  resources :answers, :only => [:edit,:update,:index]
 
   root            :to => 'pages#home'
   match 'about',  :to => 'pages#about'

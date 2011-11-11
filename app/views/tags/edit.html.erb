@@ -1,6 +1,3 @@
-<% title 'Home'%>
-<% subtitle 'CannaNerd'%>
-
 <%= content_for :navbar do %>
 	<% if current_user %>
 		<li><%= link_to 'User Page', user_path(current_user) %></li>
@@ -10,11 +7,12 @@
 	<% end %>
 	
 	<% if permitted_to? :index, :questionaires %>
-		<li><%= link_to 'Questionaire', questionaires_path %></li>
-		<li><%= link_to 'Answers', answers_path %></li>
-		<li><%= link_to 'Tags', tags_path %></li>
+	<li><%= link_to 'Questionaire', questionaires_path %></li>
+	<li><%= link_to 'Answers', answers_path %></li>
+	<li><%= link_to 'Tags', tags_path %></li>
 	<% end %>
 <% end %>
 
-<div id='home' class='sg-24 sgParent'>
+<div class='sgParent sg-24'>
+	<%= render 'form' %>
 </div>

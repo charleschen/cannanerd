@@ -6,6 +6,16 @@ body {
 	
 }
 
+table {
+	tr{
+		td{
+			a{
+				margin-top: 10px;
+			}
+		}
+	}
+}
+
 div#main {
 	margin-top: 50px;
 }
@@ -65,6 +75,10 @@ div#navbar{
 	ul{
 		float: left;
 		padding-left: 7px;
+	}
+	
+	li{
+		clear: both;
 	}
 	
 	a{
@@ -168,5 +182,19 @@ ol#toc {
 
 div#home{
 	div{
+	}
+}
+
+
+
+/****************** Questionair *******************/
+
+div#questionaire {
+	ol{
+		list-style: decimal;
+	}
+	ul{
+		padding-left: 14px;
+		list-style: square;
 	}
 }

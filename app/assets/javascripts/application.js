@@ -9,12 +9,26 @@
 //= require_directory .
 
 function remove_fields(link) {
-  $(link).prev("input[type=hidden]").val("1");
-  $(link).closest(".fields").hide();
+  $(link).prev("input[type=hidden]").val("1");   // tells it to destroy the record
+  $(link).closest(".fields").hide();     				
 }
 
 function add_fields(link, association, content) {
   var new_id = new Date().getTime();
   var regexp = new RegExp("new_" + association, "g")
   $(link).parent().before(content.replace(regexp, new_id));
+	//alert(content.replace(regexp, new_id))
 }
+
+function return_content(link){
+	alert($(link).prev("input").val());
+}
+
+
+$(function(){
+	$("#answer_tag_tokens").tokenInput("/tags.json",{
+		crossDomain: false,
+		prePopulate: $("#answer_tag_tokens").data("pre"),
+		theme: "facebook"
+	});
+});
