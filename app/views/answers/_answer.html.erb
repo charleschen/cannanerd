@@ -1,0 +1,14 @@
+<tr>
+	<td>
+		<p><%= answer.content %></p>
+		<span>
+			<ul class='tags'>
+				<li>Tags:</li>
+			<% answer.tags.each do |tag| %>
+				<li class='tag'><%= tag.name %></li>
+			<% end %>
+			</ul>
+		</span>
+	</td>
+	<td><%= link_to 'edit', edit_answer_path(answer) %></td>
+</tr>

@@ -13,22 +13,7 @@
 <% end %>
 
 <div class='sgParent sg-24'>
-	<table cellspacing="0">
-		<% @answers.each do |answer| %>
-			<tr>
-				<td>
-					<span><%= answer.content %></span>
-					<span>
-						<% answer.tags.each do |tag| %>
-							<%= tag.name %>
-						<% end %>
-					</span>
-				</td>
-				<td>
-					werd
-				</td>
-				<td><%= link_to 'edit answer', edit_answer_path(answer) %></td>
-			</tr>
-		<% end %>
+	<table id='answers' summary='answers index'>
+		<%= render @answers %>
 	</table>
 </div>

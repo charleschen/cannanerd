@@ -17,17 +17,20 @@
 <% end %>
 
 
-<div id='questionaire' class='sgParent sg-24'>
-	<ol>
-		<% @questionaire.questions.each do |question| %>
-		<li>
-			<%= "#{question.content}" %>
-			<ul>
-				<% question.answers.each do |answer| %>
-				<li><%= answer.content %></li>
-				<% end %>
-			</ul>
-		</li>
-		<% end %>
-	</ol>
+<div class='sgParent sg-24'>
+	<div id='questionaire'>
+		<ol>
+			<% @questionaire.questions.each do |question| %>
+			<li class='questions'>
+				<%= "#{question.content}" %>
+				<ul>
+					<% question.answers.each do |answer| %>
+					<%= render 'shared/answer', :answer => answer %>
+					<% end %>
+				
+				</ul>
+			</li>
+			<% end %>
+		</ol>
+	</div>
 </div>

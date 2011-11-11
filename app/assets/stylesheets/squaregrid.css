@@ -39,7 +39,6 @@ body {background-color:#f4f4f4;font-family: "Georgia", Times, serif; font-size:9
 #controller ul li a:hover{font-weight:bold;}
 #controller ul li.selected a{background-color:#222; color:#fff; font-weight:bold;}
 
-
 a {display: block;text-decoration: none;color: black;}
 a:hover {text-decoration: underline;}
 a.clicked_link:hover {}

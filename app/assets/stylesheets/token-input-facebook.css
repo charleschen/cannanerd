@@ -42,6 +42,7 @@ li.token-input-token-facebook {
     -webkit-border-radius: 5px;
     float: left;
     white-space: nowrap;
+		line-height: 15px;
 }
 
 li.token-input-token-facebook p {
