@@ -1,0 +1,22 @@
+<div id='questionaire_real' class='sg-15'>
+	<%= "total pages #{questions.total_pages}" %>
+	<div class="apple_pagination">
+		<%= will_paginate questions,:page_links => false, :params => { :answer => params[:answer] } %>
+	</div>
+	<%= form_tag submit_questionaire_path, :method => :get do |f|%>
+		<ol>
+			<% questions.each do |question| %>
+			<li class='questions'>
+				<%= label "question_#{question.id}", question.content %>
+				<ul>
+					<% question.answers.each do |answer| %>
+						<li><%= radio_button_tag "answer[#{question.id}]", answer.id %><%= answer.content %></li>
+					<% end %>
+				
+				</ul>
+			</li>
+			<% end %>
+		</ol>
+		<%= submit_tag 'Finish'%>
+	<% end %>
+</div>

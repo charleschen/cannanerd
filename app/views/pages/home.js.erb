@@ -1,0 +1,2 @@
+var div_name = 'div#questionaire_div'
+$(div_name).html("<%= escape_javascript(render 'shared/questionaire', :questions => @questions)%>");

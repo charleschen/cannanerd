@@ -16,5 +16,11 @@
 	<% end %>
 <% end %>
 
-<div id='home' class='sg-24 sgParent'>
+<div id='home' class='sg-24 '>
+	<% if current_user.nil? && current_club.nil? %>
+		<div id="questionaire_div">
+		<%= render 'shared/questionaire', :questions => @questions %>
+		</div>
+	<% end %>
 </div>
+

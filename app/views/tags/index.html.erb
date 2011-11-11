@@ -21,10 +21,10 @@
 		<tr>
 			<td><%= tag.name %></td>
 			<td><%= tag.category %></td>
-			<td><%= link_to 'edit', edit_tag_path(tag) %></td>
+			<td><%= button_to 'edit', edit_tag_path(tag), :method => :get %></td>
 		</tr>
 	<% end %>
 	</table>
 	
-	<%= link_to "Create tag", new_tag_path %>
+	<%= button_to "Create tag", new_tag_path, :method => :get %>
 </div>

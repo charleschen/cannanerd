@@ -1,5 +1,8 @@
+<% display_tags ||= false %>
+
 <li class='questionaire_answer'>
 	<p><%= answer.content %></p>
+	<% if display_tags %>
 	<span>
 		<ul class='tags'>
 		<% answer.tags.each do |tag| %>
@@ -7,4 +10,5 @@
 		<% end %>
 		</ul>
 	</span>
+	<% end %>
 </li>

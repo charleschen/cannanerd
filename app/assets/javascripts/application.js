@@ -31,4 +31,10 @@ $(function(){
 		prePopulate: $("#answer_tag_tokens").data("pre"),
 		theme: "facebook"
 	});
+	
+	$(".pagination a").live("click",function(){
+		$(".pagination").html("Page is loading...");
+		$.get(this.href,null,null,"script");
+		return false;
+	});
 });

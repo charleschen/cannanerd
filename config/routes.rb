@@ -34,6 +34,8 @@ Cannanerd::Application.routes.draw do
   root            :to => 'pages#home'
   match 'about',  :to => 'pages#about'
   match 'contact', :to => 'pages#contact'
+  match 'submit_questionaire', :to => 'pages#submit_questionaire'
+  match 'next_page', :to => 'pages#next_page'
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

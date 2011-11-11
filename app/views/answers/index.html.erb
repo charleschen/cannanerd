@@ -1,3 +1,5 @@
+<% subtitle 'Answers'%>
+
 <%= content_for :navbar do %>
 	<% if current_user %>
 		<li><%= link_to 'User Page', user_path(current_user) %></li>
@@ -9,11 +11,22 @@
 	<% if permitted_to? :index, :questionaires %>
 		<li><%= link_to 'Questionaire', questionaires_path %></li>
 		<li><%= link_to 'Answers', answers_path %></li>
+		<li><%= link_to 'Tags', tags_path %></li>
 	<% end %>
 <% end %>
 
 <div class='sgParent sg-24'>
+	<div class="apple_pagination">
+		<%= will_paginate @answers_section1 %>
+	</div>
+	<div class='sg-11'>
 	<table id='answers' summary='answers index'>
-		<%= render @answers %>
+		<%= render @answers_section1 %>
 	</table>
+	</div>
+	<div class='sg-11'>
+	<table id='answers' summary='answers index'>
+		<%= render @answers_section2 %>
+	</table>
+	</div>
 </div>

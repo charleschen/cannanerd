@@ -1,5 +1,5 @@
 <% title 'Questionaire Editor'%>
-<% subtitle 'CannaNerd'%>
+<% subtitle 'Questionaire'%>
 
 <%= content_for :navbar do %>
 	<% if current_user %>
@@ -12,12 +12,13 @@
 	<% if permitted_to? :index, :questionaires %>
 		<li><%= link_to 'Questionaire', questionaires_path %></li>
 		<li><%= link_to 'Answers', answers_path %></li>
-		<li><%= link_to 'Edit questionaire', edit_questionaire_path(@questionaire) %></li>
+		<li><%= link_to 'Tags', tags_path %></li>
 	<% end %>
 <% end %>
 
 
 <div class='sgParent sg-24'>
+	<%= button_to 'Edit questionaire', edit_questionaire_path(@questionaire), :method => :get %>
 	<div id='questionaire'>
 		<ol>
 			<% @questionaire.questions.each do |question| %>
@@ -25,7 +26,7 @@
 				<%= "#{question.content}" %>
 				<ul>
 					<% question.answers.each do |answer| %>
-					<%= render 'shared/answer', :answer => answer %>
+					<%= render 'shared/answer', :answer => answer, :display_tags => true %>
 					<% end %>
 				
 				</ul>
