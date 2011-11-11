@@ -21,3 +21,7 @@ Factory.define :tag do |tag|
   tag.name                    'indica'
   tag.category                'strain'
 end
+
+Factory.define :question do |question|
+  question.content            'Best team in the NBA?'
+end

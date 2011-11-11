@@ -10,10 +10,13 @@
 #
 
 class Tag < ActiveRecord::Base
-  validates :name, :presence => true
+  
+  attr_accessible :name, :category
+  
+  validates :name, :presence => true, :uniqueness => {:case_sensitive => false}
   validates :category, :presence => true
   
   has_many :reverse_answer_tags, :class_name => "AnswerTag", :dependent => :destroy, :foreign_key => 'tag_id'
   has_many :tagged_answers, :through => :reverse_answer_tags, :source => :answer
-  
+
 end

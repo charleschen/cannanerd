@@ -84,6 +84,27 @@ describe Answer do
     end
   end
   
+  describe 'questionship relationship' do
+    before(:each) do
+      @answer = Answer.create(@attr)
+      @questionaire = Questionaire.create
+      @question = Factory(:question, :questionaire_id => @questionaire.id)
+    end
+    
+    it "should respond to :reverse_questionships" do
+      @answer.should respond_to(:reverse_questionships)
+    end
+    
+    it "should respond to :questions" do
+      @answer.should respond_to(:questions)
+    end
+    
+    it "should create questionship relationship" do
+      @question.questionships.create(:answer_id => @answer.id)
+      @answer.questions.should include(@question)
+    end
+  end
+  
   describe 'destruction' do
     before(:each) do
       @answer = Answer.create!(@attr)
@@ -108,6 +129,14 @@ describe Answer do
       #@answer.reverse_answerships.create(:user_id => user.id)
       user.submit!(@answer)
       lambda {@answer.destroy}.should change(Answership,:count).from(1).to(0)
+    end
+    
+    it "should destroy questionship association" do
+      questionaire = Questionaire.create
+      question = Factory(:question, :questionaire_id => questionaire.id)
+      question.questionships.create(:answer_id => @answer.id)
+      
+      lambda {@answer.destroy}.should change(Questionship,:count).from(1).to(0)
     end
     
   end

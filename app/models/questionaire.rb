@@ -14,8 +14,10 @@ class Questionaire < ActiveRecord::Base
   def create
     if Questionaire.count == 0
       super
-      self.questions.create(:content => 'First question?')
+    else
+      Questionaire.first
     end
+    
   end
   
   

@@ -14,4 +14,10 @@ class Question < ActiveRecord::Base
   validates :questionaire_id, :presence => true
   
   belongs_to :questionaire
+  
+  has_many :questionships, :dependent => :destroy, :foreign_key => 'question_id'
+  has_many :answers, :through => :questionships, :source => :answer
+  
+  
+  accepts_nested_attributes_for :answers, :reject_if => lambda { |a| a[:content].blank? }, :allow_destroy => true
 end
