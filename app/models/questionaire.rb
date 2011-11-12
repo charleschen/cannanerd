@@ -20,5 +20,8 @@ class Questionaire < ActiveRecord::Base
     
   end
   
+  # def questions_ids
+  #   questions.map {|q| q.id}
+  # end
   
 end

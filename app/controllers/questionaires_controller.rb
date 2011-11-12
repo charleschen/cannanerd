@@ -10,14 +10,15 @@ class QuestionairesController < ApplicationController
   end
   
   def update
-    if @questionaire.update_attributes(params[:questionaire])
-      flash[:notice] = "Questionaire updated"
-      redirect_to questionaires_path
-    else
-      render :action => 'edit'
-    end
-    
-    @temp_answer = "werd"
+    render :action => 'edit'
+    # if @questionaire.update_attributes(params[:questionaire])
+    #   flash[:notice] = "Questionaire updated"
+    #   redirect_to questionaires_path
+    # else
+    #   render :action => 'edit'
+    # end
+    # 
+    # @temp_answer = "werd"
   end
   
   def index

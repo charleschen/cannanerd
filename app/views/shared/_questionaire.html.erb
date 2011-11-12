@@ -1,22 +1,21 @@
 <div id='questionaire_real' class='sg-15'>
-	<%= "total pages #{questions.total_pages}" %>
-	<div class="apple_pagination">
-		<%= will_paginate questions,:page_links => false, :params => { :answer => params[:answer] } %>
-	</div>
-	<%= form_tag submit_questionaire_path, :method => :get do |f|%>
-		<ol>
-			<% questions.each do |question| %>
-			<li class='questions'>
-				<%= label "question_#{question.id}", question.content %>
-				<ul>
-					<% question.answers.each do |answer| %>
-						<li><%= radio_button_tag "answer[#{question.id}]", answer.id %><%= answer.content %></li>
-					<% end %>
-				
-				</ul>
-			</li>
+	<%= form_for quiz, :url => root_path, :remote => true do |f| %>
+	<ol>
+	<% quiziations.each do |quiziation| %>
+		<li class="questions">
+		<%= f.fields_for :quiziations, quiziation do |builder| %>
+			<%= builder.object.question.content %>
+			<ul>
+			<% builder.object.question.answers.each do |answer| %>
+				<li><%= builder.radio_button :selected_answer_id, answer.id %><%= answer.content %></li>
 			<% end %>
-		</ol>
-		<%= submit_tag 'Finish'%>
+			</ul>
+		<% end %>
+		</li>
+	<% end %>
+	</ol>
+	<%= f.submit 'back', :name => 'prev_page' unless quiz.first_page? %>
+	<%= f.submit 'next', :name => 'next_page' unless quiz.last_page?%>
+	<%= f.submit 'submit', :name => 'submit' if quiz.last_page? %>
 	<% end %>
 </div>

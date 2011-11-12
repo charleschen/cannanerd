@@ -1,2 +1,8 @@
-var div_name = 'div#questionaire_div'
-$(div_name).html("<%= escape_javascript(render 'shared/questionaire', :questions => @questions)%>");
+// alert('<%= "should work #{params[:forward_button]}" %>');
+if('<%= params[:submit]%>' != "")
+{
+	window.location = "<%= new_user_url %>";
+}else
+{
+	$('div#questionaire_div').html("<%= escape_javascript(render('shared/questionaire', :quiz => @quiz, :quiziations => @quiziations))%>");
+}

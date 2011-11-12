@@ -32,9 +32,10 @@ $(function(){
 		theme: "facebook"
 	});
 	
-	$(".pagination a").live("click",function(){
-		$(".pagination").html("Page is loading...");
-		$.get(this.href,null,null,"script");
-		return false;
-	});
+	// $(".pagination a").live("click",function(){
+	// 	alert(this.href);
+	// 	$(".pagination").html("Page is loading...");
+	// 	$.getScript(this.href);
+	// 	return false;
+	// });
 });

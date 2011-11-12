@@ -19,7 +19,7 @@
 <div id='home' class='sg-24 '>
 	<% if current_user.nil? && current_club.nil? %>
 		<div id="questionaire_div">
-		<%= render 'shared/questionaire', :questions => @questions %>
+		<%= render 'shared/questionaire', :quiz => @quiz, :quiziations => @quiziations %>
 		</div>
 	<% end %>
 </div>

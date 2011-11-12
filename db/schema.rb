@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111110214448) do
+ActiveRecord::Schema.define(:version => 20111111234308) do
 
   create_table "answer_tags", :force => true do |t|
     t.integer  "answer_id"
@@ -81,6 +81,24 @@ ActiveRecord::Schema.define(:version => 20111110214448) do
   add_index "questionships", ["answer_id"], :name => "index_questionships_on_answer_id"
   add_index "questionships", ["question_id", "answer_id"], :name => "index_questionships_on_question_id_and_answer_id", :unique => true
   add_index "questionships", ["question_id"], :name => "index_questionships_on_question_id"
+
+  create_table "quiziations", :force => true do |t|
+    t.integer  "quiz_id"
+    t.integer  "question_id"
+    t.integer  "selected_answer_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "quiziations", ["question_id"], :name => "index_quiziations_on_question_id"
+  add_index "quiziations", ["quiz_id", "question_id"], :name => "index_quiziations_on_quiz_id_and_question_id", :unique => true
+  add_index "quiziations", ["quiz_id"], :name => "index_quiziations_on_quiz_id"
+
+  create_table "quizzes", :force => true do |t|
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "tags", :force => true do |t|
     t.string   "name"

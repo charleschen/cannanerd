@@ -31,6 +31,8 @@ Cannanerd::Application.routes.draw do
   
   resources :answers, :only => [:edit,:update,:index]
 
+  resources :quizzes
+
   root            :to => 'pages#home'
   match 'about',  :to => 'pages#about'
   match 'contact', :to => 'pages#contact'
