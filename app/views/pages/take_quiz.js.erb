@@ -1,8 +1,1 @@
-// alert('<%= "should work #{params[:forward_button]}" %>');
-if('<%= params[:submit]%>' != "")
-{
-	window.location = "<%= new_user_url %>";
-}else
-{
-	$('div#questionnaire_div').html("<%= escape_javascript(render('shared/questionnaire',:quiz_route => take_quiz_path , :quiz => @quiz, :quiziations => @quiziations))%>");
-}
+$('div#questionnaire_real').html("<%= escape_javascript(render('shared/questionnaire',:quiz_route => root_path , :quiz => @quiz, :quiziations => @quiziations))%>");

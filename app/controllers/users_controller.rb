@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   filter_resource_access
+  before_filter :quiz_authentication, :only => [:new, :create]
   
   def index
     @users = User.all
@@ -16,6 +17,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     if @user.save
+      quiz_session.get_quiz.update_attribute(:user_id, @user.id)
       @user.deliver_registration_confirmation
       UserSession.create @user    # logs user in automatically
       flash[:notice] = "Registration successful"
@@ -43,4 +45,12 @@ class UsersController < ApplicationController
     @user.destroy
     redirect_to users_url, :notice => "Successfully destroyed user."
   end
+  
+  private
+    def quiz_authentication
+      unless quiz_session.submit_quiz?
+        flash[:notice] = "Need to take questionnaire before registering"
+        redirect_to root_path
+      end
+    end
 end

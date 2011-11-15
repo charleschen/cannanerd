@@ -1,6 +1,11 @@
-<%= f.fields_for :quiziations, quiziation do |builder| %>
-	<%= builder.object.question.content %>
-  <% builder.object.question.answers.each do |answer| %>
-    <li><%= builder.radio_button :radio_answer, "answer_#{answer.id};1" %><%= answer.content %></li>
-  <% end %>
-<% end %>
+<li id='single_answer' class="questions">
+	<%= quiziation.question.content %>
+	<ul>
+	<%= f.fields_for :quiziations, quiziation do |builder| %>
+		<%= builder.object.question.content %>
+	  <% builder.object.question.answers.each do |answer| %>
+	    <li><%= builder.radio_button :radio_answer, "answer_#{answer.id};1" %><%= answer.content %></li>
+	  <% end %>
+	<% end %>
+	</ul>
+</li>

@@ -198,6 +198,10 @@ div.quiz_button{
 	}
 }
 
+div#guest_home{
+	background-color: black;
+}
+
 /*************** answer ******************/
 
 
@@ -288,7 +292,13 @@ div#questionnaire {
 
 
 div#questionnaire_real {
+	background-color: white;
+
+	padding-left: 28px;
+
+	
 	ol{
+		padding-top: 15px;
 		list-style: decimal;
 		li.questions{
 			line-height: 16px;

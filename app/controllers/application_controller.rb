@@ -4,9 +4,10 @@ class ApplicationController < ActionController::Base
   helper :all
   protect_from_forgery
   
-  helper_method :current_user, :current_club
+  helper_method :current_user, :current_club, :quiz_session, :any_user?
   
   before_filter { |c| Authorization.current_user = current_user }
+
   
   protected  
     def permission_denied
@@ -15,6 +16,14 @@ class ApplicationController < ActionController::Base
     end
   
   private
+    def quiz_session
+      @quiz_session ||= QuizSession.new(session)
+    end
+    
+    def any_user?
+      !current_user.nil? || !current_club.nil?
+    end
+    
     def current_user_session
       return @current_user_session if defined?(@current_user_session)
       @current_user_session = UserSession.find

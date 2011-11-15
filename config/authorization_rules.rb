@@ -4,14 +4,14 @@ authorization do
   end
   
   role :unverified_member do
-    has_permission_on :users, :to => [:edit] do
-      if_attribute :user => contains { user }
+    has_permission_on :users, :to => [:show,:edit] do
+      if_attribute :id => is { user.id }
     end
   end
   
   role :member do
     has_permission_on [:clubs], :to => [:show]
-    has_permission_on [:users], :to => [:show] do
+    has_permission_on [:users], :to => [:show,:edit] do
       if_attribute :id => is { user.id }
     end
   end

@@ -18,11 +18,11 @@
 
 <% end %>
 
-<div id='home' class='sg-24 '>
-	<% if current_user.nil? && current_club.nil? %>
-		<%= render 'guest_home'%>
-	<% else %>
+<div id='home' class='sgParent sg-24 '>
+	<% if any_user? %>
 		<%= render 'user_home' %>
+	<% else %>
+		<%= render 'guest_home'%>
 	<% end %>
 	
 	

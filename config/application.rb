@@ -12,6 +12,7 @@ if defined?(Bundler)
     Bundler.setup *Rails.groups(:assets => %w(development test))
     require 'jquery-rails'
     require 'declarative_authorization'
+    require 'will_paginate'
   else
     Bundler.require *Rails.groups(:assets => %w(development test))
   end

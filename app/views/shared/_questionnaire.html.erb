@@ -1,21 +1,14 @@
-<div id='questionnaire_real' class='sg-15'>
-	<%= form_for quiz, :url => quiz_route, :remote => true do |f| %>
-	<ol>
-	<% quiziations.each do |quiziation| %>
-		<li class="questions">
-			<%= quiziation.question.content %>
-			<ul>
-			<% if quiziation.question.multichoice %>
-				<%= render 'shared/multi_answer', :f => f, :quiziation => quiziation %>
-			<% else %>
-				<%= render 'shared/single_answer', :f => f, :quiziation => quiziation %>
-			<% end %>
-			</ul>
-		</li>
+<%= form_for quiz, :url => quiz_route, :remote => true do |f| %>
+<ol>
+<% quiziations.each do |quiziation| %>
+	<% if quiziation.question.multichoice %>
+		<%= render 'shared/multi_answer', :f => f, :quiziation => quiziation %>
+	<% else %>
+		<%= render 'shared/single_answer', :f => f, :quiziation => quiziation %>
 	<% end %>
-	</ol>
-	<%= f.submit 'back', :name => 'prev_page' unless quiz.first_page? %>
-	<%= f.submit 'next', :name => 'next_page' unless quiz.last_page?%>
-	<%= f.submit 'submit', :name => 'submit' if quiz.last_page? %>
-	<% end %>
-</div>
+<% end %>
+</ol>
+<%= f.submit 'back', :name => 'prev_page' unless quiz.first_page? %>
+<%= f.submit 'next', :name => 'next_page' unless quiz.last_page?%>
+<%= f.submit 'submit', :name => 'submit' if quiz.last_page? %>
+<% end %>

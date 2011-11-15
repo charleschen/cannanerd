@@ -1,5 +1,15 @@
-<div class='sg-11'></div>
+<div class='sg-10'>
+	
+</div>
 
-<div class='sg-11'>
-
+<div id='guest_home' class='sg-12'>
+	<div id="questionnaire_real" >
+	<% if quiz_session.new_quiz?  %>
+		<%= form_tag take_quiz_path, :remote => true do %>
+			<%= submit_tag 'Take Quiz' %>
+		<% end %>
+	<% else %>
+		<%= render 'shared/questionnaire', :quiz_route => root_path , :quiz => @quiz, :quiziations => @quiziations %>
+	<% end %>
+	</div>
 </div>
