@@ -1,0 +1,5 @@
+<% quiziation.question.answers.each do |answer| %>
+	<%= f.fields_for :quiziations, quiziation do |builder| %>
+		<li><%= builder.check_box :checked_answers, {}, "answer_#{answer.id};1","answer_#{answer.id};0" %><%= answer.content %></li>
+	<% end %>
+<% end %>

@@ -2,15 +2,16 @@
 #
 # Table name: questions
 #
-#  id              :integer         not null, primary key
-#  content         :text
+#  id               :integer         not null, primary key
+#  content          :text
 #  questionnaire_id :integer
-#  created_at      :datetime
-#  updated_at      :datetime
+#  multichoice      :boolean         default(FALSE)
+#  created_at       :datetime
+#  updated_at       :datetime
 #
 
 class Question < ActiveRecord::Base
-  attr_accessible :answers_attributes
+  attr_accessible :answers_attributes,:content, :questionnaire_id, :multichoice
   
   validates :content, :presence => true
   validates :questionnaire_id, :presence => true

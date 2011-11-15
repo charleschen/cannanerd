@@ -37,5 +37,30 @@ describe "QuestionnaireEditings" do
       current_path.should eq(questionnaires_path)
       page.should have_button('Edit questionnaire')
     end
+    
+    it "should visit edit questionaire path and edit/remove questions" do
+      create_questionaire_data
+      
+      visit questionnaires_path
+      page.click_button 'Edit questionnaire'
+      current_path.should eq(edit_questionnaire_path(Questionnaire.first))
+      
+      page.should have_checked_field('questionnaire[questions_attributes][0][multichoice]')
+      page.should have_no_checked_field('questionnaire[questions_attributes][1][multichoice]')
+      page.should have_checked_field('questionnaire[questions_attributes][2][multichoice]')
+      
+      fill_in 'questionnaire[questions_attributes][0][content]', :with => 'right?'      
+      # fill_in 'questionnaire[questions_attributes][0][answers_attributes][0][content]', :with => 'nowerd'
+      # fill_in 'questionnaire[questions_attributes][0][answers_attributes][1][content]', :with => 'yeswerd'
+      
+      click_button 'delete_questionnaire[questions_attributes][0]'
+      
+      click_button 'Update Questionnaire'
+      current_path.should eq(questionnaires_path)
+      page.should have_content('Questionnaire updated')
+      
+      click_button 'Edit questionnaire'
+      page.should have_selector('textarea#questionnaire_questions_attributes_0_content',:text => 'right?')
+    end
   end
 end

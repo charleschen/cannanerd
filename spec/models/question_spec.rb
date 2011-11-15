@@ -2,11 +2,12 @@
 #
 # Table name: questions
 #
-#  id              :integer         not null, primary key
-#  content         :text
+#  id               :integer         not null, primary key
+#  content          :text
 #  questionnaire_id :integer
-#  created_at      :datetime
-#  updated_at      :datetime
+#  multichoice      :boolean         default(FALSE)
+#  created_at       :datetime
+#  updated_at       :datetime
 #
 
 require 'spec_helper'
@@ -26,7 +27,8 @@ describe Question do
   end
   
   it "should create with the correct attributes and reference" do
-    Question.create!(@attr.merge(:questionnaire_id => @questionnaire.id))
+    #Question.create!(@attr.merge(:questionnaire_id => @questionnaire.id))
+    Question.create!(:content => 'what?', :questionnaire_id => @questionnaire.id)
   end
   
   describe 'instance methods' do
@@ -60,6 +62,27 @@ describe Question do
     end
   end
   
+  describe 'reverse quiziation association' do
+    before(:each) do
+      @question = @questionnaire.questions.create(@attr)
+      @quiz = Factory(:quiz)
+    end
+    
+    it "should respond to :reverse_quiziation" do
+      @question.should respond_to(:reverse_quiziations)
+    end
+    
+    it "should respond to :quizzes" do
+      @question.should respond_to(:quizzes)
+    end
+    
+    it "should include quizzes after association has been created" do
+      @quiz.quiziations.create(:question_id => @question.id)
+      @question.quizzes.should include(@quiz)
+    end
+    
+  end
+  
   describe 'destroy' do
     before(:each) do
       @question = @questionnaire.questions.create(@attr)
@@ -74,6 +97,13 @@ describe Question do
       @question.questionships.create(:answer_id => @answer.id)
       lambda {@question.destroy}.should change(Questionship,:count).from(1).to(0)
       @answer.questions.should eq([])
+    end
+    
+    it 'should destory quiziation association' do
+      quiz = Factory(:quiz)
+      quiz.quiziations.create(:question_id => @question.id)
+      lambda {@question.destroy}.should change(Quiziation,:count).from(1).to(0)
+      @question.quizzes.should eq([])
     end
   end
 end

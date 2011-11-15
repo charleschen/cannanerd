@@ -3,10 +3,7 @@ authorization do
     has_permission_on :users, :to => [:create, :new]
   end
   
-  role :unverified_member do    # 
-      # has_permission_on [:user], :to => [:edit] do
-      #   if_attribute :user => { user }
-      # end
+  role :unverified_member do
     has_permission_on :users, :to => [:edit] do
       if_attribute :user => contains { user }
     end

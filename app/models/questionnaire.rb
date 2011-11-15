@@ -3,6 +3,7 @@
 # Table name: questionnaires
 #
 #  id         :integer         not null, primary key
+#  per_page   :integer         default(4)
 #  created_at :datetime
 #  updated_at :datetime
 #

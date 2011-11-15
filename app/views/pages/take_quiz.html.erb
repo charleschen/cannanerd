@@ -15,6 +15,6 @@
 
 <% if current_user.nil? && current_club.nil? %>
 	<div id="questionnaire_div">
-	<%= render 'shared/questionnaire', :quiz => @quiz, :quiziations => @quiziations %>
+	<%= render 'shared/questionnaire', :quiz_route => take_quiz_path , :quiz => @quiz, :quiziations => @quiziations %>
 	</div>
 <% end %>

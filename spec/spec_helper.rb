@@ -50,6 +50,20 @@ RSpec.configure do |config|
   config.after(:each) do
     DatabaseCleaner.clean
   end
+  
+  def create_questionaire_data
+    questionnaire = Questionnaire.first
+    multichoice = true
+    
+    3.times do
+      question = Factory(:question, :questionnaire_id => questionnaire.id, :multichoice => multichoice)
+      multichoice = !multichoice
+      3.times do
+        answer = Factory(:answer)
+        question.questionships.create(:answer_id => answer.id)
+      end
+    end
+  end
 end
 
 

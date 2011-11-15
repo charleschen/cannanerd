@@ -1,14 +1,14 @@
 <div id='questionnaire_real' class='sg-15'>
-	<%= form_for quiz, :url => take_quiz_path, :remote => true do |f| %>
+	<%= form_for quiz, :url => quiz_route, :remote => true do |f| %>
 	<ol>
 	<% quiziations.each do |quiziation| %>
 		<li class="questions">
 			<%= quiziation.question.content %>
 			<ul>
-			<% quiziation.question.answers.each do |answer| %>
-				<%= f.fields_for :quiziations, quiziation do |builder| %>
-					<li><%= builder.check_box :selected_answers_hash, {}, "answer_#{answer.id};1","answer_#{answer.id};0" %><%= answer.content %></li>
-				<% end %>
+			<% if quiziation.question.multichoice %>
+				<%= render 'shared/multi_answer', :f => f, :quiziation => quiziation %>
+			<% else %>
+				<%= render 'shared/single_answer', :f => f, :quiziation => quiziation %>
 			<% end %>
 			</ul>
 		</li>
@@ -19,15 +19,3 @@
 	<%= f.submit 'submit', :name => 'submit' if quiz.last_page? %>
 	<% end %>
 </div>
-
-
-<% if false %>
-	<%= f.fields_for :quiziations, quiziation do |builder| %>
-		<%= builder.object.question.content %>
-	  <ul>
-	  <% builder.object.question.answers.each do |answer| %>
-	    <li><%= builder.radio_button :selected_answer_id, answer.id %><%= answer.content %></li>
-	  <% end %>
-	  </ul>
-	<% end %>
-<% end %>

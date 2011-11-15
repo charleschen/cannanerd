@@ -15,8 +15,8 @@ class PagesController < ApplicationController
     @questionnaire = Questionnaire.first
     
     if params[:quiz]
-      if @quiz.update_attributes(params[:quiz])
-        flash.now[:success] = 'updated quiz'
+      unless @quiz.update_attributes(params[:quiz])
+        flash[:now] = "Quiz not updating... please email administrator!"
       end
     end
     

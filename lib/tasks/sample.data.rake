@@ -68,7 +68,7 @@ end
 def make_questions_and_answers
   questionnaire = Questionnaire.create
   
-  question = questionnaire.questions.create(:content => "How much would you pay for an eighth of an ounce of weed?")
+  question = questionnaire.questions.create(:content => "How much would you pay for an eighth of an ounce of weed?", :multichoice => true)
   question.answers.create(:content => "40-50 dollars")
   question.answers.create(:content => "50-60 dollars")
   question.answers.create(:content => "60-70 dollars")
@@ -79,8 +79,11 @@ def make_questions_and_answers
   question.answers.create(:content => "both")
   question.answers.create(:content => "body or mind")
   
+  multi_choice = false
+  
   12.times do 
-    question = questionnaire.questions.create(:content => Faker::Lorem.sentence(10))
+    question = questionnaire.questions.create(:content => Faker::Lorem.sentence(10), :multichoice => multi_choice)
+    multi_choice = !multi_choice
     3.times do
       question.answers.create(:content => Faker::Lorem.words(4))
     end

@@ -1,6 +1,11 @@
 <%= form_for @questionnaire do |f| %>
 	<%= render 'shared/error_messages', :object => f.object %>
 	
+	<p>
+		<%= f.label :per_page, "Question Displayed per page" %>
+		<%= f.text_field :per_page %>
+	</p>
+	
 	<%= f.fields_for :questions do |builder| %>
 		<%= render "question_fields", :f => builder %>
 	<% end %>

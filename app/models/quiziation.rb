@@ -11,8 +11,8 @@
 #
 
 class Quiziation < ActiveRecord::Base
-  attr_accessible :question_id, :selected_answer_id
-  attr_accessible :selected_answers_hash
+  attr_accessible :question_id
+  attr_accessible :checked_answers,:radio_answer
   
   belongs_to :quiz
   belongs_to :question
@@ -21,12 +21,11 @@ class Quiziation < ActiveRecord::Base
   validates :question_id, :presence => true
   validates :answers_hash, :presence => true
   
-  def selected_answers_hash
-    hash = eval(self.answers_hash)
-    hash.map {|key,val| "#{key};#{val}"}
+  def checked_answers
+    answers
   end
   
-  def selected_answers_hash=(val)
+  def checked_answers=(val)
     hash = eval(self.answers_hash)
     hash_to_merge = "{:#{val.split(';')[0]}=>#{val.split(';')[1]}}"
     hash.merge!(eval(hash_to_merge))
@@ -35,4 +34,19 @@ class Quiziation < ActiveRecord::Base
     self.answers_hash = hash.to_s
     self.save
   end
+  
+  def radio_answer
+    answers.first
+  end
+  
+  def radio_answer=(val)
+    self.answers_hash = "{:#{val.split(';')[0]}=>#{val.split(';')[1]}}"
+    self.save!
+  end
+  
+  private  
+    def answers
+      hash = eval(self.answers_hash)
+      hash.map {|key,val| "#{key};#{val}"}
+    end
 end

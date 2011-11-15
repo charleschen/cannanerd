@@ -4,6 +4,11 @@
     <%= f.label :content, "Question" %>
     <%= f.text_area :content, :rows => 3 %>
   </p>
+
+	<p>
+		<%= f.label :multichoice, "Multiple Choice"%>
+		<%= f.check_box :multichoice, {}, true, false%>
+	</p>
 	<%= f.fields_for :answers do |builder| %>
 		<%= render 'answer_fields', :f => builder %>
 	<% end %>

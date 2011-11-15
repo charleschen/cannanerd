@@ -25,3 +25,7 @@ end
 Factory.define :question do |question|
   question.content            'Best team in the NBA?'
 end
+
+Factory.define :quiz do |quiz|
+  
+end

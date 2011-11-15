@@ -100,4 +100,22 @@ describe Quiz do
     end
   end
   
+  describe 'on destory' do
+    before(:each) do
+      @quiz = Quiz.create(@attr)
+    end
+    
+    it 'should destroy itself' do
+      lambda { @quiz.destroy }.should change(Quiz,:count).from(1).to(0)
+    end
+    
+    it 'should destroy quiziation reference' do
+      questionnaire = Questionnaire.create
+      question = Factory(:question, :questionnaire_id => questionnaire.id)
+      
+      @quiz.quiziations.create(:question_id => question.id)
+      lambda { @quiz.destroy }.should change(Quiziation,:count).from(1).to(0)
+    end
+  end
+  
 end

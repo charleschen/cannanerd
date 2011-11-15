@@ -4,5 +4,5 @@ if('<%= params[:submit]%>' != "")
 	window.location = "<%= new_user_url %>";
 }else
 {
-	$('div#questionnaire_div').html("<%= escape_javascript(render('shared/questionnaire', :quiz => @quiz, :quiziations => @quiziations))%>");
+	$('div#questionnaire_div').html("<%= escape_javascript(render('shared/questionnaire',:quiz_route => take_quiz_path , :quiz => @quiz, :quiziations => @quiziations))%>");
 }

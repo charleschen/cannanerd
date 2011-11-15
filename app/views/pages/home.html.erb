@@ -20,9 +20,11 @@
 
 <div id='home' class='sg-24 '>
 	<% if current_user.nil? && current_club.nil? %>
-	<div class='quiz_button'>
-		<p><%= link_to 'Take Quiz', take_quiz_path %></p>
-	</div>
+		<%= render 'guest_home'%>
+	<% else %>
+		<%= render 'user_home' %>
 	<% end %>
+	
+	
 </div>
 
