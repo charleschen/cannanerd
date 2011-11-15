@@ -19,10 +19,8 @@ Cannanerd::Application.routes.draw do
   resources :user_verifications, :only => [:show]
   
   match 'create_answer', :to => 'answers#create_answer'
-  
-  #resources :questionaires, :only => [:edit,:update,:index]
 
-  resources :questionaires do
+  resources :questionnaires do
   end
   
   resources :tags do
@@ -34,9 +32,9 @@ Cannanerd::Application.routes.draw do
   resources :quizzes
 
   root            :to => 'pages#home'
+  match 'take_quiz',   :to => 'pages#take_quiz'
   match 'about',  :to => 'pages#about'
   match 'contact', :to => 'pages#contact'
-  match 'submit_questionaire', :to => 'pages#submit_questionaire'
   match 'next_page', :to => 'pages#next_page'
   
   # The priority is based upon order of creation:

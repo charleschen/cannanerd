@@ -87,8 +87,8 @@ describe Answer do
   describe 'questionship relationship' do
     before(:each) do
       @answer = Answer.create(@attr)
-      @questionaire = Questionaire.create
-      @question = Factory(:question, :questionaire_id => @questionaire.id)
+      @questionnaire = Questionnaire.create
+      @question = Factory(:question, :questionnaire_id => @questionnaire.id)
     end
     
     it "should respond to :reverse_questionships" do
@@ -132,8 +132,8 @@ describe Answer do
     end
     
     it "should destroy questionship association" do
-      questionaire = Questionaire.create
-      question = Factory(:question, :questionaire_id => questionaire.id)
+      questionnaire = Questionnaire.create
+      question = Factory(:question, :questionnaire_id => questionnaire.id)
       question.questionships.create(:answer_id => @answer.id)
       
       lambda {@answer.destroy}.should change(Questionship,:count).from(1).to(0)

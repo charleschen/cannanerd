@@ -185,6 +185,19 @@ div#home{
 	}
 }
 
+div.quiz_button{
+	margin: auto;
+	width: 25%;
+	padding: 15px;
+	background-color: $main-color;
+	
+	p{
+		text-align:center;
+		padding: 5px;
+		background-color: white;
+	}
+}
+
 /*************** answer ******************/
 
 
@@ -251,9 +264,9 @@ ul.tags{
 
 
 
-/****************** Questionaire *******************/
+/****************** Questionnaire *******************/
 
-div#questionaire {
+div#questionnaire {
 	ol{
 		list-style: decimal;
 		li.questions{
@@ -265,7 +278,7 @@ div#questionaire {
 	ul{
 		padding-left: 14px;
 		list-style: square;
-		li.questionaire_answer{
+		li.questionnaire_answer{
 			clear:both;
 			line-height: 16px;
 			padding-top: 5px;
@@ -274,7 +287,7 @@ div#questionaire {
 }
 
 
-div#questionaire_real {
+div#questionnaire_real {
 	ol{
 		list-style: decimal;
 		li.questions{
@@ -286,7 +299,7 @@ div#questionaire_real {
 	ul{
 		padding-left: 14px;
 		list-style: none;
-		li.questionaire_answer{
+		li.questionnaire_answer{
 			clear:both;
 			line-height: 16px;
 			padding-top: 5px;

@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: questionaires
+# Table name: questionnaires
 #
 #  id         :integer         not null, primary key
 #  created_at :datetime
@@ -9,26 +9,26 @@
 
 require 'spec_helper'
 
-describe Questionaire do
+describe Questionnaire do
   before(:each) do
     @attr = {}
   end
   
   it "should not be able to create new instances" do
-    Questionaire.create!
-    lambda { Questionaire.create }.should_not change(Questionaire, :count)
+    Questionnaire.create!
+    lambda { Questionnaire.create }.should_not change(Questionnaire, :count)
   end
   
   it "making a new instance and saving should not add a new row to database" do
-    Questionaire.create!
+    Questionnaire.create!
     lambda do
-      questionaire = Questionaire.new
-      questionaire.save
-    end.should_not change(Questionaire, :count).by(1)
+      questionnaire = Questionnaire.new
+      questionnaire.save
+    end.should_not change(Questionnaire, :count).by(1)
   end
   
   it "should respond to many questions" do
-    questionaire = Questionaire.create!
-    questionaire.should respond_to(:questions)
+    questionnaire = Questionnaire.create!
+    questionnaire.should respond_to(:questions)
   end
 end

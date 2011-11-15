@@ -1,4 +1,4 @@
-<% title 'Questionaire Editor'%>
+<% title 'Questionnaire Editor'%>
 <% subtitle 'CannaNerd'%>
 
 <%= content_for :navbar do %>
@@ -9,8 +9,8 @@
 		<li><%= link_to 'Club Home Page', club_path(current_club) %></li>
 	<% end %>
 	
-	<% if permitted_to? :index, :questionaires %>
-		<li><%= link_to 'Questionaire', questionaires_path %></li>
+	<% if permitted_to? :index, :questionnaires %>
+		<li><%= link_to 'Questionnaire', questionnaires_path %></li>
 	<% end %>
 <% end %>
 

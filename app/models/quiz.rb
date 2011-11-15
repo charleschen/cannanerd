@@ -8,6 +8,8 @@
 #  updated_at :datetime
 #
 
+require 'will_paginate'
+
 class Quiz < ActiveRecord::Base
   #validates :user_id, :presence => true
   attr_writer :current_page
@@ -16,8 +18,7 @@ class Quiz < ActiveRecord::Base
   
   has_many :quiziations, :dependent => :destroy, :foreign_key => 'quiz_id'
   has_many :questions, :through => :quiziations, :source => :question
-  
-  accepts_nested_attributes_for :questions
+
   accepts_nested_attributes_for :quiziations
   
   def current_page
@@ -29,15 +30,22 @@ class Quiz < ActiveRecord::Base
   end
   
   def last_page?
-    @current_page == questions.paginate(:page => 1, :per_page => 4).total_pages
+    if questions.any?
+      @current_page == ((questions.count+0.0)/questions.first.questionnaire.per_page).ceil 
+      #questions.paginate(:page => 1, :per_page => questions.first.questionnaire.per_page).total_pages
+    else
+      1
+    end
   end
   
   def next_page
-    @current_page = @current_page + 1
+    @current_page = @current_page + 1 unless last_page?
+    @current_page
   end
   
   def prev_page
-    @current_page = @current_page - 1
+    @current_page = @current_page - 1 unless first_page?
+    @current_page
   end
   
 end

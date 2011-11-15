@@ -1,27 +1,24 @@
 # == Schema Information
 #
-# Table name: questionaires
+# Table name: questionnaires
 #
 #  id         :integer         not null, primary key
 #  created_at :datetime
 #  updated_at :datetime
 #
 
-class Questionaire < ActiveRecord::Base
+class Questionnaire < ActiveRecord::Base
   has_many :questions
+  attr_accessible :per_page, :questions_attributes
+  
   accepts_nested_attributes_for :questions, :reject_if => lambda { |a| a[:content].blank? }, :allow_destroy => true
   
   def create
-    if Questionaire.count == 0
+    if Questionnaire.count == 0
       super
     else
-      Questionaire.first
+      Questionnaire.first
     end
-    
   end
-  
-  # def questions_ids
-  #   questions.map {|q| q.id}
-  # end
   
 end

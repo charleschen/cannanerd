@@ -1,4 +1,4 @@
-<%= form_for @questionaire do |f| %>
+<%= form_for @questionnaire do |f| %>
 	<%= render 'shared/error_messages', :object => f.object %>
 	
 	<%= f.fields_for :questions do |builder| %>
@@ -7,5 +7,5 @@
 	
 	<p><%= link_to_add_fields "Add Question", f, :questions %></p><br />
 	
-	<p><%= f.submit 'Update Questionaire' %></p>
+	<p><%= f.submit 'Update Questionnaire' %></p>
 <% end %>

@@ -59,14 +59,16 @@ ActiveRecord::Schema.define(:version => 20111111234308) do
     t.integer  "roles_mask",         :default => 1
   end
 
-  create_table "questionaires", :force => true do |t|
+  create_table "questionnaires", :force => true do |t|
+    t.integer  "per_page",   :default => 4
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "questions", :force => true do |t|
     t.text     "content"
-    t.integer  "questionaire_id"
+    t.integer  "questionnaire_id"
+    t.boolean  "multichoice",      :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -85,7 +87,7 @@ ActiveRecord::Schema.define(:version => 20111111234308) do
   create_table "quiziations", :force => true do |t|
     t.integer  "quiz_id"
     t.integer  "question_id"
-    t.integer  "selected_answer_id"
+    t.string   "answers_hash", :default => "{}"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

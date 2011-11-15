@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe "QuestionaireEditings" do
+describe "QuestionnaireEditings" do
   before(:each) do
-    Questionaire.create!
+    Questionnaire.create!
     
     @admin_user = Factory(:user)
     @admin_user.roles = ['member','admin']
@@ -17,8 +17,8 @@ describe "QuestionaireEditings" do
       click_button 'Create User session'
     end
     
-    it 'viewing questionaire index page' do
-      visit questionaires_path
+    it 'viewing questionnaire index page' do
+      visit questionnaires_path
       page.should have_content('do not have access')
       current_path.should eq(root_path)
     end
@@ -32,10 +32,10 @@ describe "QuestionaireEditings" do
       click_button 'Create User session'
     end
     
-    it 'on viewing questionaire index page and have link to edit questionaire' do
-      visit questionaires_path
-      current_path.should eq(questionaires_path)
-      page.should have_link('Edit questionaire', :href => edit_questionaire_path(Questionaire.first))
+    it 'on viewing questionnaire index page and have link to edit questionnaire' do
+      visit questionnaires_path
+      current_path.should eq(questionnaires_path)
+      page.should have_button('Edit questionnaire')
     end
   end
 end

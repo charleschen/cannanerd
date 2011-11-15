@@ -1,5 +1,5 @@
-<% title 'Questionaire Editor'%>
-<% subtitle 'Questionaire'%>
+<% title 'Questionnaire Editor'%>
+<% subtitle 'Questionnaire'%>
 
 <%= content_for :navbar do %>
 	<% if current_user %>
@@ -9,8 +9,8 @@
 		<li><%= link_to 'Club Home Page', club_path(current_club) %></li>
 	<% end %>
 	
-	<% if permitted_to? :index, :questionaires %>
-		<li><%= link_to 'Questionaire', questionaires_path %></li>
+	<% if permitted_to? :index, :questionnaires %>
+		<li><%= link_to 'Questionnaire', questionnaires_path %></li>
 		<li><%= link_to 'Answers', answers_path %></li>
 		<li><%= link_to 'Tags', tags_path %></li>
 	<% end %>
@@ -18,10 +18,10 @@
 
 
 <div class='sgParent sg-24'>
-	<%= button_to 'Edit questionaire', edit_questionaire_path(@questionaire), :method => :get %>
-	<div id='questionaire'>
+	<%= button_to 'Edit questionnaire', edit_questionnaire_path(@questionnaire), :method => :get %>
+	<div id='questionnaire'>
 		<ol>
-			<% @questionaire.questions.each do |question| %>
+			<% @questionnaire.questions.each do |question| %>
 			<li class='questions'>
 				<%= "#{question.content}" %>
 				<ul>

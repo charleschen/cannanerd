@@ -4,7 +4,7 @@
 #
 #  id              :integer         not null, primary key
 #  content         :text
-#  questionaire_id :integer
+#  questionnaire_id :integer
 #  created_at      :datetime
 #  updated_at      :datetime
 #
@@ -14,35 +14,35 @@ require 'spec_helper'
 describe Question do
   before(:each) do
     @attr = {:content => "Is this a question?"}
-    @questionaire = Questionaire.create
+    @questionnaire = Questionnaire.create
   end
   
   it "should not create without the correct attributes" do
     Question.create.should_not be_valid
   end
   
-  it "should not create without questionaire reference" do
+  it "should not create without questionnaire reference" do
     Question.create(@attr).should_not be_valid
   end
   
   it "should create with the correct attributes and reference" do
-    Question.create!(@attr.merge(:questionaire_id => @questionaire.id))
+    Question.create!(@attr.merge(:questionnaire_id => @questionnaire.id))
   end
   
   describe 'instance methods' do
     before(:each) do
-      @questionaire = Questionaire.first
-      @question = @questionaire.questions.create(@attr)
+      @questionnaire = Questionnaire.first
+      @question = @questionnaire.questions.create(@attr)
     end
     
-    it "should respond to questionaire" do
-      @question.should respond_to(:questionaire)
+    it "should respond to questionnaire" do
+      @question.should respond_to(:questionnaire)
     end
   end
   
   describe 'questionship association' do
     before(:each) do
-      @question = @questionaire.questions.create(@attr)
+      @question = @questionnaire.questions.create(@attr)
       @answer = Factory(:answer)
     end
     
@@ -62,7 +62,7 @@ describe Question do
   
   describe 'destroy' do
     before(:each) do
-      @question = @questionaire.questions.create(@attr)
+      @question = @questionnaire.questions.create(@attr)
       @answer = Factory(:answer)
     end
     

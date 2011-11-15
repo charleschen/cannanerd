@@ -13,8 +13,8 @@ require 'spec_helper'
 
 describe Questionship do
   before(:each) do
-    @questionaire = Questionaire.first || Questionaire.create
-    @question = Factory(:question, :questionaire_id => @questionaire.id)
+    @questionnaire = Questionnaire.first || Questionnaire.create
+    @question = Factory(:question, :questionnaire_id => @questionnaire.id)
     @answer = Factory(:answer)
   end
   

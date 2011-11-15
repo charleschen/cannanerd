@@ -3,7 +3,7 @@ class CreateQuiziations < ActiveRecord::Migration
     create_table :quiziations do |t|
       t.integer :quiz_id
       t.integer :question_id
-      t.integer :selected_answer_id
+      t.string :answers_hash, :default => "{}"
 
       t.timestamps
     end

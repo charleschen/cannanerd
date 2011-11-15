@@ -4,16 +4,20 @@
 #
 #  id              :integer         not null, primary key
 #  content         :text
-#  questionaire_id :integer
+#  questionnaire_id :integer
 #  created_at      :datetime
 #  updated_at      :datetime
 #
 
+require 'will_paginate'
+
 class Question < ActiveRecord::Base
-  validates :content, :presence => true
-  validates :questionaire_id, :presence => true
+  attr_accessible :answers_attributes
   
-  belongs_to :questionaire
+  validates :content, :presence => true
+  validates :questionnaire_id, :presence => true
+  
+  belongs_to :questionnaire
   
   has_many :questionships, :dependent => :destroy, :foreign_key => 'question_id'
   has_many :answers, :through => :questionships, :source => :answer

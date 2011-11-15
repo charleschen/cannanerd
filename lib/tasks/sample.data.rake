@@ -66,21 +66,21 @@ def make_clubs
 end
 
 def make_questions_and_answers
-  questionaire = Questionaire.create
+  questionnaire = Questionnaire.create
   
-  question = questionaire.questions.create(:content => "How much would you pay for an eighth of an ounce of weed?")
+  question = questionnaire.questions.create(:content => "How much would you pay for an eighth of an ounce of weed?")
   question.answers.create(:content => "40-50 dollars")
   question.answers.create(:content => "50-60 dollars")
   question.answers.create(:content => "60-70 dollars")
   
-  question = questionaire.questions.create(:content => "How much would you pay for an eighth of an ounce of weed?")
+  question = questionnaire.questions.create(:content => "How much would you pay for an eighth of an ounce of weed?")
   question.answers.create(:content => "body")
   question.answers.create(:content => "mind")
   question.answers.create(:content => "both")
   question.answers.create(:content => "body or mind")
   
   12.times do 
-    question = questionaire.questions.create(:content => Faker::Lorem.sentence(10))
+    question = questionnaire.questions.create(:content => Faker::Lorem.sentence(10))
     3.times do
       question.answers.create(:content => Faker::Lorem.words(4))
     end
