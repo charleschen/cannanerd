@@ -8,8 +8,6 @@
 #  updated_at :datetime
 #
 
-require 'will_paginate'
-
 class Quiz < ActiveRecord::Base
   #validates :user_id, :presence => true
   attr_writer :current_page

@@ -10,8 +10,6 @@
 #  updated_at   :datetime
 #
 
-require 'will_paginate'
-
 class Quiziation < ActiveRecord::Base
   attr_accessible :question_id, :selected_answer_id
   attr_accessible :selected_answers_hash

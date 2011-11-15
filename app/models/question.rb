@@ -9,8 +9,6 @@
 #  updated_at      :datetime
 #
 
-require 'will_paginate'
-
 class Question < ActiveRecord::Base
   attr_accessible :answers_attributes
   
