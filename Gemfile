@@ -39,6 +39,7 @@ group :test do
   gem 'factory_girl_rails', '1.3.0'
   gem 'sqlite3'
   gem 'fakeweb'
+	gem 'vcr'
 	gem 'timecop'
 	gem 'capybara'
 	gem 'database_cleaner'
@@ -46,6 +47,13 @@ group :test do
 	gem 'rb-fsevent'
 	gem 'guard-livereload'
 	gem 'growl_notify'
+end
+
+group :my_test do
+	gem 'will_paginate', '3.0.2'
+	gem 'authlogic'
+	gem 'declarative_authorization'
+	gem 'faker', '0.3.1'
 end
 
 group :production do

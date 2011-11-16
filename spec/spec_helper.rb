@@ -8,23 +8,22 @@ require 'factory_girl_rails'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
-Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
+#Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 RSpec.configure do |config|
   
-  config.include(MailerMacros)
-  config.before(:each) do 
-    reset_email
-  end
-  
+  # config.include(MailerMacros)
+  # config.before(:each) do 
+  #   reset_email
+  # end
   config.mock_with :rspec
   
-  def test_sign_in(user)
-    sign_in(user)
+  def app_require(file)
+    require File.expand_path(file)
   end
 
-  def test_sign_out(user)
-    sign_out(user)
+  def support_require(file)
+    require "support/#{file}"
   end
 
   config.fixture_path = "#{::Rails.root}/spec/fixtures"

@@ -1,0 +1,54 @@
+---
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :get
+    uri: http://maps.googleapis.com:80/maps/api/geocode/json?address=346+Laurel+Avenue%2C+CA%2C+91006&language=en&sensor=false
+    body: !!null 
+    headers: !!null 
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/json; charset=UTF-8
+      date:
+      - Wed, 16 Nov 2011 22:50:32 GMT
+      expires:
+      - Thu, 17 Nov 2011 22:50:32 GMT
+      cache-control:
+      - public, max-age=86400
+      server:
+      - mafe
+      x-xss-protection:
+      - 1; mode=block
+      x-frame-options:
+      - SAMEORIGIN
+      transfer-encoding:
+      - chunked
+    body: ! "{\n   \"results\" : [\n      {\n         \"address_components\" : [\n
+      \           {\n               \"long_name\" : \"346\",\n               \"short_name\"
+      : \"346\",\n               \"types\" : [ \"street_number\" ]\n            },\n
+      \           {\n               \"long_name\" : \"Laurel Ave\",\n               \"short_name\"
+      : \"Laurel Ave\",\n               \"types\" : [ \"route\" ]\n            },\n
+      \           {\n               \"long_name\" : \"Arcadia\",\n               \"short_name\"
+      : \"Arcadia\",\n               \"types\" : [ \"locality\", \"political\" ]\n
+      \           },\n            {\n               \"long_name\" : \"Los Angeles\",\n
+      \              \"short_name\" : \"Los Angeles\",\n               \"types\" :
+      [ \"administrative_area_level_2\", \"political\" ]\n            },\n            {\n
+      \              \"long_name\" : \"California\",\n               \"short_name\"
+      : \"CA\",\n               \"types\" : [ \"administrative_area_level_1\", \"political\"
+      ]\n            },\n            {\n               \"long_name\" : \"United States\",\n
+      \              \"short_name\" : \"US\",\n               \"types\" : [ \"country\",
+      \"political\" ]\n            },\n            {\n               \"long_name\"
+      : \"91006\",\n               \"short_name\" : \"91006\",\n               \"types\"
+      : [ \"postal_code\" ]\n            }\n         ],\n         \"formatted_address\"
+      : \"346 Laurel Ave, Arcadia, CA 91006, USA\",\n         \"geometry\" : {\n            \"location\"
+      : {\n               \"lat\" : 34.1499420,\n               \"lng\" : -118.0212020\n
+      \           },\n            \"location_type\" : \"ROOFTOP\",\n            \"viewport\"
+      : {\n               \"northeast\" : {\n                  \"lat\" : 34.15129098029149,\n
+      \                 \"lng\" : -118.0198530197085\n               },\n               \"southwest\"
+      : {\n                  \"lat\" : 34.14859301970849,\n                  \"lng\"
+      : -118.0225509802915\n               }\n            }\n         },\n         \"types\"
+      : [ \"street_address\" ]\n      }\n   ],\n   \"status\" : \"OK\"\n}\n"
+    http_version: '1.1'

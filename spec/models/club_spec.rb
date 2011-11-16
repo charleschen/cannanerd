@@ -21,8 +21,11 @@
 #
 
 require 'spec_helper'
+support_require 'redis'
 
 describe Club do
+  let(:queue_list) { ['critical','high','medium','low'] }
+  
   before(:each) do
     @attr = { :name                   => "Charles Chen",
               :email                  => 'ccchen@example.com',
@@ -30,6 +33,10 @@ describe Club do
               :password_confirmation  => 'password',
               :address                => '346 Laurel Avenue, California, CA'
               }
+  end
+  
+  after(:all) do
+    clear_resque(queue_list)
   end
   
   it "should create not create a club without valid attributes" do
@@ -151,4 +158,15 @@ describe Club do
       club.role_symbols.should eq(Club::ROLES.map(&:to_sym))
     end
   end
+  
+  describe 'background jobs' do
+    before(:each) do
+      clear_resque(queue_list)
+    end
+    
+    it 'should have a pending job after creation' do
+      Club.create(@attr)
+      jobs_pending.should eq(1)
+    end
+  end  
 end

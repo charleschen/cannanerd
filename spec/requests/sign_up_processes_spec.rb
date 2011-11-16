@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'timecop'
+support_require 'mailer_macros'
 
 describe "SignUpProcesses" do
   let(:next_button) { 'next' }
@@ -15,6 +16,7 @@ describe "SignUpProcesses" do
     Questionnaire.first.update_attribute(:per_page, 1)
     create_questionaire_data  # creates 3 questions with 3 answers each, multi single multi
     Timecop.freeze(freeze_time)
+    reset_email
   end
   
   after(:all) do

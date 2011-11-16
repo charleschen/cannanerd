@@ -10,9 +10,7 @@ if defined?(Bundler)
   # this way testing does not require all gems
   if Rails.env == 'test'
     Bundler.setup *Rails.groups(:assets => %w(development test))
-    require 'jquery-rails'
-    require 'declarative_authorization'
-    require 'will_paginate'
+    Bundler.require(:my_test)
   else
     Bundler.require *Rails.groups(:assets => %w(development test))
   end

@@ -21,8 +21,21 @@
 #
 
 require 'authlogic'
+require 'geocoder'
 
 class Club < ActiveRecord::Base
+  email_name_regex  = '[A-Z0-9_\.%\+\-\']+'
+  domain_head_regex = '(?:[A-Z0-9\-]+\.)+'
+  domain_tld_regex  = '(?:[A-Z]{2,4}|museum|travel)'
+  email_regex = /^#{email_name_regex}@#{domain_head_regex}#{domain_tld_regex}$/i
+  
+  validates :name,  :presence => true,
+                    :uniqueness => {:case_sensitive => false}
+  validates :email, :uniqueness => {:case_sensitive => false},
+                    :format => email_regex
+  validates :address, :presence => true
+  
+  geocoded_by :address
   acts_as_authentic do |c|
     #c.validates_format_of_login_field_options(:with => /\A\w[\w\.+\-_@' ]+$/)
     #c.find_by_login_method = :find_by_email
@@ -33,20 +46,13 @@ class Club < ActiveRecord::Base
     c.maintain_sessions = false
   end
   
-  email_name_regex  = '[A-Z0-9_\.%\+\-\']+'
-  domain_head_regex = '(?:[A-Z0-9\-]+\.)+'
-  domain_tld_regex  = '(?:[A-Z]{2,4}|museum|travel)'
-  email_regex = /^#{email_name_regex}@#{domain_head_regex}#{domain_tld_regex}$/i
+
   
-  validates :name,  :presence => true,
-                    :uniqueness => {:case_sensitive => false}
-                    
-  validates :email, :uniqueness => {:case_sensitive => false},
-                    :format => email_regex
-                    
-  validates :address, :presence => true
+
                     
   attr_accessible :email, :name, :password, :password_confirmation, :address
+  
+  after_save :get_geocode, :if => :address_changed?
   
   ROLES = %w[unregistered registered]
   
@@ -66,4 +72,9 @@ class Club < ActiveRecord::Base
   def register!
     self.roles = ['registered']
   end
+  
+  private
+    def get_geocode
+      Resque::enqueue(Geocode,self.id)
+    end
 end

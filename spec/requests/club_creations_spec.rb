@@ -1,11 +1,19 @@
 require 'spec_helper'
+support_require 'vcr'
+support_require 'redis'
 
 describe "ClubCreations" do
+  let(:queue_list) { ['critical','high','medium','low'] }
+  
   before(:each) do
     @admin_user = Factory(:user)
     @admin_user.roles = ['member','admin']
     @regular_user = Factory(:user, :email => 'reg@example.com')
     @regular_user.save_without_session_maintenance
+  end
+  
+  after(:all) do
+    clear_resque(queue_list)
   end
   
   it "both user should be able to log in" do
@@ -46,17 +54,30 @@ describe "ClubCreations" do
       fill_in 'user_session_email', :with => @admin_user.email
       fill_in 'user_session_password', :with => 'password'
       click_button 'Create User session'
-    end
-    
-    it "should be able to create new club" do
+      
       visit new_club_path
       fill_in 'club_email', :with => 'club@gmail.com'
       fill_in 'club_name', :with => 'MJ club'
       fill_in 'club_address', :with => '346 Laurel Avenue, CA 91006'
-      
+    end
+    
+    it "should be able to create new club" do
       lambda do
         click_button 'Create Club'
-      end.should change(Club,:count).by(1)
+      end.should change(Club,:count).from(0).to(1)
+    end
+    
+    it 'should complete Geocode job, and return longitude and latitude values', :vcr do
+      clear_resque(queue_list)
+      
+      click_button 'Create Club'
+      
+      jobs_pending.should eq(1)
+      perform_all_pending_jobs
+      
+      club = Club.last
+      club.longitude.round(2).should eq(-118.02)
+      club.latitude.round(2).should eq(34.15)
     end
   end
 end

@@ -20,6 +20,7 @@
 
 #require File.dirname(__FILE__) + '/../spec_helper'
 require 'spec_helper'
+support_require 'mailer_macros'
 
 describe User do
   before(:each) do
