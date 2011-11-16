@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111111234308) do
+ActiveRecord::Schema.define(:version => 20111116010305) do
 
   create_table "answer_tags", :force => true do |t|
     t.integer  "answer_id"
@@ -98,6 +98,26 @@ ActiveRecord::Schema.define(:version => 20111111234308) do
 
   create_table "quizzes", :force => true do |t|
     t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "strain_tags", :force => true do |t|
+    t.integer  "strain_id"
+    t.integer  "tag_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "strain_tags", ["strain_id", "tag_id"], :name => "index_strain_tags_on_strain_id_and_tag_id", :unique => true
+  add_index "strain_tags", ["strain_id"], :name => "index_strain_tags_on_strain_id"
+  add_index "strain_tags", ["tag_id"], :name => "index_strain_tags_on_tag_id"
+
+  create_table "strains", :force => true do |t|
+    t.string   "name"
+    t.string   "id_str"
+    t.text     "description"
+    t.text     "data"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

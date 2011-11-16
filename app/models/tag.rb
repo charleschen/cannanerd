@@ -18,5 +18,8 @@ class Tag < ActiveRecord::Base
   
   has_many :reverse_answer_tags, :class_name => "AnswerTag", :dependent => :destroy, :foreign_key => 'tag_id'
   has_many :tagged_answers, :through => :reverse_answer_tags, :source => :answer
+  
+  has_many :reverse_strain_tags, :class_name => 'StrainTag', :dependent => :destroy, :foreign_key => 'tag_id'
+  has_many :tagged_strains, :through => :reverse_strain_tags, :source => :strain
 
 end

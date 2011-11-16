@@ -45,11 +45,30 @@ describe Tag do
       @tag.tagged_answers.should include(@answer)
     end
   end
+  
+  describe 'StrainTag relationship' do
+    before(:each) do
+      @tag = Tag.create(@attr)
+      @strain = Factory(:strain)
+    end
+    
+    it 'should respond to :reverse_strain_tags' do
+      @tag.should respond_to(:reverse_strain_tags)
+    end
+    
+    it 'should respond to :tagged_strains' do
+      @tag.should respond_to(:tagged_strains)
+    end
+    
+    it 'should have association with StrainTags' do
+      @strain.strain_tags.create(:tag_id => @tag.id)
+      @tag.tagged_strains.should include(@strain)
+    end
+  end
 
   describe 'destruction' do
     before(:each) do
       @tag = Tag.create!(@attr)
-      @answer = Factory(:answer)
     end
 
     it "should be successsful with basic attributes" do
@@ -59,11 +78,17 @@ describe Tag do
     end
 
     it "should destroy tag association" do
-      @tag.reverse_answer_tags.create!(:answer_id => @answer.id)
+      answer = Factory(:answer)
+      @tag.reverse_answer_tags.create!(:answer_id => answer.id)
       lambda do
         @tag.destroy
       end.should change(AnswerTag,:count).by(-1)
     end
 
+    it "should destroy StrainTag association" do
+      strain = Factory(:strain)
+      strain.strain_tags.create(:tag_id => @tag.id)
+      lambda { @tag.destroy }.should change(StrainTag,:count).from(1).to(0)
+    end
   end
 end

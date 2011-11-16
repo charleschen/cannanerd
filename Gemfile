@@ -10,6 +10,7 @@ gem 'resque-status'
 gem 'exceptional'
 gem 'declarative_authorization'
 gem 'faker', '0.3.1'
+gem 'geocoder'
 
 group :asset do
 	gem 'sass-rails', "~> 3.1.0"
