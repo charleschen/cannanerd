@@ -15,27 +15,19 @@
 #  created_at         :datetime
 #  updated_at         :datetime
 #  roles_mask         :integer         default(1)
+#  zipcode            :integer
 #
 
 #require File.dirname(__FILE__) + '/../spec_helper'
 require 'spec_helper'
-# require 'authlogic'
-# require 'action_mailer'
-# 
-# support_require 'database'
-# support_require 'database_cleaner'
-# support_require 'mailer_macros'
-# 
-# app_require 'app/models/user'
-# app_require 'app/models/user_session'
-# app_require 'app/mailers/user_mailer'
 
 describe User do
   before(:each) do
     @attr = { :name                   => "Charles Chen",
               :email                  => 'ccchen@example.com',
               :password               => 'password',
-              :password_confirmation  => 'password'
+              :password_confirmation  => 'password',
+              :zipcode                => '91006'
               }
   end
   
@@ -53,6 +45,10 @@ describe User do
   
   it "should require password" do
     User.create(@attr.merge(:password => "")).should_not be_valid
+  end
+  
+  it 'should require zipcode' do
+    User.create(@attr.merge(:zipcode => nil)).should_not be_valid
   end
   
   it "should create with correct attributes" do

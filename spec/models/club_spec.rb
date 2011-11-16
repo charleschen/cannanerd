@@ -11,12 +11,13 @@
 #  login_count        :integer         default(0), not null
 #  failed_login_count :integer         default(0), not null
 #  perishable_token   :string(255)     not null
-#  lat                :float
-#  lng                :float
+#  latitude           :float
+#  longitude          :float
 #  current_login_ip   :string(255)
 #  created_at         :datetime
 #  updated_at         :datetime
 #  roles_mask         :integer         default(1)
+#  address            :string(255)
 #
 
 require 'spec_helper'
@@ -26,7 +27,8 @@ describe Club do
     @attr = { :name                   => "Charles Chen",
               :email                  => 'ccchen@example.com',
               :password               => 'password',
-              :password_confirmation  => 'password'
+              :password_confirmation  => 'password',
+              :address                => '346 Laurel Avenue, California, CA'
               }
   end
   
@@ -40,6 +42,10 @@ describe Club do
   
   it "should require password" do
     Club.create(@attr.merge(:password => "")).should_not be_valid
+  end
+  
+  it "should require address" do
+    Club.create(@attr.merge(:address => "")).should_not be_valid
   end
   
   it "should create with correct attributes" do

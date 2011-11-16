@@ -15,6 +15,7 @@
 #  created_at         :datetime
 #  updated_at         :datetime
 #  roles_mask         :integer         default(1)
+#  zipcode            :integer
 #
 
 require 'authlogic'
@@ -34,13 +35,15 @@ class User < ActiveRecord::Base
   domain_head_regex = '(?:[A-Z0-9\-]+\.)+'
   domain_tld_regex  = '(?:[A-Z]{2,4}|museum|travel)'
   email_regex = /^#{email_name_regex}@#{domain_head_regex}#{domain_tld_regex}$/i
+  zipcode_regex = /[0-9]{5}/
   
   validates :email, :presence => true, 
                     :uniqueness => { :case_sensitive => false},
                     :format => { :with => email_regex}
   validates :name, :presence => true
+  validates :zipcode, :presence => true, :format => {:with => zipcode_regex }
   
-  attr_accessible :email, :name, :password, :password_confirmation
+  attr_accessible :email, :name, :password, :password_confirmation, :zipcode
   
   ROLES = %w[unverified_member member admin]
   

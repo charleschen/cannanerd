@@ -5,9 +5,10 @@ describe "SignUpProcesses" do
   let(:next_button) { 'next' }
   let(:back_button) { 'back' }
   let(:freeze_time) { Time.parse('2011-09-20 13:00:00 UTC') }
-  let(:user_attr) { {  :name => "Charles Chen",
-                  :email    => "charleschen@gmail.com",
-                  :password => 'password'} }
+  let(:user_attr) { { :name => "Charles Chen",
+                      :email    => "charleschen@gmail.com",
+                      :password => 'password',
+                      :zipcode => '91006'} }
   
   before(:each) do
     @questionnaire = Questionnaire.create!
@@ -158,10 +159,11 @@ describe "SignUpProcesses" do
       
       it "should not create new user without same password" do
         attributes = user_attr
-        fill_in "user_name",  :with => attributes[:name]
-        fill_in "user_email",     :with => attributes[:email]
-        fill_in "user_password",       :with => attributes[:password]
-        fill_in "user_password_confirmation",       :with => 'werd'
+        fill_in "user_name",                    :with => attributes[:name]
+        fill_in "user_email",                   :with => attributes[:email]
+        fill_in "user_zipcode",                 :with => attributes[:zipcode]
+        fill_in "user_password",                :with => attributes[:password]
+        fill_in "user_password_confirmation",   :with => 'werd'
       
         lambda do
           click_button 'Create User'
@@ -174,8 +176,9 @@ describe "SignUpProcesses" do
       before(:each) do
         @attributes = user_attr
         
-        fill_in "user_name",              :with => @attributes[:name]
+        fill_in "user_name",                  :with => @attributes[:name]
         fill_in "user_email",                 :with => @attributes[:email]
+        fill_in "user_zipcode",               :with => @attributes[:zipcode]
         fill_in "user_password",              :with => @attributes[:password]
         fill_in "user_password_confirmation", :with => @attributes[:password]
       end
@@ -198,8 +201,9 @@ describe "SignUpProcesses" do
     describe 'after creation' do
       before(:each) do
         attributes = user_attr
-        fill_in "user_name",              :with => attributes[:name]
+        fill_in "user_name",                  :with => attributes[:name]
         fill_in "user_email",                 :with => attributes[:email]
+        fill_in "user_zipcode",               :with => attributes[:zipcode]
         fill_in "user_password",              :with => attributes[:password]
         fill_in "user_password_confirmation", :with => attributes[:password]
       

@@ -11,12 +11,13 @@
 #  login_count        :integer         default(0), not null
 #  failed_login_count :integer         default(0), not null
 #  perishable_token   :string(255)     not null
-#  lat                :float
-#  lng                :float
+#  latitude           :float
+#  longitude          :float
 #  current_login_ip   :string(255)
 #  created_at         :datetime
 #  updated_at         :datetime
 #  roles_mask         :integer         default(1)
+#  address            :string(255)
 #
 
 require 'authlogic'
@@ -43,7 +44,9 @@ class Club < ActiveRecord::Base
   validates :email, :uniqueness => {:case_sensitive => false},
                     :format => email_regex
                     
-  attr_accessible :email, :name, :password, :password_confirmation
+  validates :address, :presence => true
+                    
+  attr_accessible :email, :name, :password, :password_confirmation, :address
   
   ROLES = %w[unregistered registered]
   

@@ -3,6 +3,7 @@ Factory.define :user do |user|
   user.name                   'bob hope'
   user.password               'password'
   user.password_confirmation  'password'
+  user.zipcode                '91006'
 end
 
 Factory.define :club do |club|
@@ -10,6 +11,7 @@ Factory.define :club do |club|
   club.name                   'MJ Club'
   club.password               'password'
   club.password_confirmation  'password'
+  club.address                '346 Laurel Avenue, CA, 91006'
 end
 
 Factory.define :answer do |answer|

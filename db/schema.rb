@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111116010305) do
+ActiveRecord::Schema.define(:version => 20111116065430) do
 
   create_table "answer_tags", :force => true do |t|
     t.integer  "answer_id"
@@ -51,12 +51,13 @@ ActiveRecord::Schema.define(:version => 20111116010305) do
     t.integer  "login_count",        :default => 0, :null => false
     t.integer  "failed_login_count", :default => 0, :null => false
     t.string   "perishable_token",                  :null => false
-    t.float    "lat"
-    t.float    "lng"
+    t.float    "latitude"
+    t.float    "longitude"
     t.string   "current_login_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "roles_mask",         :default => 1
+    t.string   "address"
   end
 
   create_table "questionnaires", :force => true do |t|
@@ -145,6 +146,7 @@ ActiveRecord::Schema.define(:version => 20111116010305) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "roles_mask",         :default => 1
+    t.string   "zipcode"
   end
 
 end

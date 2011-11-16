@@ -52,6 +52,7 @@ describe "ClubCreations" do
       visit new_club_path
       fill_in 'club_email', :with => 'club@gmail.com'
       fill_in 'club_name', :with => 'MJ club'
+      fill_in 'club_address', :with => '346 Laurel Avenue, CA 91006'
       
       lambda do
         click_button 'Create Club'
