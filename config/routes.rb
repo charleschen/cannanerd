@@ -6,6 +6,8 @@ Cannanerd::Application.routes.draw do
   # match 'logout', :to => 'user_sessions#destroy'
   
   #resources :user_sessions, :only => [:new, :create, :destroy]
+  
+  mount Resque::Server, :at => "/resque"
 
   match 'login', :to => 'user_sessions#new'
   post 'new_user_session', :to => 'user_sessions#create'

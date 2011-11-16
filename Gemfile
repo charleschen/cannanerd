@@ -5,12 +5,14 @@ gem 'rake', '0.9.2.2'
 gem 'will_paginate', '3.0.2'
 gem 'authlogic'
 gem 'resque', :require => "resque/server"
-gem 'resque-scheduler'
+gem 'resque-scheduler', :require => 'resque_scheduler', git: 'git://github.com/bvandenbos/resque-scheduler'
 gem 'resque-status'
 gem 'exceptional'
 gem 'declarative_authorization'
 gem 'faker', '0.3.1'
 gem 'geocoder'
+gem 'ruby_parser'
+gem 'heroku'
 
 group :asset do
 	gem 'sass-rails', "~> 3.1.0"

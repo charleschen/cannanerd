@@ -92,5 +92,5 @@ class User < ActiveRecord::Base
   
   def deliver_registration_confirmation
     UserMailer.registration_confirmation(self).deliver
-  end  
+  end
 end
