@@ -9,6 +9,7 @@ gem 'resque-scheduler'
 gem 'resque-status'
 gem 'exceptional'
 gem 'declarative_authorization'
+gem 'faker', '0.3.1'
 
 group :asset do
 	gem 'sass-rails', "~> 3.1.0"
@@ -22,7 +23,6 @@ group :development do
   gem 'rspec-rails', '2.7.0'
 	gem 'rspec-core', '2.7.1'
   gem 'annotate', '2.4.0'
-  gem 'faker', '0.3.1'
   gem 'nifty-generators'
   gem 'sqlite3'
   gem 'fakeweb'
