@@ -25,6 +25,8 @@ Cannanerd::Application.routes.draw do
   resources :questionnaires do
   end
   
+  resources :strains
+  
   resources :tags do
     
   end

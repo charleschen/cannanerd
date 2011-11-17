@@ -11,5 +11,10 @@
 <% end %>
 
 <div class='sg-24 sgParent'>
-	<%= @club.email %>
+	<h1><%= @club.name %></h1>
+	<ul>
+		<li>Email: <%= @club.email %></li>
+		<li>Address: <%= @club.address %></li>
+		<li>Distance from you: <b><%= @distance.round(2) unless @distance.nil? %> miles</b></li>
+	</ul>
 </div>

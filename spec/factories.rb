@@ -1,10 +1,33 @@
-Factory.define :user do |user|
-  user.email                  'bob@example.com'
-  user.name                   'bob hope'
-  user.password               'password'
-  user.password_confirmation  'password'
-  user.zipcode                '91006'
+# Factory.define :user do |user|
+#   user.email                  'bob@example.com'
+#   user.name                   'bob hope'
+#   user.password               'password'
+#   user.password_confirmation  'password'
+#   user.zipcode                '91006'
+# end
+
+FactoryGirl.define do
+  factory :user do |user|
+    user.email                  'bob@example.com'
+    user.name                   'bob hope'
+    user.password               'password'
+    user.password_confirmation  'password'
+    user.zipcode                '91006'
+    
+    factory :admin do |admin|
+      admin.roles_mask          6
+    end
+  end
 end
+
+# Factory.define :admin do |user|
+#   user.email                  'cc@example.com'
+#   user.name                   'Charles Chen'
+#   user.password               'password'
+#   user.password_confirmation  'password'
+#   user.zipcode                '91006'
+#   user.roles_mask   
+# end
 
 Factory.define :club do |club|
   club.email                  'mjclub@example.com'

@@ -21,10 +21,18 @@
 				<% else %>
 					<li><%= link_to 'Login', new_club_session_path %></li>
 				<% end %>
+				<% if permitted_to? :index, :clubs %>
+					<li><%= link_to 'Club List', clubs_path %></li>
+				<% end %>
 			</ul>
 		</div>
 		<div class="sg-5">
-			<h2></h2>
+			<h2>Strains</h2>
+			<ul>
+				<% if permitted_to? :index, :strains %>
+					<li><%= link_to 'Strain List', strains_path %></li>
+				<% end %>
+			</ul>
 		</div>
 		<div class="sg-5">
 			<h2>Hi!</h2>

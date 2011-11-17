@@ -1,0 +1,10 @@
+<tr>
+	<td>
+		<ul>
+			<li><%= link_to club.name, club %></li>
+			<li class='sub'><%= club.email %></li>
+		</ul>
+	</td>
+	<td><%= club.address %></td>
+	<td><%= link_to 'edit', edit_club_path(club) %></td>
+</tr>

@@ -1,0 +1,22 @@
+
+
+<div class='sg-24'>
+<%= form_for @strain do |f| %>
+	<p>
+		<%= f.label :name %> <br />
+		<%= f.text_field :name %>
+	</p>
+	
+	<p>
+		<%= f.label :description %> <br />
+		<%= f.text_area :description %>
+	</p>
+	
+	<p>
+		<%= f.label :tag_tokens, "Tags" %><br />
+		<%= f.text_area :tag_tokens, "data-pre" => @strain.tags.map(&:attributes).to_json %>
+	</p>
+	
+	<%= f.submit 'Enter Strain data' %>
+<% end %>
+</div>

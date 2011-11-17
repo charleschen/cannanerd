@@ -177,35 +177,30 @@ ol#toc {
 
 
 
-/**************** home *****************/
 
 
-div#home{
-	div{
+
+
+/****************** shared stuff *****************/
+a.action{
+	font-style: bold;
+}
+
+
+.sub{
+	font-size: 85%;
+	font-style: italic;
+}
+
+table.index{
+	tr{
+		border-top: 1px solid #AAA;
 	}
 }
 
-div.quiz_button{
-	margin: auto;
-	width: 25%;
-	padding: 15px;
-	background-color: $main-color;
-	
-	p{
-		text-align:center;
-		padding: 5px;
-		background-color: white;
-	}
-}
-
-div#guest_home{
-	background-color: black;
-}
-
-/*************** answer ******************/
 
 
-table#answers{
+table.with_tags{
 	width: 100%;
 	
 	p{
@@ -235,6 +230,43 @@ table#answers{
 		}
 	}
 }
+
+ul.list_buttons{
+	background-color: black;
+	li{
+		float: left;
+	}
+}
+
+/**************** home *****************/
+
+
+div#home{
+	div{
+	}
+}
+
+div.quiz_button{
+	margin: auto;
+	width: 25%;
+	padding: 15px;
+	background-color: $main-color;
+	
+	p{
+		text-align:center;
+		padding: 5px;
+		background-color: white;
+	}
+}
+
+div#guest_home{
+	background-color: black;
+}
+
+/*************** answer ******************/
+
+
+
 
 
 

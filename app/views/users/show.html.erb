@@ -1,20 +1,8 @@
-<% title "User" %>
 
-<p>
-  <strong>Username:</strong>
-  <%= @user.name %>
-</p>
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
-<p>
-  <strong>Password:</strong>
-  <%= @user.password %>
-</p>
-
-<p>
-  <%= link_to "Edit", edit_user_path(@user) %> |
-  <%= link_to "Destroy", @user, :confirm => 'Are you sure?', :method => :delete %> |
-  <%= link_to "View All", users_path %>
-</p>
+<div class='sg-24'>
+	<ul>
+		<li>Username: <%= @user.name %></li>
+		<li>Email: <%= @user.email %></li>
+		<li>Zipcode: <%= @user.zipcode %></li>
+	</ul>
+</div>

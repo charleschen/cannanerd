@@ -1,3 +1,9 @@
-<div class='sg-15'>
-	<p>Index</p>
+<div class='sg-24'>
+	<%= form_tag clubs_path, :method => :get do %>
+		<%= select('miles',nil, @miles_selection,{:selected => @miles_selected}, {:onchange => "this.form.submit();"}) %>
+	<% end %>
+	<%= link_to 'Add Strain', new_strain_path, :class => 'action' %>
+	<table summary="club index" class='index'>
+		<%= render @clubs %>
+	</table>
 </div>

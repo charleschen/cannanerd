@@ -32,6 +32,12 @@ $(function(){
 		theme: "facebook"
 	});
 	
+	$("#strain_tag_tokens").tokenInput("/tags.json",{
+		crossDomain: false,
+		prePopulate: $("#answer_tag_tokens").data("pre"),
+		theme: "facebook"
+	});
+	
 	// $(".pagination a").live("click",function(){
 	// 	alert(this.href);
 	// 	$(".pagination").html("Page is loading...");

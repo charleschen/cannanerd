@@ -23,6 +23,6 @@
 		<%= f.label :tag_tokens, "Tags" %>
 		<%= f.text_area :tag_tokens, "data-pre" => @answer.tags.map(&:attributes).to_json %>
 	</p>
-	<%= f.submit 'Add Tag(s)' %>
+	<%= f.submit 'Submit answer' %>
 <% end %>
 </div>

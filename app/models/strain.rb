@@ -12,6 +12,7 @@
 #
 
 class Strain < ActiveRecord::Base
+  attr_reader :tag_tokens
   validates :name, :presence => true
   
   has_many :strain_tags, :dependent => :destroy, :foreign_key => 'strain_id'
@@ -20,4 +21,7 @@ class Strain < ActiveRecord::Base
   has_many :reverse_stock_strains, :class_name => 'StockStrain', :dependent => :destroy, :foreign_key => 'strain_id'
   has_many :stored_in_clubs, :through => :reverse_stock_strains, :source => :club
   
+  def tag_tokens=(ids)
+    self.tag_ids = ids.split(',')
+  end
 end

@@ -1,0 +1,18 @@
+<tr>
+	<td>
+		<p><%= strain.name %></p>
+		<span>
+			<ul class='tags'>
+				<li>Tags:</li>
+			<% strain.tags.each do |tag| %>
+				<li class='tag'><%= tag.name %></li>
+			<% end %>
+			</ul>
+		</span>
+	</td>
+	<td><%= truncate(strain.description,:length => 30) %></td>
+	<td>
+			<span><%= button_to 'edit', edit_strain_path(strain), :method => :get %>
+			<%= button_to 'delete',strain_path(strain),:confirm => 'Are you sure?',:method => :delete %></span>
+	</td>
+</tr>

@@ -23,6 +23,8 @@ authorization do
     
     has_permission_on [:tags], :to => [:new, :create, :edit,:update, :show, :index, :destroy]
     has_permission_on [:answers], :to => [:edit, :update,:index]
+    
+    has_permission_on [:strains], :to => :manage
   end
   
   role :unregistered do
@@ -31,5 +33,11 @@ authorization do
   
   role :registered do
     
+  end
+end
+
+privileges do
+  privilege :manage do
+    includes :create, :new, :edit, :update, :destroy, :show, :index
   end
 end

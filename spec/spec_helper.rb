@@ -17,6 +17,7 @@ RSpec.configure do |config|
   #   reset_email
   # end
   config.mock_with :rspec
+  config.include Factory::Syntax::Methods
   
   def app_require(file)
     require File.expand_path(file)
