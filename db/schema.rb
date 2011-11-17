@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111116065430) do
+ActiveRecord::Schema.define(:version => 20111117011414) do
 
   create_table "answer_tags", :force => true do |t|
     t.integer  "answer_id"
@@ -102,6 +102,18 @@ ActiveRecord::Schema.define(:version => 20111116065430) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "stock_strains", :force => true do |t|
+    t.integer  "club_id"
+    t.integer  "strain_id"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "stock_strains", ["club_id", "strain_id"], :name => "index_stock_strains_on_club_id_and_strain_id", :unique => true
+  add_index "stock_strains", ["club_id"], :name => "index_stock_strains_on_club_id"
+  add_index "stock_strains", ["strain_id"], :name => "index_stock_strains_on_strain_id"
 
   create_table "strain_tags", :force => true do |t|
     t.integer  "strain_id"

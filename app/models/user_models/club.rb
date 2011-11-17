@@ -46,12 +46,10 @@ class Club < ActiveRecord::Base
     c.maintain_sessions = false
   end
   
-
+  has_many :stock_strains, :dependent => :destroy, :foreign_key => 'club_id'
+  has_many :strains_in_inventory, :through => :stock_strains, :source => :strain
   
-
-                    
   attr_accessible :email, :name, :password, :password_confirmation, :address
-  
   after_save :get_geocode, :if => :address_changed?
   
   ROLES = %w[unregistered registered]

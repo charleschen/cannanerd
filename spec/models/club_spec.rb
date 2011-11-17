@@ -168,5 +168,40 @@ describe Club do
       Club.create(@attr)
       jobs_pending.should eq(1)
     end
-  end  
+  end
+  
+  describe 'StockStrain association' do
+    before(:each) do
+      @club = Club.create(@attr)
+      @strain = Factory(:strain)
+    end
+    
+    it 'should respond to :stock_strains' do
+      @club.should respond_to(:stock_strains)
+    end
+    
+    it 'should respond to :strains_in_inventory' do
+      @club.should respond_to(:strains_in_inventory)
+    end
+    
+    it 'should create association with includes strain' do
+      @club.stock_strains.create(:strain_id => @strain.id)
+      @club.strains_in_inventory.should include(@strain)
+    end
+  end
+  
+  describe 'on destroy' do
+    before(:each) do
+      @club = Club.create(@attr)
+    end
+    
+    it 'should destroy the data row' do
+      lambda {@club.destroy}.should change(Club,:count).from(1).to(0)
+    end
+    
+    it 'should destroy strain association' do
+      @club.stock_strains.create(:strain_id => Factory(:strain).id)
+      lambda {@club.destroy}.should change(StockStrain,:count).from(1).to(0)
+    end
+  end
 end

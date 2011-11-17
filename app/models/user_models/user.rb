@@ -15,7 +15,7 @@
 #  created_at         :datetime
 #  updated_at         :datetime
 #  roles_mask         :integer         default(1)
-#  zipcode            :integer
+#  zipcode            :string(255)
 #
 
 require 'authlogic'

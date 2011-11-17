@@ -12,8 +12,13 @@
 #
 
 require 'spec_helper'
+support_require 'redis'
 
 describe Strain do
+  after(:all) do
+    clear_resque(['critical','high','medium','low'])
+  end
+  
   before(:each) do
     @attr = { :name         => 'OG Kush',
               :description  => 'This is a drug'}
@@ -47,6 +52,26 @@ describe Strain do
     end
   end
   
+  describe 'reverse StockStrain association' do
+    before(:each) do
+      @strain = Strain.create(@attr)
+      @club = Factory(:club)
+    end
+    
+    it 'should respond to :reverse_stock_strains' do
+      @strain.should respond_to(:reverse_stock_strains)
+    end
+    
+    it 'should respond to :stored_in_clubs' do
+      @strain.should respond_to(:stored_in_clubs)
+    end
+    
+    it 'should create reverse association' do
+      @strain.reverse_stock_strains.create(:club_id => @club.id)
+      @strain.stored_in_clubs.should include(@club)
+    end
+  end
+  
   describe 'on destroy' do
     before(:each) do
       @strain = Strain.create(@attr)
@@ -60,6 +85,11 @@ describe Strain do
       tag = Factory(:tag)
       @strain.strain_tags.create(:tag_id => tag.id)
       lambda { @strain.destroy }.should change(StrainTag,:count).from(1).to(0)
+    end
+    
+    it 'should destroy reverse association' do
+      @strain.reverse_stock_strains.create(:club_id => Factory(:club).id)
+      lambda {@strain.destroy}.should change(StockStrain,:count).from(1).to(0)
     end
   end
 end
