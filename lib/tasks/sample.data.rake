@@ -15,14 +15,16 @@ def make_admins
   user = User.create!(  :email                  => "ccchen920@gmail.com",
                   :name                   => "Charles Chen",
                   :password               => "snape",
-                  :password_confirmation  => "snape")
+                  :password_confirmation  => "snape",
+                  :zipcode                => '91006')
   
   user.roles = ['member','admin']
   
   user = User.create!(  :email                  => "andtsai@gmail.com",
                   :name                   => "Andrew Tsai",
                   :password               => "muhfuh",
-                  :password_confirmation  => "muhfuh")
+                  :password_confirmation  => "muhfuh",
+                  :zipcode                => '90017')
   user.roles = ['member','admin']
 end
 
@@ -31,7 +33,8 @@ def make_users
   user = User.create!( :email                  => 'bob@gmail.com',
                 :name                   => "Bob Dylon",
                 :password               => "password",
-                :password_confirmation  => "password")
+                :password_confirmation  => "password",
+                :zipcode                => "90048")
                 
   user.roles = ['member']
                 
@@ -42,7 +45,8 @@ def make_users
     User.create!( :email                  => email,
                   :name                   => name,
                   :password               => password,
-                  :password_confirmation  => password)
+                  :password_confirmation  => password,
+                  :zipcode                => '92037')
   end
 end
 
@@ -50,9 +54,12 @@ def make_clubs
   club = Club.create!( :email                  => 'club@gmail.com',
                 :name                   => "Mj Club",
                 :password               => "password",
-                :password_confirmation  => "password")
+                :password_confirmation  => "password",
+                :address                => "1420 Oak Meadow Road, CA 91006")
   
   club.roles = ['registered']
+  
+  addresses = ['2575 W Pico Blvd, Los Angeles, CA 90006', '465 S. La Cienega Boulevard, LA, CA 90048','1111 S Figueroa St, Los Angeles, CA 90015']
   
   3.times do |n|
     name = Faker::Name.name
@@ -61,7 +68,8 @@ def make_clubs
     Club.create!( :email                  => email,
                   :name                   => name,
                   :password               => password,
-                  :password_confirmation  => password)
+                  :password_confirmation  => password,
+                  :address                => addresses[n])
   end
 end
 
