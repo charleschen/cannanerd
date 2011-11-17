@@ -2,6 +2,59 @@
 - !ruby/struct:VCR::HTTPInteraction
   request: !ruby/struct:VCR::Request
     method: :get
+    uri: http://maps.googleapis.com:80/maps/api/geocode/json?address=91006&language=en&sensor=false
+    body: !!null 
+    headers: !!null 
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/json; charset=UTF-8
+      date:
+      - Thu, 17 Nov 2011 20:10:52 GMT
+      expires:
+      - Fri, 18 Nov 2011 20:10:52 GMT
+      cache-control:
+      - public, max-age=86400
+      server:
+      - mafe
+      x-xss-protection:
+      - 1; mode=block
+      x-frame-options:
+      - SAMEORIGIN
+      transfer-encoding:
+      - chunked
+    body: ! "{\n   \"results\" : [\n      {\n         \"address_components\" : [\n
+      \           {\n               \"long_name\" : \"91006\",\n               \"short_name\"
+      : \"91006\",\n               \"types\" : [ \"postal_code\" ]\n            },\n
+      \           {\n               \"long_name\" : \"Arcadia\",\n               \"short_name\"
+      : \"Arcadia\",\n               \"types\" : [ \"locality\", \"political\" ]\n
+      \           },\n            {\n               \"long_name\" : \"Los Angeles\",\n
+      \              \"short_name\" : \"Los Angeles\",\n               \"types\" :
+      [ \"administrative_area_level_2\", \"political\" ]\n            },\n            {\n
+      \              \"long_name\" : \"California\",\n               \"short_name\"
+      : \"CA\",\n               \"types\" : [ \"administrative_area_level_1\", \"political\"
+      ]\n            },\n            {\n               \"long_name\" : \"United States\",\n
+      \              \"short_name\" : \"US\",\n               \"types\" : [ \"country\",
+      \"political\" ]\n            }\n         ],\n         \"formatted_address\"
+      : \"Arcadia, CA 91006, USA\",\n         \"geometry\" : {\n            \"bounds\"
+      : {\n               \"northeast\" : {\n                  \"lat\" : 34.19384490,\n
+      \                 \"lng\" : -117.9850730\n               },\n               \"southwest\"
+      : {\n                  \"lat\" : 34.0854010,\n                  \"lng\" : -118.0679580\n
+      \              }\n            },\n            \"location\" : {\n               \"lat\"
+      : 34.11723610,\n               \"lng\" : -118.02446390\n            },\n            \"location_type\"
+      : \"APPROXIMATE\",\n            \"viewport\" : {\n               \"northeast\"
+      : {\n                  \"lat\" : 34.19384490,\n                  \"lng\" : -117.9850730\n
+      \              },\n               \"southwest\" : {\n                  \"lat\"
+      : 34.0854010,\n                  \"lng\" : -118.0679580\n               }\n
+      \           }\n         },\n         \"types\" : [ \"postal_code\" ]\n      }\n
+      \  ],\n   \"status\" : \"OK\"\n}\n"
+    http_version: '1.1'
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :get
     uri: http://maps.googleapis.com:80/maps/api/geocode/json?address=346+Laurel+Avenue%2C+CA+91006&language=en&sensor=false
     body: !!null 
     headers: !!null 
@@ -13,9 +66,9 @@
       content-type:
       - application/json; charset=UTF-8
       date:
-      - Wed, 16 Nov 2011 23:28:04 GMT
+      - Thu, 17 Nov 2011 20:10:52 GMT
       expires:
-      - Thu, 17 Nov 2011 23:28:04 GMT
+      - Fri, 18 Nov 2011 20:10:52 GMT
       cache-control:
       - public, max-age=86400
       server:

@@ -61,13 +61,13 @@ describe "ClubCreations" do
       fill_in 'club_address', :with => '346 Laurel Avenue, CA 91006'
     end
     
-    it "should be able to create new club" do
+    it "should be able to create new club", :vcr, record: :new_episodes do
       lambda do
         click_button 'Create Club'
       end.should change(Club,:count).from(0).to(1)
     end
     
-    it 'should complete Geocode job, and return longitude and latitude values', :vcr do
+    it 'should complete Geocode job, and return longitude and latitude values', :vcr, record: :new_episodes do
       clear_resque(queue_list)
       
       click_button 'Create Club'
