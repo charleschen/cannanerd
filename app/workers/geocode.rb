@@ -1,5 +1,5 @@
 class Geocode
-  #extend HerokuAutoScaler::AutoScaling
+  extend HerokuAutoScaler::AutoScaling
   @queue = :high
   
   def self.perform(club_id)

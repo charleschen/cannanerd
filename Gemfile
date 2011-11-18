@@ -14,7 +14,7 @@ gem 'geocoder'
 gem 'ruby_parser'
 gem 'heroku'
 gem 'acts_as_list', git: 'git://github.com/swanandp/acts_as_list.git'
-gem 'likeable'
+gem 'likeable', git: 'git://github.com/schneems/Likeable.git'
 
 group :asset do
 	gem 'sass-rails', "~> 3.1.0"
@@ -56,7 +56,7 @@ group :my_test do
 	gem 'authlogic'
 	gem 'declarative_authorization',git: 'git://github.com/stffn/declarative_authorization.git'
 	gem 'faker', '0.3.1'
-	gem 'likeable'
+	gem 'likeable', git: 'git://github.com/schneems/Likeable.git'
 end
 
 group :production do

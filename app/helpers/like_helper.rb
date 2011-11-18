@@ -1,11 +1,11 @@
 module LikeHelper
 
   def like_link_for(target)
-    link_to "like it", like_path(:resource_name => target.class, :resource_id => target.id), :method => :post, :remote => false
+    link_to "like it", like_path(:resource_name => target.class, :resource_id => target.id), :method => :post, :remote => true
   end
 
   def unlike_link_for(target)
-    link_to "unlike it", like_path(:resource_name => target.class, :resource_id => target.id), :method => :delete, :remote => false
+    link_to "unlike it", like_path(:resource_name => target.class, :resource_id => target.id), :method => :delete, :remote => true
   end
 
   def likeable_links(target)

@@ -2,6 +2,7 @@ class StockStrainsController < ApplicationController
   filter_resource_access
   
   def show
+    @stock_strain = StockStrain.find(params[:id])
   end
   
   def create

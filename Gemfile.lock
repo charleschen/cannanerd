@@ -8,6 +8,15 @@ GIT
       rufus-scheduler
 
 GIT
+  remote: git://github.com/schneems/Likeable.git
+  revision: b4930a8c4ad1d1bbcf619714b83aedfacc9fc852
+  specs:
+    likeable (0.1.0)
+      activesupport
+      keytar (>= 1.5.2)
+      redis
+
+GIT
   remote: git://github.com/stffn/declarative_authorization.git
   revision: 2b26106edd97cf5c72a51e144d5f192ecbc3c19a
   specs:
@@ -121,10 +130,6 @@ GEM
       activesupport
     launchy (2.0.5)
       addressable (~> 2.2.6)
-    likeable (0.1.0)
-      activesupport
-      keytar (>= 1.5.2)
-      redis
     macaddr (1.4.0)
       systemu (~> 2.2.0)
     mail (2.3.0)
@@ -272,7 +277,7 @@ DEPENDENCIES
   heroku
   hirb
   jquery-rails
-  likeable
+  likeable!
   mocha
   nifty-generators
   pg
