@@ -45,4 +45,9 @@ $(function(){
 	// 	$.getScript(this.href);
 	// 	return false;
 	// });
+	
+	$("#strain_search_form").submit(function(){
+		$.get(this.action, $(this).serialize(), null, "script");
+		return false;
+	}); 
 });

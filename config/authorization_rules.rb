@@ -25,6 +25,8 @@ authorization do
     has_permission_on [:answers], :to => [:edit, :update,:index]
     
     has_permission_on [:strains], :to => :manage
+    
+    has_permission_on [:stock_strains], :to => [:show,:create,:destroy]
   end
   
   role :unregistered do

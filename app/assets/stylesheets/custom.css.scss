@@ -381,6 +381,46 @@ div#questionnaire_real {
 }
 
 
+/**************** club show **********************/
+
+div.club_info{
+	background: #AAB;
+	width: 408px;
+	float: left;
+	padding: 0 14px 0 14px;
+	// 436 px
+}
+
+div.strain_list{
+	background: #AAC;
+	width: 221px;
+	float: right;
+	padding-left: 7px;
+	padding-right: 7px;
+	//235
+}
+
+
+
+table#strain_search{
+	//width: 93%;
+}
+
+
+
+
+div.club_info{
+	div.stats{
+		margin-bottom: 10px;
+	}
+	
+	div.strains{
+		padding-top: 5px;
+		border-top: 1px dotted black;
+	}
+}
+
+
 /**************** pagination **********************/
 
 div.apple_pagination{

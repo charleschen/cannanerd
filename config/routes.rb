@@ -13,7 +13,9 @@ Cannanerd::Application.routes.draw do
   post 'new_user_session', :to => 'user_sessions#create'
   match 'logout', :to => 'user_sessions#destroy'
   
-  resources :clubs
+  resources :clubs do
+
+  end
   resources :club_sessions, :only => [:new, :create, :destroy]
   match 'club_logout', :to => 'club_sessions#destroy'
   match 'club_login', :to => 'club_sessions#new'
@@ -25,6 +27,8 @@ Cannanerd::Application.routes.draw do
   resources :questionnaires do
     collection {post :sort}
   end
+  
+  resources :stock_strains, :only => [:show,:create,:destroy]
   
   resources :strains
   

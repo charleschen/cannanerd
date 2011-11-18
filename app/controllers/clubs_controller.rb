@@ -42,7 +42,7 @@ class ClubsController < ApplicationController
       @miles_selected = [5]
     end
     
-    if current_user
+    if current_user && current_user.has_role?('admin') == false
       @clubs = Club.near(current_user.zipcode, @miles_selected.first, :order => :distance)
     else
       @clubs = Club.all
@@ -55,5 +55,9 @@ class ClubsController < ApplicationController
     if current_user
       @distance = @club.distance_from(current_user.zipcode)
     end
+    
+    @strains = Strain.search(params[:strain_search])
+    
+    @stock_strains = @club.stock_strains
   end
 end

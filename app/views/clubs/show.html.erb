@@ -11,10 +11,37 @@
 <% end %>
 
 <div class='sg-24 sgParent'>
-	<h1><%= @club.name %></h1>
-	<ul>
-		<li>Email: <%= @club.email %></li>
-		<li>Address: <%= @club.address %></li>
-		<li>Distance from you: <b><%= @distance.round(2) unless @distance.nil? %> miles</b></li>
-	</ul>
+	<div class="club_info">
+		<div class='stats'>
+			<h1><%= @club.name %></h1>
+			<ul>
+				<li>Email: <%= @club.email %></li>
+				<li>Address: <%= @club.address %></li>
+				<li>Distance from you: <b><%= @distance.round(2) unless @distance.nil? %> miles</b></li>
+			</ul>
+		</div>
+		
+		<div class='clear'></div>
+		
+		<div class='strains'>
+			<h2>Strains Available:</h2>
+			<table>
+				<% @stock_strains.each do |stock_strain| %>
+					<tr>
+						<td><%= link_to stock_strain.strain.name, stock_strain_path(stock_strain) %></td>
+					</tr>
+				<% end %>
+			</table>
+		</div>
+		
+	</div>
+	
+	
+	<div class='strain_list'>
+		<%= form_tag club_path(@club), :method => :get, :id => 'strain_search_form', :remote => true do %>
+			<%= text_field_tag :strain_search  %>
+			<%= submit_tag 'search' %>
+		<% end %>
+		<div id='strains_search'><%= render 'shared/strain_search', :club => @club, :strains => @strains %></div>
+	</div>
 </div>

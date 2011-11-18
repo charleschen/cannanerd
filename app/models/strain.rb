@@ -21,6 +21,14 @@ class Strain < ActiveRecord::Base
   has_many :reverse_stock_strains, :class_name => 'StockStrain', :dependent => :destroy, :foreign_key => 'strain_id'
   has_many :stored_in_clubs, :through => :reverse_stock_strains, :source => :club
   
+  def self.search(search)
+    if search
+      where('name LIKE ?', "%#{search}%")
+    else
+      scoped
+    end
+  end
+  
   def tag_tokens=(ids)
     self.tag_ids = ids.split(',')
   end

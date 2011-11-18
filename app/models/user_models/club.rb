@@ -71,6 +71,18 @@ class Club < ActiveRecord::Base
     self.roles = ['registered']
   end
   
+  def add_to_inventory!(strain)
+    self.stock_strains.create!(:strain_id => strain.id)
+  end
+  
+  def remove_from_inventory!(strain)
+    self.stock_strains.find_by_strain_id(strain).destroy
+  end
+  
+  def in_inventory?(strain)
+    self.strains_in_inventory.include?(strain)
+  end
+  
   private
     def get_geocode
       Resque::enqueue(Geocode,self.id)

@@ -188,6 +188,31 @@ describe Club do
       @club.stock_strains.create(:strain_id => @strain.id)
       @club.strains_in_inventory.should include(@strain)
     end
+    
+    it 'should respond to :add_to_inventory' do
+      @club.should respond_to(:add_to_inventory!)
+    end
+    
+    it ':add_to_inventory should create association' do
+      @club.add_to_inventory!(@strain)
+      @club.strains_in_inventory.should include(@strain)
+    end
+    
+    it 'should respond to :remove_from_inventory' do
+      @club.should respond_to(:remove_from_inventory!)
+    end
+    
+    it ':remove_from_inventory should destroy association' do
+      @club.add_to_inventory!(@strain)
+      lambda {@club.remove_from_inventory!(@strain)}.should change(StockStrain,:count).from(1).to(0)
+      @club.strains_in_inventory.should_not include(@strain)
+    end
+    
+    it 'should respond to :in_inventory?' do
+      @club.should respond_to(:in_inventory?)
+      @club.add_to_inventory!(@strain)
+      @club.should be_in_inventory(@strain)
+    end
   end
   
   describe 'on destroy' do
