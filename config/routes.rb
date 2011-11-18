@@ -1,43 +1,31 @@
 Cannanerd::Application.routes.draw do
 
-  resources :users
-  
-  # match 'login', :to => 'user_sessions#new'
-  # match 'logout', :to => 'user_sessions#destroy'
-  
-  #resources :user_sessions, :only => [:new, :create, :destroy]
   
   mount Resque::Server, :at => "/resque"
-
+  delete 'likes/:resource_name/:resource_id' => 'likes#destroy', :as => 'like'
+  post 'likes/:resource_name/:resource_id' => 'likes#create', :as => 'like'
+  
+  resources :users
   match 'login', :to => 'user_sessions#new'
   post 'new_user_session', :to => 'user_sessions#create'
   match 'logout', :to => 'user_sessions#destroy'
   
-  resources :clubs do
-
-  end
+  resources :clubs
   resources :club_sessions, :only => [:new, :create, :destroy]
   match 'club_logout', :to => 'club_sessions#destroy'
   match 'club_login', :to => 'club_sessions#new'
   
   resources :user_verifications, :only => [:show]
-  
-  match 'create_answer', :to => 'answers#create_answer'
 
   resources :questionnaires do
     collection {post :sort}
   end
   
+  resources :strains
+  resources :tags
   resources :stock_strains, :only => [:show,:create,:destroy]
   
-  resources :strains
-  
-  resources :tags do
-    
-  end
-  
   resources :answers, :only => [:edit,:update,:index]
-
   resources :quizzes
 
   root            :to => 'pages#home'

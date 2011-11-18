@@ -8,6 +8,12 @@ GIT
       rufus-scheduler
 
 GIT
+  remote: git://github.com/stffn/declarative_authorization.git
+  revision: 2b26106edd97cf5c72a51e144d5f192ecbc3c19a
+  specs:
+    declarative_authorization (0.5.3)
+
+GIT
   remote: git://github.com/swanandp/acts_as_list.git
   revision: e0e8daa16e9864d4e5e1ee1db21332cf69f0eab5
   specs:
@@ -71,7 +77,6 @@ GEM
     coffee-script-source (1.1.2)
     daemons (1.1.4)
     database_cleaner (0.6.7)
-    declarative_authorization (0.5.3)
     diff-lcs (1.1.3)
     em-websocket (0.3.5)
       addressable (>= 2.1.1)
@@ -112,8 +117,14 @@ GEM
       thor (~> 0.14)
     json (1.6.1)
     json_pure (1.6.1)
+    keytar (1.5.3)
+      activesupport
     launchy (2.0.5)
       addressable (~> 2.2.6)
+    likeable (0.1.0)
+      activesupport
+      keytar (>= 1.5.2)
+      redis
     macaddr (1.4.0)
       systemu (~> 2.2.0)
     mail (2.3.0)
@@ -250,7 +261,7 @@ DEPENDENCIES
   capybara
   coffee-rails (~> 3.1.0)
   database_cleaner
-  declarative_authorization
+  declarative_authorization!
   exceptional
   factory_girl_rails (= 1.3.0)
   faker (= 0.3.1)
@@ -261,6 +272,7 @@ DEPENDENCIES
   heroku
   hirb
   jquery-rails
+  likeable
   mocha
   nifty-generators
   pg

@@ -39,4 +39,11 @@ describe StockStrain do
   it 'should create with strain association', :vcr do
     club.stock_strains.create!(:strain_id => @strain.id)
   end
+  
+  describe 'on destroy', :vcr do
+    it 'should be successful' do
+      association = club.stock_strains.create(:strain_id => @strain.id)
+      association.destroy
+    end
+  end
 end

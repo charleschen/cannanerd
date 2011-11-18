@@ -24,6 +24,8 @@ require 'authlogic'
 require 'geocoder'
 
 class Club < ActiveRecord::Base
+  #include Likeable
+  
   email_name_regex  = '[A-Z0-9_\.%\+\-\']+'
   domain_head_regex = '(?:[A-Z0-9\-]+\.)+'
   domain_tld_regex  = '(?:[A-Z]{2,4}|museum|travel)'

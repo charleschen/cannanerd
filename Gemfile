@@ -8,12 +8,13 @@ gem 'resque', :require => "resque/server"
 gem 'resque-scheduler', :require => 'resque_scheduler', git: 'git://github.com/bvandenbos/resque-scheduler'
 gem 'resque-status'
 gem 'exceptional'
-gem 'declarative_authorization'
+gem 'declarative_authorization', git: 'git://github.com/stffn/declarative_authorization.git'
 gem 'faker', '0.3.1'
 gem 'geocoder'
 gem 'ruby_parser'
 gem 'heroku'
 gem 'acts_as_list', git: 'git://github.com/swanandp/acts_as_list.git'
+gem 'likeable'
 
 group :asset do
 	gem 'sass-rails', "~> 3.1.0"
@@ -53,8 +54,9 @@ end
 group :my_test do
 	gem 'will_paginate', '3.0.2'
 	gem 'authlogic'
-	gem 'declarative_authorization'
+	gem 'declarative_authorization',git: 'git://github.com/stffn/declarative_authorization.git'
 	gem 'faker', '0.3.1'
+	gem 'likeable'
 end
 
 group :production do

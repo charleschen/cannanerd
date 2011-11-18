@@ -6,13 +6,40 @@ require 'resque/status_server'
 rails_root = ENV['RAILS_ROOT'] || File.dirname(__FILE__) + '/../..'
 rails_env = ENV['RAILS_ENV'] || 'development'
 
-
-if Rails.env.production? || Rails.env.staging?
+if Rails.env.production? || Rails.env.staging? 
   uri = URI.parse(ENV["REDISTOGO_URL"])
-  Resque.redis = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
+  redis = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
 else
-  Resque.redis = ENV["REDIS_SERVER"]
+  redis = ENV["REDIS_SERVER"]
+  #redis = Redis.new()
 end
+
+Resque.redis = redis
+
+#Likeable.redis = Redis.new()
+
+Likeable.setup do |c|
+  if Rails.env.production? || Rails.env.staging? 
+    c.redis = redis
+  else
+    c.redis = Redis.new()
+  end
+end
+
+# if Rails.env.production? || Rails.env.staging?
+#   
+#   Resque.redis = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
+# else
+#   Resque.redis = ENV["REDIS_SERVER"]
+# end
+
+# Likeable.setup do |c|
+#   if Rails.env.production? || Rails.env.staging?
+#     c.redis = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
+#   else
+#     c.redis = ENV["REDIS_SERVER"]
+#   end
+# end
 
 Resque.schedule = YAML.load_file(rails_root + '/config/resque_schedule.yml')
 

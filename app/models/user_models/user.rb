@@ -19,8 +19,10 @@
 #
 
 require 'authlogic'
+require 'likeable'
 
 class User < ActiveRecord::Base
+  include Likeable::UserMethods
   acts_as_authentic do |c|
     #c.validates_format_of_login_field_options(:with => /\A\w[\w\.+\-_@' ]+$/)
     #c.find_by_login_method = :find_by_email

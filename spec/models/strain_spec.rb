@@ -12,11 +12,17 @@
 #
 
 require 'spec_helper'
-support_require 'redis'
+support_require 'vcr'
+#support_require 'redis'
 
 describe Strain do
+  before(:all) do
+    Resque.inline = true
+  end
+  
   after(:all) do
-    clear_resque(['critical','high','medium','low'])
+    Resque.inline = false
+    #clear_resque(['critical','high','medium','low'])
   end
   
   before(:each) do
@@ -58,15 +64,15 @@ describe Strain do
       @club = Factory(:club)
     end
     
-    it 'should respond to :reverse_stock_strains' do
+    it 'should respond to :reverse_stock_strains', :vcr do
       @strain.should respond_to(:reverse_stock_strains)
     end
     
-    it 'should respond to :stored_in_clubs' do
+    it 'should respond to :stored_in_clubs', :vcr do
       @strain.should respond_to(:stored_in_clubs)
     end
     
-    it 'should create reverse association' do
+    it 'should create reverse association', :vcr do
       @strain.reverse_stock_strains.create(:club_id => @club.id)
       @strain.stored_in_clubs.should include(@club)
     end
@@ -87,9 +93,11 @@ describe Strain do
       lambda { @strain.destroy }.should change(StrainTag,:count).from(1).to(0)
     end
     
-    it 'should destroy reverse association' do
-      @strain.reverse_stock_strains.create(:club_id => Factory(:club).id)
-      lambda {@strain.destroy}.should change(StockStrain,:count).from(1).to(0)
+    it 'should destroy reverse association', :vcr do
+      relationship = @strain.reverse_stock_strains.create(:club_id => Factory(:club).id)
+      relationship.destroy
+      @strain.destroy
+      #lambda {@strain.destroy}.should change(StockStrain,:count).from(1).to(0)
     end
   end
 end

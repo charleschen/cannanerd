@@ -14,6 +14,8 @@ authorization do
     has_permission_on [:users], :to => [:show,:edit] do
       if_attribute :id => is { user.id }
     end
+    
+    has_permission_on [:likes], :to => [:create,:destroy]
   end
   
   role :admin do

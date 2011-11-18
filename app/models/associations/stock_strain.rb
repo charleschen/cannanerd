@@ -11,6 +11,8 @@
 #
 
 class StockStrain < ActiveRecord::Base
+  include Likeable
+  
   attr_accessible :club_id, :strain_id
   
   belongs_to :club
