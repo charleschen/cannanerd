@@ -1,0 +1,14 @@
+<ul>
+	<% if permitted_to? :edit, :strains %>
+		<li><%= button_to 'edit', edit_strain_path(strain), :method => :get  %></li>
+	<% end %>
+	<li>
+		<%= form_for(club.stock_strains.build(:strain_id => strain.id), :remote => true) do |f| %>
+			<div><%= f.hidden_field :strain_id %></div>
+			<div><%= f.hidden_field :club_id %></div>
+			<div class='actions'>
+				<%= f.submit '+' %>
+			</div>
+		<% end %>
+	</li>
+</ul>

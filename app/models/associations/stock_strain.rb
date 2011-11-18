@@ -13,7 +13,7 @@
 class StockStrain < ActiveRecord::Base
   include Likeable
   
-  attr_accessible :club_id, :strain_id
+  attr_accessible :club_id, :strain_id, :description
   
   belongs_to :club
   belongs_to :strain

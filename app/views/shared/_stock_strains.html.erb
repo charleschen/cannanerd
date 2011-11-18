@@ -1,0 +1,9 @@
+<table>
+	<% stock_strains.each do |stock_strain| %>
+	<% unless stock_strain.id.nil? %>
+		<tr>
+			<td><%= link_to stock_strain.strain.name, stock_strain_path(stock_strain) %></td>
+		</tr>
+	<% end %>
+	<% end %>
+</table>

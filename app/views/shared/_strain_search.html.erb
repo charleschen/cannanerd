@@ -1,24 +1,13 @@
-<table id='strains' summary='strain search list'>
-	<% strains.each do |strain| %>
-		<tr>
-			<td>
-				<ul>
-					<li><%= strain.name %></li>
-					<li><span class='description sub'><%= truncate(strain.description, :length => 30) %></span></li>
-				</ul>
-			</td>
-			<td>
-				<% unless club.in_inventory?(strain) %>
-					<%= render 'add_to_inv', :club => club, :strain => strain %>
-				<% else %>
-					<% if permitted_to? :destroy, :stock_strains %>
-						<%= render 'remove_from_inv', :club => club, :strain => strain %>
-					<% else %>
-					<%= render 'remove_from_inv', :club => club, :strain => strain %>
-						<span>In inventory</span>
-					<% end %>
-				<% end %>
-			</td>
-		</tr>
+<% strains.each do |strain| %>
+<div id='stock_strain_action_<%= "#{club.id}_#{strain.id}" %>' class='buttons'>
+	<% unless club.in_inventory?(strain) %>
+		<%= render 'shared/add_to_inv', :club => club, :strain => strain %>
+	<% else %>
+		<%= render 'shared/remove_from_inv', :club => club, :strain => strain %>
 	<% end %>
-</table>
+</div>
+<ul>
+	<li><%= strain.name %></li>
+	<li class='description'><span class='sub'><%= truncate(strain.description, :length => 75) %></span></li>
+</ul>
+<% end %>

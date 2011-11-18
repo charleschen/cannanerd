@@ -1,7 +1,0 @@
-<%= form_for(club.stock_strains.build(:strain_id => strain.id)) do |f| %>
-	<div><%= f.hidden_field :strain_id %></div>
-	<div><%= f.hidden_field :club_id %></div>
-	<div class='actions'>
-		<%= f.submit 'Add To Inventory' %>
-	</div>
-<% end %>

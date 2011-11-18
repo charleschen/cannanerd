@@ -23,7 +23,7 @@ Cannanerd::Application.routes.draw do
   
   resources :strains
   resources :tags
-  resources :stock_strains, :only => [:show,:create,:destroy]
+  resources :stock_strains, :only => [:edit,:update,:show,:create,:destroy]
   
   resources :answers, :only => [:edit,:update,:index]
   resources :quizzes

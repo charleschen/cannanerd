@@ -28,7 +28,7 @@ authorization do
     
     has_permission_on [:strains], :to => :manage
     
-    has_permission_on [:stock_strains], :to => [:show,:create,:destroy]
+    has_permission_on [:stock_strains], :to => [:edit,:update,:show,:create,:destroy]
   end
   
   role :unregistered do

@@ -431,6 +431,19 @@ div.club_info{
 	}
 }
 
+div#strains_search{
+	li.description{
+		line-height: 1.5;
+	}
+	
+	div.buttons{
+		float: right;
+		li{
+			float: left;
+		}
+	}
+}
+
 
 /**************** pagination **********************/
 

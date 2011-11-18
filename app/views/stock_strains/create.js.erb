@@ -1,0 +1,2 @@
+$('<%="div#stock_strain_action_#{@club.id}_#{@strain.id}"%>').html("<%= escape_javascript( render 'shared/remove_from_inv', :club => @club, :strain => @strain) %>");
+$("div#stock_strains").html("<%= escape_javascript(render 'shared/stock_strains', :stock_strains => @stock_strains ) %>");

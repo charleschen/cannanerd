@@ -1,4 +1,4 @@
-<% title 'Home'%>
+<% title '@club.name Dispensary'%>
 <% subtitle @club.name %>
 
 <%= content_for :navbar do %>
@@ -26,19 +26,15 @@
 		
 		<div class='strains'>
 			<h2>Strains Available:</h2>
-			<table>
-				<% @stock_strains.each do |stock_strain| %>
-					<tr>
-						<td><%= link_to stock_strain.strain.name, stock_strain_path(stock_strain) %></td>
-					</tr>
-				<% end %>
-			</table>
+			<div id='stock_strains'>
+				<%= render 'shared/stock_strains', :stock_strains => @stock_strains %>
+			</div>
 		</div>
-		
 	</div>
 	
 	
 	<div class='strain_list'>
+		<h1>Strain Index <br/><span class='sub'>add/remove from inventory</span></h1>
 		<%= form_tag club_path(@club), :method => :get, :id => 'strain_search_form', :remote => true do %>
 			<%= text_field_tag :strain_search  %>
 			<%= submit_tag 'search' %>
