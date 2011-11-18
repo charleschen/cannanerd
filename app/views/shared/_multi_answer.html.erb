@@ -1,5 +1,5 @@
 <li id='multi_answer' class="questions">
-	<%= quiziation.question.content %>
+	<%= "#{quiziation.question.content}" %>
 	<ul>
 	<% quiziation.question.answers.each do |answer| %>
 		<%= f.fields_for :quiziations, quiziation do |builder| %>

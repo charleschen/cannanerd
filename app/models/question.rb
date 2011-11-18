@@ -8,10 +8,25 @@
 #  multichoice      :boolean         default(FALSE)
 #  created_at       :datetime
 #  updated_at       :datetime
+#  position         :integer
 #
 
+# == Schema Information
+#
+# Table name: questions
+#
+#  id               :integer         not null, primary key
+#  content          :text
+#  questionnaire_id :integer
+#  multichoice      :boolean         default(FALSE)
+#  created_at       :datetime
+#  updated_at       :datetime
+#
+require 'acts_as_list'
+
 class Question < ActiveRecord::Base
-  attr_accessible :answers_attributes,:content, :questionnaire_id, :multichoice
+  acts_as_list
+  attr_accessible :answers_attributes,:content, :questionnaire_id, :multichoice,:position
   
   validates :content, :presence => true
   validates :questionnaire_id, :presence => true

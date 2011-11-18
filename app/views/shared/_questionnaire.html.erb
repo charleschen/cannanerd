@@ -8,7 +8,11 @@
 	<% end %>
 <% end %>
 </ol>
-<%= f.submit 'back', :name => 'prev_page' unless quiz.first_page? %>
-<%= f.submit 'next', :name => 'next_page' unless quiz.last_page?%>
-<%= f.submit 'submit', :name => 'submit' if quiz.last_page? %>
+<% if quiz.first_page? %>
+<div class='fake_button'><pre> </pre></div>
+<% else %>
+<div class='back_button'><%= f.submit 'back', {:name => 'prev_page'} %></div>
+<% end %>
+<div class='next_button'><%= f.submit 'next', {:name => 'next_page'} unless quiz.last_page?%></div>
+<div class='submit_button'><%= f.submit 'submit', {:name => 'submit'} if quiz.last_page? %></div>
 <% end %>

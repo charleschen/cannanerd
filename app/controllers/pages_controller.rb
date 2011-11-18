@@ -13,13 +13,13 @@ class PagesController < ApplicationController
         @quiz.current_page = quiz_session.current_page
       
         if params[:next_page]
-          @quiziations = @quiz.quiziations.paginate(:page => @quiz.next_page, :per_page => @questionnaire.per_page)
+          @quiziations = @quiz.quiziations.order('position').paginate(:page => @quiz.next_page, :per_page => @questionnaire.per_page)
           session[:current_page] = @quiz.current_page
         elsif params[:prev_page]
-          @quiziations = @quiz.quiziations.paginate(:page => @quiz.prev_page, :per_page => @questionnaire.per_page)
+          @quiziations = @quiz.quiziations.order('position').paginate(:page => @quiz.prev_page, :per_page => @questionnaire.per_page)
           session[:current_page] = @quiz.current_page
         else
-          @quiziations = @quiz.quiziations.paginate(:page => @quiz.current_page, :per_page => @questionnaire.per_page)
+          @quiziations = @quiz.quiziations.order('position').paginate(:page => @quiz.current_page, :per_page => @questionnaire.per_page)
         end
       
         respond_to do |format|
@@ -37,7 +37,7 @@ class PagesController < ApplicationController
   def take_quiz
     quiz_session.init_quiz
     @quiz = quiz_session.get_quiz
-    @quiziations = @quiz.quiziations.paginate(:page => @quiz.current_page, :per_page => Questionnaire.first.per_page)
+    @quiziations = @quiz.quiziations.order('position').paginate(:page => @quiz.current_page, :per_page => Questionnaire.first.per_page)
     
     respond_to do |format|
       format.html { redirect_to root_path }

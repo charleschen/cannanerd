@@ -18,11 +18,12 @@
 
 
 <div class='sgParent sg-24'>
-	<%= button_to 'Edit questionnaire', edit_questionnaire_path(@questionnaire), :method => :get %>
+	<%= button_to 'Edit questionnaire', edit_questionnaire_path(Questionnaire.first), :method => :get %>
 	<div id='questionnaire'>
-		<ol>
-			<% @questionnaire.questions.each do |question| %>
-			<li class='questions'>
+		<ol id='questions' data-update-url="<%= sort_questionnaires_url %>">
+			<% @questions.each do |question| %>
+			<%= content_tag_for :li, question, :class => 'questions' do %>
+				<span class='handle'>[drag]</span>
 				<%= "#{question.content}" %>
 				<ul>
 					<% question.answers.each do |answer| %>
@@ -30,7 +31,7 @@
 					<% end %>
 				
 				</ul>
-			</li>
+			<% end %>
 			<% end %>
 		</ol>
 	</div>

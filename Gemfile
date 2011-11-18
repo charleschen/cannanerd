@@ -13,6 +13,7 @@ gem 'faker', '0.3.1'
 gem 'geocoder'
 gem 'ruby_parser'
 gem 'heroku'
+gem 'acts_as_list', git: 'git://github.com/swanandp/acts_as_list.git'
 
 group :asset do
 	gem 'sass-rails', "~> 3.1.0"

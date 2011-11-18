@@ -23,6 +23,7 @@ Cannanerd::Application.routes.draw do
   match 'create_answer', :to => 'answers#create_answer'
 
   resources :questionnaires do
+    collection {post :sort}
   end
   
   resources :strains

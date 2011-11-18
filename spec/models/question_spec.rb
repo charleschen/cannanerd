@@ -8,6 +8,7 @@
 #  multichoice      :boolean         default(FALSE)
 #  created_at       :datetime
 #  updated_at       :datetime
+#  position         :integer
 #
 
 require 'spec_helper'

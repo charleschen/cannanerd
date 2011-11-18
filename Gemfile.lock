@@ -7,6 +7,12 @@ GIT
       resque (>= 1.19.0)
       rufus-scheduler
 
+GIT
+  remote: git://github.com/swanandp/acts_as_list.git
+  revision: e0e8daa16e9864d4e5e1ee1db21332cf69f0eab5
+  specs:
+    acts_as_list (0.1.4)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -238,6 +244,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  acts_as_list!
   annotate (= 2.4.0)
   authlogic
   capybara

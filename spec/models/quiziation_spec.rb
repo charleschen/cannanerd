@@ -8,6 +8,7 @@
 #  answers_hash :string(255)     default("{}")
 #  created_at   :datetime
 #  updated_at   :datetime
+#  position     :integer
 #
 
 require 'spec_helper'

@@ -49,6 +49,8 @@ div#subtitle{
 
 /*************** flash **********************/
 
+
+
 div#flash{
 	//width: 100%;
 	height: 30px;
@@ -199,6 +201,11 @@ table.index{
 }
 
 
+#questions .handle{
+	font-size: 80%;
+	color: #777;
+	cursor: move;
+}
 
 table.with_tags{
 	width: 100%;
@@ -260,7 +267,6 @@ div.quiz_button{
 }
 
 div#guest_home{
-	background-color: black;
 }
 
 /*************** answer ******************/
@@ -326,16 +332,19 @@ div#questionnaire {
 div#questionnaire_real {
 	background-color: white;
 
-	padding-left: 28px;
 
 	
 	ol{
-		padding-top: 15px;
-		list-style: decimal;
+		list-style: none;
 		li.questions{
+			padding: 5px 0 0 14px;
+			border-top: 1px dotted #AAA;
 			line-height: 16px;
 			clear:both;
 			margin-bottom: 25px;
+			&:first-child{
+				border: none;
+			}
 		}
 	}
 	ul{
@@ -346,6 +355,28 @@ div#questionnaire_real {
 			line-height: 16px;
 			padding-top: 5px;
 		}
+	}
+	
+	div.fake_button{
+		//font-color: white !important;
+		font-style: italic;
+		width: 46px;
+		float: left;
+	}
+	
+	div.next_button{
+		float: left;
+		margin-left: 5px;
+	}
+	
+	div.back_button{
+		margin-left: 50px;
+		float: left;
+	}
+	
+	div.submit_button{
+		margin-right: 10px;
+		float: right;
 	}
 }
 

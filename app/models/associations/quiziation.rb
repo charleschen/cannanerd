@@ -8,6 +8,7 @@
 #  answers_hash :string(255)     default("{}")
 #  created_at   :datetime
 #  updated_at   :datetime
+#  position     :integer
 #
 
 class Quiziation < ActiveRecord::Base
@@ -20,6 +21,8 @@ class Quiziation < ActiveRecord::Base
   validates :quiz_id, :presence => true
   validates :question_id, :presence => true
   validates :answers_hash, :presence => true
+  
+  before_create :update_position
   
   def checked_answers
     answers
@@ -44,9 +47,19 @@ class Quiziation < ActiveRecord::Base
     self.save!
   end
   
+  def update_position_now
+    self.position = self.question.position
+    save
+  end
+  
   private  
     def answers
       hash = eval(self.answers_hash)
       hash.map {|key,val| "#{key};#{val}"}
     end
+    
+    def update_position
+      self.position = self.question.position
+    end
+
 end
