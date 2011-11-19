@@ -6,7 +6,7 @@
 		<%= form_for(club.stock_strains.build(:strain_id => strain.id), :remote => true) do |f| %>
 			<div><%= f.hidden_field :strain_id %></div>
 			<div><%= f.hidden_field :club_id %></div>
-			<div class='actions'>
+			<div class='actions ajax_form'>
 				<%= f.submit '+' %>
 			</div>
 		<% end %>

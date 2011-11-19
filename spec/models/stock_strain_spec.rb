@@ -8,6 +8,8 @@
 #  description :text
 #  created_at  :datetime
 #  updated_at  :datetime
+#  data        :text
+#  available   :boolean
 #
 
 require 'spec_helper'
@@ -38,6 +40,19 @@ describe StockStrain do
   
   it 'should create with strain association', :vcr do
     club.stock_strains.create!(:strain_id => @strain.id)
+  end
+  
+  it 'available attribute should be true by default', :vcr do
+    stock_strain = club.stock_strains.create(:strain_id => @strain.id)
+    stock_strain.should be_available
+
+    stock_strain.should respond_to(:make_unavailable!)
+    stock_strain.make_unavailable!
+    stock_strain.should_not be_available
+    
+    stock_strain.should respond_to(:make_available!)
+    stock_strain.make_available!
+    stock_strain.should be_available
   end
   
   describe 'on destroy', :vcr do

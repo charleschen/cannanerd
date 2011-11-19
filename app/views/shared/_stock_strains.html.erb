@@ -3,6 +3,15 @@
 	<% unless stock_strain.id.nil? %>
 		<tr>
 			<td><%= link_to stock_strain.strain.name, stock_strain_path(stock_strain) %></td>
+			<td>
+				<div id="available_action_<%=stock_strain.id%>">
+					<% if stock_strain.available? %>
+					<%= render 'stock_strains/make_unavailable', :stock_strain => stock_strain %>
+					<% else %>
+					<%= render 'stock_strains/make_available', :stock_strain => stock_strain %>
+					<% end %>
+				</div>
+			</td>
 		</tr>
 	<% end %>
 	<% end %>

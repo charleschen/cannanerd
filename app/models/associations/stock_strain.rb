@@ -8,6 +8,8 @@
 #  description :text
 #  created_at  :datetime
 #  updated_at  :datetime
+#  data        :text
+#  available   :boolean
 #
 
 class StockStrain < ActiveRecord::Base
@@ -20,4 +22,14 @@ class StockStrain < ActiveRecord::Base
   
   validates :club_id, :presence => true
   validates :strain_id, :presence => true
+  
+  def make_available!
+    self.available = true
+    save
+  end
+  
+  def make_unavailable!
+    self.available = false
+    save
+  end
 end

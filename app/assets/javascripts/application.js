@@ -46,6 +46,17 @@ $(function(){
 	// 	return false;
 	// });
 	
+	$(".ajax_form > input").live("click",function(){
+		//alert('button clicking');
+		//$('.ajax_form').append('loading....');
+		//$('.ajax_form input.werd').type('hidden');
+		//$('.ajax_form input#'+$('.ajax_form').data('button-id')).hide();
+		$(this).parent().append('loading....');
+		$(this).hide();
+		$(this).callRemote();
+		return false;
+	});
+	
 	$("#strain_search_form").submit(function(){
 		$.get(this.action, $(this).serialize(), null, "script");
 		return false;

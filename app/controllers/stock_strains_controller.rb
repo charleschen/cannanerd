@@ -1,5 +1,5 @@
 class StockStrainsController < ApplicationController
-  filter_resource_access
+  filter_access_to :new => [:make_available, :make_unavailable], :attribute_check => false
   
   def show
     @stock_strain = StockStrain.find(params[:id])
@@ -16,8 +16,21 @@ class StockStrainsController < ApplicationController
     end
   end
   
-  def edit
+  def destroy
+    @club = Club.find(params[:stock_strain][:club_id])
+    @strain = Strain.find(params[:stock_strain][:strain_id])
+    @club.remove_from_inventory!(@strain)
+    @stock_strains = @club.stock_strains
     
+    puts @stock_strains.count
+    respond_to do |format|
+      format.html { redirect_to @club }
+      format.js
+    end
+  end
+  
+  def edit
+    @strain = StockStrain.find(params[:id])
   end
   
   def update
@@ -30,15 +43,24 @@ class StockStrainsController < ApplicationController
     end
   end
   
-  def destroy
-    @club = Club.find(params[:stock_strain][:club_id])
-    @strain = Strain.find(params[:stock_strain][:strain_id])
-    @club.remove_from_inventory!(@strain)
-    @stock_strains = @club.stock_strains
+  def make_available
+    #raise params.inspect
+    @stock_strain = StockStrain.find(params[:id])
+    @stock_strain.make_available!
     
-    puts @stock_strains.count
     respond_to do |format|
-      format.html { redirect_to @club }
+      format.html { redirect_to :back }
+      format.js
+    end
+  end
+  
+  def make_unavailable
+    #raise params.inspect
+    @stock_strain = StockStrain.find(params[:id])
+    @stock_strain.make_unavailable!
+    
+    respond_to do |format|
+      format.html { redirect_to :back }
       format.js
     end
   end

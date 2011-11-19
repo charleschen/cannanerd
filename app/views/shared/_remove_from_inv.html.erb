@@ -7,7 +7,7 @@
 	<%= form_for(club.stock_strains.find_by_strain_id(strain.id), :html => { :method => :delete}, :remote => true) do |f| %>
 		<div><%= f.hidden_field :strain_id %></div>
 		<div><%= f.hidden_field :club_id %></div>
-		<div class='actions'>
+		<div class='actions ajax_form'>
 			<%= f.submit '-', {:confirm => 'Removing this will delete ALL DATA pertaining for this strain relating to this club.  Are you sure?'} %>
 		</div>
 	<% end %>
