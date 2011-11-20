@@ -34,6 +34,7 @@ class StockStrainsController < ApplicationController
   end
   
   def update
+    @stock_strain = StockStrain.find(params[:id])
     if @stock_strain.update_attributes(params[:stock_strain])
       flash[:success] = "Strain updated"
       redirect_to stock_strain_path(@stock_strain)
