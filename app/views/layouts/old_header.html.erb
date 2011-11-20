@@ -1,0 +1,46 @@
+<header>
+	<div class="header">
+		<h1 id='cannanerd'>
+			<a href="<%= root_path %>">Canna</br>Nerd</a>
+			</h1>
+		<div class="sg-5">
+			<h2>Login</h2>
+			<ul>
+				<% if current_user %>
+				<li><%= link_to 'Logout', logout_path %></li>
+				<% else %>
+				<li><%= link_to 'Login', login_path %></li>
+				<% end %>
+			</ul>
+		</div>
+		<div class="sg-5">
+			<h2>Club</h2>
+			<ul>
+				<% if current_club %>
+					<li><%= link_to 'Logout', club_logout_path %></li>
+				<% else %>
+					<li><%= link_to 'Login', new_club_session_path %></li>
+				<% end %>
+				<% if permitted_to? :index, :clubs %>
+					<li><%= link_to 'Club List', clubs_path %></li>
+				<% end %>
+			</ul>
+		</div>
+		<div class="sg-5">
+			<h2>Strains</h2>
+			<ul>
+				<% if permitted_to? :index, :strains %>
+					<li><%= link_to 'Strain List', strains_path %></li>
+				<% end %>
+			</ul>
+		</div>
+		<div class="sg-5">
+			<h2>Hi!</h2>
+			<ul>
+				<li><%= link_to 'About', about_path %></li>
+				<li><%= link_to 'Contact', contact_path %></li>
+			</ul>
+		</div>
+	</div>
+	<div class='clear'></div>
+</header>

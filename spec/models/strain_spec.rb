@@ -38,6 +38,28 @@ describe Strain do
     Strain.create!(@attr)
   end
   
+  describe 'id_str creation according to name' do
+    it 'should create the right id_str after create' do
+      strain = Strain.create(@attr)
+      strain.id_str.should eq('OGK_6')
+    end
+    
+    it 'should change id_str when :name attribute is changed' do
+      strain = Strain.create(@attr)
+      strain.update_attribute(:name, 'white widow')
+      strain.id_str.should eq('WW_10')
+      
+      strain.name = 'Tahoe OG'
+      strain.save
+      strain.id_str.should eq('TOG_7')
+    end
+    
+    it 'should not create another strain with same id_str' do
+      Strain.create(@attr)
+      strain = Strain.create!(@attr).should_not be_valid
+    end
+  end
+  
   describe 'StrainTag Association' do
     before(:each) do
       @strain = Strain.create(@attr)

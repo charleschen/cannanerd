@@ -1,4 +1,4 @@
-$main-color: #65C94E;
+$main-color: #597216;
 $gray-color: #F8F7F4;
 
 body {
@@ -114,67 +114,115 @@ div#content{
 
 /****************  Header  *****************/
 
-div.header{
-	margin: auto;
-	width: 812px;
-	padding: 0;
-	
-	h1{
-		float: left;
-		font-size: 180%;
-		background: $main-color;
-		margin-left: 14px;
-		
-		padding: 10px;
-		a{
-			color: white;
-			&:hover {text-decoration: none;}
-		}
-	}
-	
-	div{
-		float: right;
-		h2{
-			height: 29px;
-			border-bottom: 1px black solid;
-		}
-	}
-
-	ul{
-		float: left;
-		list-style:none inside;
-		padding: 0;
-		margin: 0;
-		a{
-			padding: 0;
-			margin: 0;
-			height: 20px;
-		}
-	}
-}
-
+//div.header{
+//	margin: auto;
+//	width: 812px;
+//	padding: 0;
+//	
+//	h1{
+//		float: left;
+//		font-size: 180%;
+//		background: $main-color;
+//		margin-left: 14px;
+//		
+//		padding: 10px;
+//		a{
+//			color: white;
+//			&:hover {text-decoration: none;}
+//		}
+//	}
+//	
+//	div{
+//		float: right;
+//		h2{
+//			height: 29px;
+//			border-bottom: 1px black solid;
+//		}
+//	}
+//
+//	ul{
+//		float: left;
+//		list-style:none inside;
+//		padding: 0;
+//		margin: 0;
+//		a{
+//			padding: 0;
+//			margin: 0;
+//			height: 20px;
+//		}
+//	}
+//}
+//ol#toc {
+//	height: 30px;
+//	list-style: none;
+//	margin: 0;
+//  padding: 0;
+//	font-size: 120%;
+//	li {
+//		float: left;
+//		margin: 0 10px 0 0;
+//		padding: 0;
+//	}
+//}
 
 
 header {
-	padding: 0;
-	margin: 50px 0 0 0;
+	border-top: 3px solid #597216;
 }
 
-ol#toc {
-	height: 30px;
-	list-style: none;
-	margin: 0;
-  padding: 0;
-	font-size: 120%;
-	li {
-		float: left;
-		margin: 0 10px 0 0;
-		padding: 0;
+div#header{
+	width: 812px;
+	margin: auto;
+	margin-top: 25px;
+	
+	ol{
+		li{
+			&:first-child{
+				margin-left: 21px;
+			}
+				
+			font-size: 150%;
+			float: left;
+			margin-left: 35px;
+			
+			
+			a{
+				line-height: 37px;
+				color: #6D6D6D;
+				text-decoration: none;
+				&:hover{
+					color: black;
+				}
+			}
+		}
+	}
+}
+
+div#banner{
+	clear: both;
+	width: 812px;
+	margin: auto;
+	padding-bottom: 20px;
+	border-bottom: 1px solid #6D6D6D;
+	
+	div.img{
+		width: 812px;
+		margin: auto;
+		padding: 0 26px 0 26px;
+	}
+	
+	p{
+		margin: auto;
+		width: 620px;
+		
+		text-align: center;
+		font-size: 160%;
+		margin-bottom: 5px;
+		margin-top: 10px;
 	}
 }
 
 /***************** footer *****************/
-
 
 
 
@@ -267,6 +315,48 @@ div.quiz_button{
 }
 
 div#guest_home{
+	float: left;
+	width: 392px;
+	padding: 14px 14px 0 0;
+}
+
+div.guest_info{
+	font-size: 120%;
+	float: left;
+	width: 399px;
+	
+	padding: 14px 0 0 7px;
+	
+	ul{
+		padding-left: 40px;
+		li{
+			list-style: square;
+		}
+	}
+	
+	span.sub{
+		line-height: 5px;
+	}
+}
+
+div#guest_lower_container{
+	margin: auto;
+	width: 812px;
+	
+}
+
+div#get_start_box{
+	// 406
+	padding: 7px 28px 7px 28px;
+	width: 358px;
+	p{
+		line-height: 16px;
+	}
+	h1{
+		font-size: 140%;
+	}
+	background-color: $main-color;
+	color: white;
 }
 
 /*************** answer ******************/
@@ -330,8 +420,7 @@ div#questionnaire {
 
 
 div#questionnaire_real {
-	background-color: white;
-
+	padding-right: 14px;
 
 	
 	ol{
