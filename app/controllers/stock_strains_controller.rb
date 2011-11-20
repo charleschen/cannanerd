@@ -30,7 +30,7 @@ class StockStrainsController < ApplicationController
   end
   
   def edit
-    @strain = StockStrain.find(params[:id])
+    @stock_strain = StockStrain.find(params[:id])
   end
   
   def update
