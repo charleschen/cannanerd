@@ -1,16 +1,6 @@
 <% title @stock_strain.strain.name %>
 <% subtitle @stock_strain.strain.name %>
 
-<%= content_for :navbar do %>
-	<% if current_user %>
-		<li><%= link_to 'User Page', user_path(current_user) %></li>
-		<li><%= link_to @stock_strain.club.name, @stock_strain.club %></li>
-	<% end %>
-	<% if current_club %>
-		<li><%= link_to 'Club Home Page', club_path(current_club) %></li>
-	<% end %>
-<% end %>
-
 <div class='sgParent sg-24'>
 	<% if permitted_to? :edit, :stock_strains %>
 		<%= button_to "Edit", edit_stock_strain_path(@stock_strain), :method => :get %>

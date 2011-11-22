@@ -1,6 +1,7 @@
 class UserSessionsController < ApplicationController
   def new
     @user_session = UserSession.new
+    render :layout => !request.xhr?
   end
   
   def create
@@ -12,8 +13,12 @@ class UserSessionsController < ApplicationController
       flash[:notice] = "Logged in!"
       redirect_to root_url
     else
-      flash[:error] = "Wrong password"
-      render :action => 'new'
+      if request.xhr?
+        #flash[:error] = "Wrong password"
+        render :text => 'Invalid login/password combination', :status => 406
+      else
+        render :action => 'new'
+      end
     end
   end
   

@@ -7,7 +7,7 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
-//= require_directory .
+//= require_tree ./public
 
 function remove_fields(link) {
   $(link).prev("input[type=hidden]").val("1");   // tells it to destroy the record
@@ -61,4 +61,6 @@ $(function(){
 		$.get(this.action, $(this).serialize(), null, "script");
 		return false;
 	}); 
+	
+	jQuery('.jbar').jbar();
 });

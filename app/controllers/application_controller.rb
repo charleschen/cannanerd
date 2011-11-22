@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   helper :all
   protect_from_forgery
   
-  helper_method :current_user, :current_club, :quiz_session, :any_user?
+  helper_method :current_user, :current_club, :quiz_session, :any_user?, :guest?
   
   before_filter { |c| Authorization.current_user = current_user }
 
@@ -22,6 +22,10 @@ class ApplicationController < ActionController::Base
     
     def any_user?
       !current_user.nil? || !current_club.nil?
+    end
+    
+    def guest?
+      !any_user?
     end
     
     def current_user_session

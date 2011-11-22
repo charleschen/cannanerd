@@ -14,4 +14,8 @@ module ApplicationHelper
   def logo
     image_tag('logo.jpeg',:alt => 'Cannanerd')
   end
+  
+  def javascript(*files)
+    content_for(:javascript) { javascript_include_tag(*files)}
+  end
 end

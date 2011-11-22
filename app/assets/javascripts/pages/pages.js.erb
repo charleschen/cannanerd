@@ -1,0 +1,39 @@
+$(function(){
+	$.facebox.settings.loadingImage = "<%= asset_path('loading.gif') %>";
+	$.facebox.settings.closeImage 	= "<%= asset_path('closelabel.png') %>";
+	$('a[rel*=facebox]').click(function(){
+		var me = this;
+		$.facebox(function(){
+			$.get(me.href,
+						null,
+						function(data){
+							$.facebox(data);
+							ajaxifyLoginForm();
+						},
+						'html');
+		});
+		return false;
+	})
+});
+
+function ajaxifyLoginForm(){
+	$('#facebox .user_session_new').submit(function(){
+		var me = $(this);
+		$.ajax({
+			type: 'POST',
+			url: $(this).attr('action'),
+			data: $(this).serialize(),
+			dataType: 'html',
+			success: function(data) { window.location = './';},
+			error: function(xhr){
+				if (xhr.status == '406') {
+					$('#error_explanation').remove();
+					me.before(' <div id="error_explanation" class="error_explanation">\
+												<p>' + xhr.responseText + '</p>\
+											</div>');
+				}
+			}
+		});
+		return false;
+	});
+}

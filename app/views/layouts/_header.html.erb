@@ -1,16 +1,55 @@
 <header>
 	<div id="header">
-		<ol>
-			<li><%= link_to logo, root_path %></li>
-			<li><%= link_to 'How it Works', about_path %></li>
-			<li><%= link_to 'Clubs', contact_path %></li>
-			<li><%= link_to 'about', about_path %></li>
-			<% if current_user %>
-				<li><%= link_to 'logout', logout_path %></li>
-			<% else %>
-				<li><%= link_to 'login', login_path %></li>
-			<% end %>
-		</ol>
+		<%= link_to logo, root_path, :class => 'zp-30' %>
+		<div class='zp-70'>
+			<ol>
+				<% if current_user %>
+					<li><%= link_to 'Profile', current_user %></li>
+					<% if permitted_to? :create, :clubs %>
+					<li><%= link_to 'Clubs', clubs_path %></li>
+					<li><%= link_to 'Questionnaire', questionnaires_path %></li>
+					<% end %>
+				<% end %>
+			</ol>
+			<ol class='side_nav right'>
+				<% if guest? %>
+				<li><%= link_to 'Clubs', contact_path %></li>
+				<li><%= link_to 'Login', login_path, :rel => 'facebox' %></li>
+				<% else %>
+					<% if current_user %>
+						<li><%= link_to 'Logout', logout_path %></li>
+					<% end %>
+				<% end %>
+			</ul>
+		</div>
+		<% if permitted_to? :create, :clubs %>
+		<ul class='jbar'>
+			<li>
+				<%= link_to 'Questionnaire', questionnaires_path %>
+			</li>
+			<li>
+				<%= link_to 'Users', users_path %>
+			</li>
+			<li>
+				<%= link_to 'Clubs', clubs_path %>
+				<ul>
+					<li><%= link_to 'Add club', new_club_path %></li>
+				</ul>
+			</li>
+			<li>
+				<a href="/">Strain and Tags</a>
+				<ul>
+					
+					<li><%= link_to 'Strains', strains_path  %></li>
+					<li><%= link_to 'New Strain', new_strain_path %></li>
+					<li><%= link_to 'Tags', tags_path %></li>
+					<li><%= link_to 'New Tags', new_tag_path %></li>
+				</ul>
+			</li>
+			<li>
+			</li>
+		</ul>
+		<% end %>
 	</div>
 	<div class='clear'></div>
 </header>

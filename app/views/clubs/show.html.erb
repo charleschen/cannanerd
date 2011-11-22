@@ -1,15 +1,6 @@
 <% title '@club.name Dispensary'%>
 <% subtitle @club.name %>
 
-<%= content_for :navbar do %>
-	<% if current_user %>
-		<li><%= link_to 'User Page', user_path(current_user) %></li>
-	<% end %>
-	<% if current_club %>
-		<li><%= link_to 'Club Home Page', club_path(current_club) %></li>
-	<% end %>
-<% end %>
-
 <div class='sg-24 sgParent'>
 	<div class="club_info">
 		<%= likeablebox @club %>

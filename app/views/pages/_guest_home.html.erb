@@ -1,42 +1,38 @@
 <div id='banner'>
 	
 	<div class='img'><%= image_tag 'banner.jpeg', :alt => 'cannanerd banner' %></div>
-	<p>In <strong>one minute</strong>, discover the best cannabis strains and consumption methods that best fit your needs. <strong>Free</strong>. </p>
+	<h2>In <strong>one minute</strong>, discover the best cannabis strains and consumption methods that best fit your needs. <strong>Free</strong>. </h2>
 </div>
-<div id='guest_lower_container'>
-	<div class='guest_info'>
-		<ul>
-			<li>
-				<span>Fill out your Cannabis Profile</span><br />
-				<span class='sub'>A fun and easy way to tell us what you like about your cannabis.</span>
-			</li>
-			<li>
-				<span>Discover the Best </span><br />
-				<span class='sub'>Get curated recommendations based on your specific preferences for cannabis strains and consumption methods available in your local area</span>
-			</li>
-			<li>
-				<span>Choose and Buy</span><br />
-				<span class='sub'>We give you all the information you need to find and buy the products you love including special deals and coupons!.</span>
-			</li>
-		</ul>
-	</div>
 
-	<div id='guest_home'>
-		<div id='get_start_box'>
-			<h1>Get Started Here!</h1>
-			<p>Fill out your cannabis profile to start receiving your personalized cannabis menu every week. It only takes a few minutes.</p>
-		</div>
-		<div id="questionnaire_real" >
-		<% if quiz_session.new_quiz?  %>
-			<%= form_tag take_quiz_path, :remote => true do %>
-				<%= submit_tag 'Take Quiz' %>
-			<% end %>
-		<% else %>
-			<%= render 'shared/questionnaire', :quiz_route => root_path , :quiz => @quiz, :quiziations => @quiziations %>
+<div class='guest_info zp-50'>
+	<ul>
+		<li>
+			<h2>Fill out your Cannabis Profile</h2>
+			<span class='sub'>A fun and easy way to tell us what you like about your cannabis.</span>
+		</li>
+		<li>
+			<h2>Discover the Best </h2>
+			<span class='sub'>Get curated recommendations based on your specific preferences for cannabis strains and consumption methods available in your local area</span>
+		</li>
+		<li>
+			<h2>Choose and Buy</h2>
+			<span class='sub'>We give you all the information you need to find and buy the products you love including special deals and coupons!.</span>
+		</li>
+	</ul>
+</div>
+
+<div class='guest_home zp-50'>
+	<div id='get_start_box'>
+		<h1>Get Started Here!</h1>
+		<p>Fill out your cannabis profile to start receiving your personalized cannabis menu every week. It only takes a few minutes.</p>
+	</div>
+	<div id="questionnaire_real" >
+	<% if quiz_session.new_quiz?  %>
+		<%= form_tag take_quiz_path, :remote => true do %>
+			<%= submit_tag 'Take Quiz' %>
 		<% end %>
-		</div>
+	<% else %>
+		<%= render 'shared/questionnaire', :quiz_route => root_path , :quiz => @quiz, :quiziations => @quiziations %>
+	<% end %>
 	</div>
-	<div class='clear'></div>
-</div>
-
 </div>
