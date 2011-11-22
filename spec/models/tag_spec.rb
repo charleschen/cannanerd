@@ -65,6 +65,26 @@ describe Tag do
       @tag.tagged_strains.should include(@strain)
     end
   end
+  
+  describe 'reverse related_tag relationship' do
+    before(:each) do
+      @tag = Tag.create(@attr)
+      @user = Factory(:user)
+    end
+    
+    it 'should respond to :reverse_related_tags' do
+      @tag.should respond_to(:reverse_related_tags)
+    end
+    
+    it 'should respond to :tagged_by_users' do
+      @tag.should respond_to(:tagged_by_users)
+    end
+    
+    it 'should be able to create relationship with @user included' do
+      @user.related_tags.create(:tag_id => @tag.id)
+      @tag.tagged_by_users.should include(@user)
+    end
+  end
 
   describe 'destruction' do
     before(:each) do
@@ -89,6 +109,12 @@ describe Tag do
       strain = Factory(:strain)
       strain.strain_tags.create(:tag_id => @tag.id)
       lambda { @tag.destroy }.should change(StrainTag,:count).from(1).to(0)
+    end
+    
+    it 'should destroy RelatedTag association' do
+      user = Factory(:user)
+      user.related_tags.create(:tag_id => @tag.id)
+      lambda {@tag.destroy}.should change(RelatedTag, :count).from(1).to(0)
     end
   end
 end

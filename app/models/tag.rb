@@ -22,4 +22,6 @@ class Tag < ActiveRecord::Base
   has_many :reverse_strain_tags, :class_name => 'StrainTag', :dependent => :destroy, :foreign_key => 'tag_id'
   has_many :tagged_strains, :through => :reverse_strain_tags, :source => :strain
 
+  has_many :reverse_related_tags, :class_name => 'RelatedTag', :dependent => :destroy, :foreign_key => 'tag_id'
+  has_many :tagged_by_users, :through => :reverse_related_tags, :source => :user
 end
