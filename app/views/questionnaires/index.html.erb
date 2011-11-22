@@ -1,7 +1,7 @@
 <% title 'Questionnaire Editor'%>
 <% subtitle 'Questionnaire'%>
 
-<div class='sgParent sg-24'>
+<div>
 	<%= button_to 'Edit questionnaire', edit_questionnaire_path(Questionnaire.first), :method => :get %>
 	<div id='questionnaire'>
 		<ol id='questions' data-update-url="<%= sort_questionnaires_url %>">

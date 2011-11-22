@@ -1,16 +1,22 @@
-<%= form_for @questionnaire do |f| %>
+<%= form_for @questionnaire, :class => 'questionnaire_form' do |f| %>
 	<%= render 'shared/error_messages', :object => f.object %>
-	
 	<p>
 		<%= f.label :per_page, "Question Displayed per page" %>
 		<%= f.text_field :per_page %>
 	</p>
+	<p><%= f.submit 'Update Questionnaire' %></p>
+	<p><%= link_to_add_fields "Add Question", f, :questions %></p><br />
+
+	<br />
 	
+	<ul>
 	<%= f.fields_for :questions do |builder| %>
-		<%= render "question_fields", :f => builder %>
+		<li><%= render "question_fields", :f => builder %></li>
 	<% end %>
 	
-	<p><%= link_to_add_fields "Add Question", f, :questions %></p><br />
+	</ul>
 	
-	<p><%= f.submit 'Update Questionnaire' %></p>
+	
+	
+
 <% end %>

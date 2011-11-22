@@ -234,6 +234,24 @@ ul.list_buttons{
 	}
 }
 
+input[type='button'], input[type='submit'], input[type='file']{
+	border: 1px solid #CCC;
+	border-color: #999 #858585 #666;
+}
+
+input {
+	outline:none;
+	    transition: all 0.25s ease-in-out;
+	    -webkit-transition: all 0.25s ease-in-out;
+	    -moz-transition: all 0.25s ease-in-out;
+	    border:1px solid rgba(0,0,0, 0.2);
+	&:focus{
+		box-shadow: 0 0 5px rgba(100, 132, 37, 1);
+		    -webkit-box-shadow: 0 0 5px rgba(100, 132, 37, 1); 
+		    -moz-box-shadow: 0 0 5px rgba(100, 132, 37, 1);	
+	}
+}
+
 /**************** home *****************/
 
 
@@ -339,11 +357,22 @@ ul.tags{
 
 /****************** Questionnaire *******************/
 
+div.questionnaire_form{
+	textarea.question_text{
+		width: 100%;
+	}
+	
+	ul.answers{
+		li{
+			float: left;
+		}
+	}
+}
+
 div#questionnaire {
 	ol{
 		list-style: decimal;
 		li.questions{
-			line-height: 16px;
 			clear:both;
 			margin-bottom: 25px;
 		}
@@ -353,7 +382,6 @@ div#questionnaire {
 		list-style: square;
 		li.questionnaire_answer{
 			clear:both;
-			line-height: 16px;
 			padding-top: 5px;
 		}
 	}
