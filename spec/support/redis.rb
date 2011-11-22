@@ -44,11 +44,14 @@ def queues_with_jobs
 end
 
 def perform_all_pending_jobs
+  job_count = 0
   while (queues = queues_with_jobs).any?
     queues.each do |queue|
       Resque.reserve(queue).perform
+      job_count += 1
     end
   end
+  job_count
 end
 
 def finish_all_jobs(queue_list)
