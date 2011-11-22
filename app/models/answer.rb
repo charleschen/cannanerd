@@ -16,9 +16,6 @@ class Answer < ActiveRecord::Base
   has_many :answer_tags, :dependent => :destroy, :foreign_key => 'answer_id'
   has_many :tags, :through => :answer_tags, :source => :tag
   
-  has_many :reverse_answerships, :class_name => 'Answership', :dependent => :destroy, :foreign_key => 'answer_id'
-  has_many :responders, :through => :reverse_answerships, :source => :user
-  
   has_many :reverse_questionships, :class_name => 'Questionship', :dependent=> :destroy, :foreign_key => 'answer_id'
   has_many :questions, :through => :reverse_questionships, :source => :question
   

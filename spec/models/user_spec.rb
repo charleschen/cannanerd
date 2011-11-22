@@ -167,57 +167,51 @@ describe User do
     end
   end
   
-  describe 'answership relationship' do
-    before(:each) do
-      @user = User.create(@attr)
-      @answer = Factory(:answer)
-    end
-    
-    it "should respond to :answerships association" do
-      @user.should respond_to(:answerships)
-    end
-    
-    it "should respond to :answered" do
-      @user.should respond_to(:answered)
-    end
-    
-    it "should respond to :has_answered?" do
-      @user.should respond_to(:has_answered?)
-    end
-    
-    it "should include @answer in :answered after relationship created" do
-      @user.answerships.create(:answer_id => @answer.id)
-      @user.reload
-      @user.should have_answered(@answer)
-    end
-    
-    it "submitting answer should create answership relationship" do
-      @user.should respond_to(:submit!)
-      @user.submit!(@answer)
-      @user.should have_answered(@answer)
-    end
-    
-    it "unsubmitting answer should destroy relationship" do
-      @user.should respond_to(:unsubmit!)
-      @user.submit!(@answer)
-      @user.unsubmit!(@answer)
-      @user.should_not have_answered(@answer)
-    end
-  end
+  # describe 'answership relationship' do
+  #     before(:each) do
+  #       @user = User.create(@attr)
+  #       @answer = Factory(:answer)
+  #     end
+  #     
+  #     it "should respond to :answerships association" do
+  #       @user.should respond_to(:answerships)
+  #     end
+  #     
+  #     it "should respond to :answered" do
+  #       @user.should respond_to(:answered)
+  #     end
+  #     
+  #     it "should respond to :has_answered?" do
+  #       @user.should respond_to(:has_answered?)
+  #     end
+  #     
+  #     it "should include @answer in :answered after relationship created" do
+  #       @user.answerships.create(:answer_id => @answer.id)
+  #       @user.reload
+  #       @user.should have_answered(@answer)
+  #     end
+  #     
+  #     it "submitting answer should create answership relationship" do
+  #       @user.should respond_to(:submit!)
+  #       @user.submit!(@answer)
+  #       @user.should have_answered(@answer)
+  #     end
+  #     
+  #     it "unsubmitting answer should destroy relationship" do
+  #       @user.should respond_to(:unsubmit!)
+  #       @user.submit!(@answer)
+  #       @user.unsubmit!(@answer)
+  #       @user.should_not have_answered(@answer)
+  #     end
+  #   end
   
   describe 'on destroy' do
     before(:each) do
       @user = User.create(@attr)
-      @answer = Factory(:answer)     
     end
     
     it "should destroy user instance" do
       lambda {@user.destroy}.should change(User,:count).from(1).to(0)
-    end
-    
-    it "should destroy answership relationship" do
-      @user.submit!(@answer)
-      lambda {@user.destroy}.should change(Answership,:count).from(1).to(0)
     end
   end
 end

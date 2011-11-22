@@ -49,9 +49,9 @@ class User < ActiveRecord::Base
   
   ROLES = %w[unverified_member member admin]
   
-  has_many :answerships, :dependent => :destroy, :foreign_key => 'user_id'
-  has_many :answered, :through => :answerships, :source => :answer
-  
+  # has_many :answerships, :dependent => :destroy, :foreign_key => 'user_id'
+  # has_many :answered, :through => :answerships, :source => :answer
+  has_many :quizzes, :dependent => :destroy
   
   
   
@@ -74,6 +74,10 @@ class User < ActiveRecord::Base
   
   def verify!
     self.roles = ['member']
+  end
+  
+  def init_user
+    deliver_registration_confirmation
   end
   
   ####################  Answership Functions  ####################  
