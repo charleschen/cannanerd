@@ -52,3 +52,17 @@ def generate_answer_tag_all_strain(tag_list)
     strain.tag_ids = tag_ids[0...tag_ids.count]
   end
 end
+
+def create_questionaire_data
+  questionnaire = Questionnaire.first
+  multichoice = true
+  
+  3.times do
+    question = Factory(:question, :questionnaire_id => questionnaire.id, :multichoice => multichoice)
+    multichoice = !multichoice
+    3.times do
+      answer = Factory(:answer)
+      question.questionships.create(:answer_id => answer.id)
+    end
+  end
+end

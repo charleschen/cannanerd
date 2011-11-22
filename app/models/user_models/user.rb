@@ -78,7 +78,8 @@ class User < ActiveRecord::Base
   end
   
   def init_user
-    deliver_registration_confirmation
+    send_registration_confirmation
+    update_user_tags
   end
   
   ####################  Answership Functions  ####################  
@@ -96,8 +97,12 @@ class User < ActiveRecord::Base
   end
   
   ####################  Email Functions  ####################  
-  
-  def deliver_registration_confirmation
-    UserMailer.registration_confirmation(self).deliver
-  end
+  private
+    def send_registration_confirmation
+      Resque::enqueue(SendUserMail, :registration_confirmation, self.id)
+    end
+    
+    def update_user_tags
+      Resque::enqueue(UpdateUserTags, self.id)
+    end
 end

@@ -1,6 +1,8 @@
 require 'spec_helper'
 require 'timecop'
 support_require 'mailer_macros'
+support_require 'redis'
+support_require 'data_generator'
 
 describe "SignUpProcesses" do
   let(:next_button) { 'next' }
@@ -10,7 +12,7 @@ describe "SignUpProcesses" do
                       :email    => "charleschen@gmail.com",
                       :password => 'password',
                       :zipcode => '91006'} }
-  
+  let(:queue_list) { ['critical','high','medium','low']}
   before(:each) do
     @questionnaire = Questionnaire.create!
     Questionnaire.first.update_attribute(:per_page, 1)
@@ -21,6 +23,7 @@ describe "SignUpProcesses" do
   
   after(:all) do
     Timecop.return
+    clear_resque(queue_list)
   end
   
   describe 'on failure' do
@@ -183,6 +186,8 @@ describe "SignUpProcesses" do
         fill_in "user_zipcode",               :with => @attributes[:zipcode]
         fill_in "user_password",              :with => @attributes[:password]
         fill_in "user_password_confirmation", :with => @attributes[:password]
+        
+        clear_resque(queue_list)
       end
       
       it "should create user with the correct info filled in" do
@@ -190,12 +195,23 @@ describe "SignUpProcesses" do
           click_button 'Create User'
         end.should change(User,:count).by(1)
         page.should have_content("success")
+        
+        jobs_pending.should eq(2)
       end
       
       it "should email user with verification details" do
         click_button 'Create User'
+        perform_all_pending_jobs.should eq(2)
         user = User.find_by_email(@attributes[:email])
         last_email.to.should include(user.email)
+      end
+      
+      it 'should create RelatedTag Relationships through completed quiz' do
+        click_button 'Create User'
+        
+        #lambda {perform_all_pending_jobs.should eq(2)}.should change()
+        
+        
       end
       
     end
@@ -229,7 +245,7 @@ describe "SignUpProcesses" do
       
       
     end
+          
+  
   end
-  
-  
 end

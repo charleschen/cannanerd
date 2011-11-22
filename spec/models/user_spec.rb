@@ -108,20 +108,20 @@ describe User do
     end
   end
   
-  describe '#deliver_registration_confirmation' do
-    let(:user) do
-      user = User.create(@attr)  
-    end#{Factory(:user)}
-    
-    it "should respond to :deliver_verification" do
-      user.should respond_to(:deliver_registration_confirmation)
-    end
-    
-    it "delivers email registration confirmation to user" do
-      user.deliver_registration_confirmation
-      last_email.to.should include(user.email)
-    end
-  end
+  # describe '#deliver_registration_confirmation' do
+  #   let(:user) do
+  #     user = User.create(@attr)  
+  #   end#{Factory(:user)}
+  #   
+  #   it "should respond to :deliver_verification" do
+  #     user.should respond_to(:deliver_registration_confirmation)
+  #   end
+  #   
+  #   it "delivers email registration confirmation to user" do
+  #     user.deliver_registration_confirmation
+  #     last_email.to.should include(user.email)
+  #   end
+  # end
   
   describe 'roles' do
     let(:user){User.create(@attr)}
