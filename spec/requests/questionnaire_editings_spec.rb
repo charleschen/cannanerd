@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe "QuestionnaireEditings" do
+  let(:login_button) { "Login" }
+  
   before(:each) do
     Questionnaire.create!
     
@@ -14,7 +16,7 @@ describe "QuestionnaireEditings" do
       visit login_path
       fill_in 'user_session_email', :with => @regular_user.email
       fill_in 'user_session_password', :with => 'password'
-      click_button 'Create User session'
+      click_button login_button
     end
     
     it 'viewing questionnaire index page' do
@@ -29,7 +31,7 @@ describe "QuestionnaireEditings" do
       visit login_path
       fill_in 'user_session_email', :with => @admin_user.email
       fill_in 'user_session_password', :with => 'password'
-      click_button 'Create User session'
+      click_button login_button
     end
     
     it 'on viewing questionnaire index page and have link to edit questionnaire' do

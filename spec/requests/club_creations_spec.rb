@@ -4,6 +4,7 @@ support_require 'redis'
 
 describe "ClubCreations" do
   let(:queue_list) { ['critical','high','medium','low'] }
+  let(:login_button) { "Login" }
   
   before(:each) do
     @admin_user = Factory(:user)
@@ -20,7 +21,7 @@ describe "ClubCreations" do
     visit login_path
     fill_in 'user_session_email', :with => @regular_user.email
     fill_in 'user_session_password', :with => 'password'
-    click_button 'Create User session'
+    click_button login_button
     page.should have_content('Logged in')
     
     visit root_path
@@ -29,7 +30,7 @@ describe "ClubCreations" do
     visit login_path
     fill_in 'user_session_email', :with => @admin_user.email
     fill_in 'user_session_password', :with => 'password'
-    click_button 'Create User session'
+    click_button login_button
     page.should have_content('Logged in')
   end
   
@@ -38,7 +39,7 @@ describe "ClubCreations" do
       visit login_path
       fill_in 'user_session_email', :with => @regular_user.email
       fill_in 'user_session_password', :with => 'password'
-      click_button 'Create User session'
+      click_button login_button
     end
     
     it 'regular user cannot create clubs' do
@@ -53,7 +54,7 @@ describe "ClubCreations" do
       visit login_path
       fill_in 'user_session_email', :with => @admin_user.email
       fill_in 'user_session_password', :with => 'password'
-      click_button 'Create User session'
+      click_button login_button
       
       visit new_club_path
       fill_in 'club_email', :with => 'club@gmail.com'

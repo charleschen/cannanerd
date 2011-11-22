@@ -23,7 +23,7 @@ Likeable.setup do |c|
   if Rails.env.production? || Rails.env.staging? 
     c.redis = redis
   else
-    c.redis = Redis.new()
+    c.redis = Redis.new(:port => ENV["REDIS_SERVER"].split(':').last)
   end
 end
 
