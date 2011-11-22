@@ -49,7 +49,7 @@ describe Question do
       @answer = Factory(:answer)
     end
     
-    it "should respond to :answerships" do
+    it "should respond to :questionships" do
       @question.should respond_to(:questionships)
     end
     
@@ -57,7 +57,7 @@ describe Question do
       @question.should respond_to(:answers)
     end
     
-    it "should create answership association" do
+    it "should create questionships association" do
       @question.questionships.create(:answer_id => @answer.id)
       @question.answers.should include(@answer)
     end
@@ -94,7 +94,7 @@ describe Question do
       lambda {@question.destroy}.should change(Question,:count).from(1).to(0)
     end
     
-    it "should destroy answership association" do
+    it "should destroy questionship association" do
       @question.questionships.create(:answer_id => @answer.id)
       lambda {@question.destroy}.should change(Questionship,:count).from(1).to(0)
       @answer.questions.should eq([])

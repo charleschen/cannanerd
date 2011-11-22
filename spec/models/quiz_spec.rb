@@ -9,8 +9,22 @@
 #
 
 require 'spec_helper'
+support_require 'data_generator'
 
 describe Quiz do
+  let(:tag_list){
+    [['indica','strain'],
+                ['sativa','strain'],
+                ['ADD','medical'],
+                ['ADHD','medical'],
+                ['cancer','medical'],
+                ['PTSD','medical'],
+                ['Aroused','effect'],
+                ['giggly','effect'],
+                ['sweet','flavor'],
+                ['spicy','flavor'],
+                ['hungry','effect']]}
+  
   before(:each) do
     @attr = {}
   end
@@ -96,6 +110,63 @@ describe Quiz do
       @quiz.prev_page.should eq(1)
       @quiz.prev_page.should eq(1)
       @quiz.should be_first_page
+      
+    end
+  end
+  
+  describe 'quiz answers' do
+    before(:each) do
+      @questionnaire = Questionnaire.create
+    end
+    
+    it 'generate_answer_tag_strain should have the right values' do
+      generate_answer_tag_strain(tag_list)
+      
+      Tag.count.should == tag_list.count
+      Answer.count.should == tag_list.count
+      Strain.count.should == tag_list.count
+      
+      Strain.all.each do |strain|
+        #strain.tags.count.should == strain.id_str.to_i
+        #puts strain.tags.count.should == strain.id_str.to_i
+        strain.tags.count.should == strain.id_str.to_i
+      end
+    end
+    
+    it 'should generate a quiz with generate_quiz method' do
+      
+      generate_answer_tag_strain(tag_list)
+      quiz = generate_quiz(tag_list,11)
+      quiz.quiziations.count.should == 11
+      quiz.quiziations.each do |quiziation|
+        eval(quiziation.answers_hash).count.should eq(1)
+      end
+    end
+    
+    it 'should respond to :answer_ids' do
+      quiz = Quiz.create(@attr)
+      quiz.should respond_to(:answer_ids)
+    end
+    
+    it 'should give the right answer ids' do
+      generate_answer_tag_strain(tag_list)
+      quiz = generate_quiz(tag_list,11)
+      answer_ids = quiz.answer_ids
+      answer_ids.count.should eq(11)
+      tag_list.count.times do |count|
+        answer_ids.should include(AnswerTag.find_by_tag_id(Tag.find_by_name(tag_list[count][0])).answer.id)
+      end
+      
+      quiz = generate_quiz(tag_list, 5)
+      answer_ids = quiz.answer_ids
+      answer_ids.count.should eq(5)
+      tag_list.count.times do |count|
+        if count < 5
+          answer_ids.should include(AnswerTag.find_by_tag_id(Tag.find_by_name(tag_list[count][0])).answer.id)
+        else
+          answer_ids.should_not include(AnswerTag.find_by_tag_id(Tag.find_by_name(tag_list[count][0])).answer.id)
+        end
+      end
       
     end
   end

@@ -101,6 +101,10 @@ ActiveRecord::Schema.define(:version => 20111122183521) do
     t.datetime "updated_at"
   end
 
+  add_index "related_tags", ["tag_id"], :name => "index_related_tags_on_tag_id"
+  add_index "related_tags", ["user_id", "tag_id"], :name => "index_related_tags_on_user_id_and_tag_id", :unique => true
+  add_index "related_tags", ["user_id"], :name => "index_related_tags_on_user_id"
+
   create_table "stock_strains", :force => true do |t|
     t.integer  "club_id"
     t.integer  "strain_id"

@@ -13,7 +13,7 @@
 
 require 'spec_helper'
 support_require 'vcr'
-#support_require 'redis'
+support_require 'redis'
 
 describe Strain do
   before(:all) do

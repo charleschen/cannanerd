@@ -19,6 +19,13 @@ class Quiz < ActiveRecord::Base
 
   accepts_nested_attributes_for :quiziations
   
+  scope :recently_updated, :order => 'updated_at DESC'
+  
+  def self.recent_test
+    recently_updated.first
+  end
+  
+  
   def current_page
     @current_page ||= 1
   end
@@ -46,4 +53,13 @@ class Quiz < ActiveRecord::Base
     @current_page
   end
   
+  def answer_ids
+    answer_ids = []
+    quiziations.each do |quiziation|
+      eval(quiziation.answers_hash).each do |key,val|
+        answer_ids << key.to_s.split('answer_')[1].to_i
+      end
+    end
+    answer_ids
+  end
 end

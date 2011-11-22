@@ -6,5 +6,9 @@ class CreateRelatedTags < ActiveRecord::Migration
 
       t.timestamps
     end
+    
+    add_index :related_tags, :user_id
+    add_index :related_tags, :tag_id
+    add_index :related_tags, [:user_id,:tag_id], :unique => true
   end
 end

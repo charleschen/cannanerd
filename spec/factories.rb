@@ -57,6 +57,6 @@ end
 
 Factory.define :strain do |strain|
   strain.name               'OG Kush'
-  strain.id_str            'ogk'
+  strain.id_str             'ogk_6'
   strain.description        'this is marijuana'
 end
