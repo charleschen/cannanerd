@@ -21,8 +21,7 @@ Cannanerd::Application.routes.draw do
     collection {post :sort}
   end
   
-  resources :strains
-  resources :tags
+  resources :strains  
   resources :stock_strains, :only => [:edit,:update,:show,:create,:destroy] do
     member do
       post :make_available

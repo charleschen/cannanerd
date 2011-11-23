@@ -51,9 +51,6 @@ class User < ActiveRecord::Base
   
   ROLES = %w[unverified_member member admin]
   
-  has_many :related_tags, :dependent => :destroy, :foreign_key => 'user_id'
-  has_many :tags, :through => :related_tags, :source => :tag
-  
   has_many :quizzes, :dependent => :destroy
   
   
@@ -81,7 +78,7 @@ class User < ActiveRecord::Base
   
   def init_user
     send_registration_confirmation
-    update_user_tags
+    #update_user_tags
   end
   
   ####################  Answership Functions  ####################  

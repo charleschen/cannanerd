@@ -169,26 +169,6 @@ describe User do
     end
   end
   
-  describe 'RelatedTag relationship' do
-    before(:each) do
-      @user = Factory(:user)
-      @tag = Factory(:tag)
-    end
-    
-    it "should respond to related_tags association" do
-      @user.should respond_to(:related_tags)
-    end
-    
-    it "should respond to :tags" do
-      @user.should respond_to(:tags)
-    end
-    
-    it 'should create relationship and include tag in the relationship' do
-      @user.related_tags.create(:tag_id => @tag.id)
-      @user.tags.should include(@tag)
-    end
-  end
-  
   describe 'on destroy' do
     before(:each) do
       @user = User.create(@attr)
@@ -196,12 +176,6 @@ describe User do
     
     it "should destroy user instance" do
       lambda {@user.destroy}.should change(User,:count).from(1).to(0)
-    end
-    
-    it 'should destroy related_tag relationship' do
-      tag = Factory(:tag)
-      @user.related_tags.create(:tag_id => tag.id)
-      lambda {@user.destroy}.should change(RelatedTag,:count).from(1).to(0)
     end
   end
 end

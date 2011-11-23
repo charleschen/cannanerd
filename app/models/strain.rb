@@ -16,9 +16,6 @@ class Strain < ActiveRecord::Base
   validates :name, :presence => true
   validates :id_str, :uniqueness => true
   
-  has_many :strain_tags, :dependent => :destroy, :foreign_key => 'strain_id'
-  has_many :tags, :through => :strain_tags, :source => :tag
-  
   has_many :reverse_stock_strains, :class_name => 'StockStrain', :dependent => :destroy, :foreign_key => 'strain_id'
   has_many :stored_in_clubs, :through => :reverse_stock_strains, :source => :club
   
@@ -32,10 +29,10 @@ class Strain < ActiveRecord::Base
     end
   end
   
-  def tag_tokens=(ids)
-    self.tag_ids = ids.split(',')
-  end
-  
+  # def tag_tokens=(ids)
+  #   self.tag_ids = ids.split(',')
+  # end
+  # 
   private
     def update_id_str
       self.id_str = self.name.split(/\W/).map{|w| w[0].upcase+w[1..w.length] if w.length>0 }.join.scan(/[A-Z]/).join + "_#{self.name.gsub(/\W/,"").length}"

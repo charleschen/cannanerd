@@ -2,13 +2,4 @@
 
 <li class='questionnaire_answer'>
 	<%= answer.content %>
-	<% if display_tags %>
-	<span>
-		<ul class='tags'>
-		<% answer.tags.each do |tag| %>
-			<li class='tag'><%= tag.name %></li>
-		<% end %>
-		</ul>
-	</span>
-	<% end %>
 </li>

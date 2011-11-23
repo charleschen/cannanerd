@@ -196,12 +196,12 @@ describe "SignUpProcesses" do
         end.should change(User,:count).by(1)
         page.should have_content("success")
         
-        jobs_pending.should eq(2)
+        #jobs_pending.should eq(2)
       end
       
       it "should email user with verification details" do
         click_button 'Create User'
-        perform_all_pending_jobs.should eq(2)
+        perform_all_pending_jobs.should eq(1)
         user = User.find_by_email(@attributes[:email])
         last_email.to.should include(user.email)
       end
