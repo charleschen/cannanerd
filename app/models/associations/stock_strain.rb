@@ -9,7 +9,7 @@
 #  created_at  :datetime
 #  updated_at  :datetime
 #  data        :text
-#  available   :boolean
+#  available   :boolean         default(TRUE)
 #
 
 class StockStrain < ActiveRecord::Base

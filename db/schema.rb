@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111122183521) do
+ActiveRecord::Schema.define(:version => 20111123001451) do
 
   create_table "answer_tags", :force => true do |t|
     t.integer  "answer_id"
@@ -163,6 +163,8 @@ ActiveRecord::Schema.define(:version => 20111122183521) do
     t.datetime "updated_at"
     t.integer  "roles_mask",         :default => 1
     t.string   "zipcode"
+    t.text     "top_strains"
+    t.text     "strain_history"
   end
 
 end

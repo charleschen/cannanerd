@@ -16,6 +16,8 @@
 #  updated_at         :datetime
 #  roles_mask         :integer         default(1)
 #  zipcode            :string(255)
+#  top_strains        :text
+#  strain_history     :text
 #
 
 require 'authlogic'

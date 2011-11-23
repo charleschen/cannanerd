@@ -9,10 +9,11 @@
 #  created_at  :datetime
 #  updated_at  :datetime
 #  data        :text
-#  available   :boolean
+#  available   :boolean         default(TRUE)
 #
 
 require 'spec_helper'
+support_require 'redis'
 support_require 'vcr'
 
 describe StockStrain do
