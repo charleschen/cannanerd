@@ -16,6 +16,7 @@ gem 'heroku'
 gem 'acts_as_list', git: 'git://github.com/swanandp/acts_as_list.git'
 gem 'likeable', git: 'git://github.com/schneems/Likeable.git'
 gem 'sendgrid'
+gem 'acts-as-taggable-on', '~>2.1.0'
 
 group :asset do
 	gem 'sass-rails', "~> 3.1.0"
