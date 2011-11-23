@@ -221,6 +221,9 @@ GEM
       ffi (>= 1.0.7)
       json_pure
       rubyzip
+    sendgrid (1.0.1)
+      json
+      json
     sexp_processor (3.0.7)
     sinatra (1.2.7)
       rack (~> 1.1)
@@ -291,6 +294,7 @@ DEPENDENCIES
   rspec-rails (= 2.7.0)
   ruby_parser
   sass-rails (~> 3.1.0)
+  sendgrid
   spork
   sqlite3
   thin

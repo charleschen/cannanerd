@@ -2,7 +2,7 @@ require "spec_helper"
 
 describe UserMailer do
   before(:each) do
-    @email_from = "cannanerd08@gmail.com"
+    @email_from = "cannanerds@gmail.com"
     @verification_subject = "User account verification from Cannaerd"
   end
   

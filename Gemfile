@@ -15,6 +15,7 @@ gem 'ruby_parser'
 gem 'heroku'
 gem 'acts_as_list', git: 'git://github.com/swanandp/acts_as_list.git'
 gem 'likeable', git: 'git://github.com/schneems/Likeable.git'
+gem 'sendgrid'
 
 group :asset do
 	gem 'sass-rails', "~> 3.1.0"
@@ -57,6 +58,7 @@ group :my_test do
 	gem 'declarative_authorization',git: 'git://github.com/stffn/declarative_authorization.git'
 	gem 'faker', '0.3.1'
 	gem 'likeable', git: 'git://github.com/schneems/Likeable.git'
+	gem 'sendgrid'
 end
 
 group :production do
