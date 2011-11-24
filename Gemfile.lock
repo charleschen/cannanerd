@@ -8,6 +8,13 @@ GIT
       rufus-scheduler
 
 GIT
+  remote: git://github.com/mbleigh/acts-as-taggable-on.git
+  revision: 0662e665866d4a668158d1ceff91fc243b3f63f6
+  specs:
+    acts-as-taggable-on (2.1.1)
+      rails
+
+GIT
   remote: git://github.com/schneems/Likeable.git
   revision: b4930a8c4ad1d1bbcf619714b83aedfacc9fc852
   specs:
@@ -60,8 +67,6 @@ GEM
       activesupport (= 3.1.0)
     activesupport (3.1.0)
       multi_json (~> 1.0)
-    acts-as-taggable-on (2.1.1)
-      rails
     addressable (2.2.6)
     annotate (2.4.0)
     arel (2.2.1)
@@ -265,7 +270,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  acts-as-taggable-on (~> 2.1.0)
+  acts-as-taggable-on!
   acts_as_list!
   annotate (= 2.4.0)
   authlogic

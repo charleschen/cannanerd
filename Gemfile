@@ -16,7 +16,7 @@ gem 'heroku'
 gem 'acts_as_list', git: 'git://github.com/swanandp/acts_as_list.git'
 gem 'likeable', git: 'git://github.com/schneems/Likeable.git'
 gem 'sendgrid'
-gem 'acts-as-taggable-on', '~>2.1.0'
+gem 'acts-as-taggable-on', git: 'git://github.com/mbleigh/acts-as-taggable-on.git'
 
 group :asset do
 	gem 'sass-rails', "~> 3.1.0"
@@ -51,6 +51,7 @@ group :test do
 	gem 'rb-fsevent'
 	gem 'guard-livereload'
 	gem 'growl_notify'
+	gem 'mocha'
 end
 
 group :my_test do
@@ -60,6 +61,7 @@ group :my_test do
 	gem 'faker', '0.3.1'
 	gem 'likeable', git: 'git://github.com/schneems/Likeable.git'
 	gem 'sendgrid'
+	gem 'acts-as-taggable-on', git: 'git://github.com/mbleigh/acts-as-taggable-on.git'
 end
 
 group :production do
