@@ -13,8 +13,6 @@
 #
 
 require 'spec_helper'
-support_require 'redis'
-support_require 'vcr'
 
 describe StockStrain do
   before(:all) do
@@ -35,15 +33,21 @@ describe StockStrain do
     StockStrain.create.should_not be_valid
   end
   
-  it 'should not create without strain association', :vcr do
+  it 'should not create without strain association' do
+    Club.any_instance.stubs(:get_geocode).returns(true)
+    
     club.stock_strains.create.should_not be_valid
   end
   
-  it 'should create with strain association', :vcr do
+  it 'should create with strain association' do
+    Club.any_instance.stubs(:get_geocode).returns(true)
+    
     club.stock_strains.create!(:strain_id => @strain.id)
   end
   
-  it 'available attribute should be true by default', :vcr do
+  it 'available attribute should be true by default' do
+    Club.any_instance.stubs(:get_geocode).returns(true)
+    
     stock_strain = club.stock_strains.create(:strain_id => @strain.id)
     stock_strain.should be_available
 
@@ -56,8 +60,11 @@ describe StockStrain do
     stock_strain.should be_available
   end
   
-  describe 'on destroy', :vcr do
+  describe 'on destroy' do
     it 'should be successful' do
+      Club.any_instance.stubs(:get_geocode).returns(true)
+      StockStrain.any_instance.stubs(:destroy_all_likes).returns(true)   # so we don't need redis to destroy StockStrain
+      
       association = club.stock_strains.create(:strain_id => @strain.id)
       association.destroy
     end
