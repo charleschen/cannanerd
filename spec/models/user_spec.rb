@@ -110,6 +110,26 @@ describe User do
     end
   end
   
+  describe 'instance methods' do
+    before(:each) do
+      @user = User.create(@attr)
+    end
+    
+    it 'should respond to :latest_answers' do
+      @user.should respond_to(:latest_answers)
+    end
+    
+    it 'should give the ids of answers from the latest quiz' do
+      answer_ids = [1,2,3,4]
+      Quiz.any_instance.stubs(:answer_ids).returns(answer_ids)
+      
+      quiz = Factory(:quiz)
+      quiz.update_attribute(:user_id, @user.id)
+      
+      @user.latest_answers.should eq(answer_ids)
+    end
+  end
+  
   # describe '#deliver_registration_confirmation' do
   #   let(:user) do
   #     user = User.create(@attr)  

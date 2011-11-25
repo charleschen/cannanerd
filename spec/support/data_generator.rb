@@ -19,6 +19,10 @@ def generate_answer_strain(tag_list)
   answer_ids
 end
 
+def generate_quiz()
+  
+end
+
 def generate_quiz(answer_list,num_of_answers)
   quiz = Quiz.create()
   
@@ -51,16 +55,49 @@ def generate_answer_tag_all_strain(tag_list)
   end
 end
 
+def create_questionnaire_data_with_tags
+  questionnaire = Questionnaire.first
+  multichoice = true
+  
+  tag_list = []
+  
+  3.times do
+    question = Factory(:question, :questionnaire_id => questionnaire.id, :multichoice => true)
+    3.times do
+      answer = Factory(:answer)
+      fake_tag = Faker::Name.first_name
+      while(tag_list.include?(fake_tag))
+        fake_tag = Faker::Name.first_name
+      end
+      tag_list << fake_tag
+      answer.tag_list.add(fake_tag)
+      question.questionships.create(:answer_id => answer.id)
+    end
+  end
+  
+  tag_list
+end
+
 def create_questionaire_data
   questionnaire = Questionnaire.first
   multichoice = true
+  
+  tag_list = []
   
   3.times do
     question = Factory(:question, :questionnaire_id => questionnaire.id, :multichoice => multichoice)
     multichoice = !multichoice
     3.times do
       answer = Factory(:answer)
+      fake_tag = Faker::Name.first_name
+      while(tag_list.include?(fake_tag))
+        fake_tag = Faker::Name.first_name
+      end
+      tag_list << fake_tag
+      answer.tag_list.add(fake_tag)
       question.questionships.create(:answer_id => answer.id)
     end
   end
+  
+  tag_list
 end

@@ -76,6 +76,10 @@ class User < ActiveRecord::Base
     self.roles = ['member']
   end
   
+  def latest_answers
+    quizzes.most_recent.answer_ids
+  end
+  
   def init_user
     send_registration_confirmation
     #update_user_tags

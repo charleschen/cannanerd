@@ -9,6 +9,7 @@
 #
 
 require 'spec_helper'
+require 'timecop'
 support_require 'data_generator'
 
 describe Quiz do
@@ -30,7 +31,29 @@ describe Quiz do
   end
   
   it "should create quiz" do
-    Quiz.create!()
+    Quiz.create!(@attr)
+  end
+  
+  describe 'instance methods' do
+    before(:each) do
+      @quiz = Quiz.create(@attr)
+    end
+    
+    it 'should respond to :most_recent' do
+      Quiz.should respond_to(:most_recent)
+    end
+    
+    it 'should give the latest quiz' do
+      Timecop.freeze(Time.now + 1.day)
+      quiz_recent = Quiz.create(@attr)
+      
+      Timecop.freeze(Time.now - 1.day)
+      Quiz.create(@attr)
+
+      Timecop.return
+      
+      Quiz.most_recent.should eq(quiz_recent)
+    end
   end
   
   describe 'quiziation association' do

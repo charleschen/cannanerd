@@ -32,6 +32,7 @@ describe UpdateTopStrain do
   end
   
   it 'should give the right top strain' do
+    
     # @user = user
     # UpdateTopStrain.perform(@user.id)
     # 

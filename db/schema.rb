@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111123063016) do
+ActiveRecord::Schema.define(:version => 20111125000344) do
 
   create_table "answers", :force => true do |t|
     t.text     "content"
@@ -139,6 +139,7 @@ ActiveRecord::Schema.define(:version => 20111123063016) do
     t.string   "zipcode"
     t.text     "top_strains"
     t.text     "strain_history"
+    t.text     "tag_list"
   end
 
 end
