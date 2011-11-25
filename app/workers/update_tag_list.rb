@@ -1,4 +1,4 @@
-class UpdateUserTags
+class UpdateTagList
   extend HerokuAutoScaler
   @queue = :medium
   

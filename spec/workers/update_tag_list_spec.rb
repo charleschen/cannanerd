@@ -1,7 +1,7 @@
 require 'spec_helper'
 support_require 'data_generator'
 
-describe UpdateUserTags do
+describe UpdateTagList do
   let(:user) { Factory(:user) }
   let(:question) { Factory(:question, :questionnaire_id => Questionnaire.first)}
   
@@ -10,7 +10,7 @@ describe UpdateUserTags do
   end
   
   it 'should respond to :perform' do
-    UpdateUserTags.should respond_to(:perform)
+    UpdateTagList.should respond_to(:perform)
   end
     
   it 'should run perform' do
@@ -19,7 +19,7 @@ describe UpdateUserTags do
     quiz.user_id = curr_user.id
     quiz.save
     
-    UpdateUserTags.perform(user.id)
+    UpdateTagList.perform(user.id)
   end
   
   it 'should generate the right user tags' do
@@ -38,7 +38,7 @@ describe UpdateUserTags do
     
     User.any_instance.stubs(:latest_answers).returns(answer_ids)
     curr_user = user
-    UpdateUserTags.perform(curr_user.id)
+    UpdateTagList.perform(curr_user.id)
     
     curr_user.reload
     tag_list.each do |tag|
