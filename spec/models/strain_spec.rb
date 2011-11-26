@@ -79,7 +79,7 @@ describe Strain do
     end
   end
   
-  describe 'class method' do
+  describe 'instance method' do
     describe 'query' do
       
       it 'should respond to :available_from' do

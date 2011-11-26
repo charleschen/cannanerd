@@ -3,6 +3,7 @@ require 'timecop'
 support_require 'mailer_macros'
 support_require 'redis'
 support_require 'data_generator'
+support_require 'helper'
 
 describe "SignUpProcesses" do
   let(:next_button) { 'next' }
@@ -201,17 +202,38 @@ describe "SignUpProcesses" do
       
       it "should email user with verification details" do
         click_button 'Create User'
-        perform_all_pending_jobs.should eq(1)
+        
+        User.any_instance.stubs(:update_tag_list!).returns('some_tag') # in order for update_top_strain to run
+        Club.stubs(:near).returns([])
+        
+        perform_all_pending_jobs.should eq(2)
         user = User.find_by_email(@attributes[:email])
         last_email.to.should include(user.email)
       end
       
-      it 'should create RelatedTag Relationships through completed quiz' do
+      it 'should determine top strains' do
+        # same basic test as update_tag_list_spec
+        tag_num = 5
+        tag_list = list_of_unique_names(tag_num)
+        rand_list = (0..tag_num-1).to_a.sort{ rand() - 0.5 }
+        Club.any_instance.stubs(:get_geocode).returns(true)
+        club = Factory(:club)
+        top_strain_ids = []
+        tag_num.times do |count|
+          strain = Factory(:strain, :name => Faker::Name.name)
+          strain.tag_list.add(tag_list[0..rand_list[count]])
+          strain.save
+          strain.reload
+          top_strain_ids[tag_num - 1 - rand_list[count]] = strain.id
+          club.add_to_inventory!(strain)
+        end
+        User.any_instance.stubs(:update_tag_list!).returns(tag_list)
+        Club.stubs(:near).returns([club])
+        
         click_button 'Create User'
-        
-        #lambda {perform_all_pending_jobs.should eq(2)}.should change()
-        
-        
+        perform_all_pending_jobs.should eq(2)
+        user = User.find_by_email(@attributes[:email])
+        user.top_strains.should eq(top_strain_ids.to_s)
       end
       
     end

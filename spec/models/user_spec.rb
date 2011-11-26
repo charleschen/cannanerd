@@ -111,23 +111,77 @@ describe User do
     end
   end
   
-  describe 'instance methods' do
+  describe 'instance method' do
     before(:each) do
       @user = User.create(@attr)
     end
     
-    it 'should respond to :latest_answers' do
-      @user.should respond_to(:latest_answers)
+    describe 'latest_answers' do 
+      it 'should respond to :latest_answers' do
+        @user.should respond_to(:latest_answers)
+      end
+  
+      it 'should give the ids of answers from the latest quiz' do
+        answer_ids = [1,2,3,4]
+        Quiz.any_instance.stubs(:answer_ids).returns(answer_ids)
+    
+        quiz = Factory(:quiz)
+        quiz.update_attribute(:user_id, @user.id)
+    
+        @user.latest_answers.should eq(answer_ids)
+      end
     end
     
-    it 'should give the ids of answers from the latest quiz' do
-      answer_ids = [1,2,3,4]
-      Quiz.any_instance.stubs(:answer_ids).returns(answer_ids)
+    describe 'init_user' do
+      it 'should respond to :init_user' do
+        @user.should respond_to(:init_user)
+      end
+    end
+    
+    describe 'update_tag_list!' do
+      before(:each) do
+        @questionnaire = Questionnaire.create
+      end
       
-      quiz = Factory(:quiz)
-      quiz.update_attribute(:user_id, @user.id)
+      it 'should respond' do
+        @user.should respond_to(:update_tag_list!)
+      end
       
-      @user.latest_answers.should eq(answer_ids)
+      it 'should complete' do
+        quiz = Factory(:quiz)
+        quiz.user_id = @user.id
+        quiz.save
+
+        @user.update_tag_list!
+      end
+      
+      it 'should generate the right user tags' do
+        answer_ids = []
+        tag_list = []
+        tag = Faker::Name::first_name
+        5.times do
+          tag = Faker::Name::first_name while(tag_list.include?(tag))
+          answer = Factory(:answer)
+          answer.tag_list.add(tag)
+          answer.save
+
+          answer_ids << answer.id
+          tag_list << tag
+        end
+
+        User.any_instance.stubs(:latest_answers).returns(answer_ids)
+        list = @user.update_tag_list!
+        
+        @user.reload
+        tag_list.each do |tag|
+          @user.tag_list.should include(tag)
+        end
+
+        tag_list.each do |tag|
+          list.should include(tag)
+        end
+
+      end
     end
   end
   

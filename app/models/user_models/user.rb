@@ -81,9 +81,19 @@ class User < ActiveRecord::Base
     quizzes.most_recent.answer_ids
   end
   
+  def update_tag_list!
+    answer_ids = self.latest_answers
+    answers = Answer.where(:id => answer_ids)
+    tag_list = answers.all_tag_counts.map(&:name).join(',')
+    self.tag_list = tag_list
+    save
+    
+    tag_list
+  end
+  
   def init_user
     send_registration_confirmation
-    #update_user_tags
+    update_top_strain
   end
   
   ####################  Answership Functions  ####################  
@@ -106,7 +116,15 @@ class User < ActiveRecord::Base
       Resque::enqueue(SendUserMail, :registration_confirmation, self.id)
     end
     
-    def update_user_tags
-      Resque::enqueue(UpdateUserTags, self.id)
+    def update_top_strain
+      Resque::enqueue(UpdateTopStrain, self.id)
     end
+    
+    def send_top_strain_email
+      #Resque::enqueue(SendUserMail, :registration_confirmation, self.id)
+    end
+    
+    # def update_tag_list
+    #   Resque::enqueue(UpdateTagList, self.id)
+    # end
 end
