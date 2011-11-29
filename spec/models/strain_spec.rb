@@ -12,8 +12,6 @@
 #
 
 require 'spec_helper'
-support_require 'vcr'
-support_require 'redis'
 
 describe Strain do
   before(:all) do
@@ -26,6 +24,7 @@ describe Strain do
   end
   
   before(:each) do
+    Club.any_instance.stubs(:get_geocode).returns(true)
     @attr = { :name         => 'OG Kush',
               :description  => 'This is a drug'}
   end
@@ -60,43 +59,71 @@ describe Strain do
     end
   end
   
-  describe 'StrainTag Association' do
-    before(:each) do
-      @strain = Strain.create(@attr)
-      @tag = Factory(:tag)
-    end
-    
-    it 'should respond to :strain_tags' do
-      @strain.should respond_to(:strain_tags)
-    end
-    
-    it "should respond to :tags" do
-      @strain.should respond_to(:tags)
-    end
-    
-    it 'should be able to create StrainTag association' do
-      @strain.strain_tags.create(:tag_id => @tag.id)
-      @strain.tags.should include(@tag)
-    end
-  end
-  
   describe 'reverse StockStrain association' do
     before(:each) do
       @strain = Strain.create(@attr)
       @club = Factory(:club)
     end
     
-    it 'should respond to :reverse_stock_strains', :vcr do
+    it 'should respond to :reverse_stock_strains' do
       @strain.should respond_to(:reverse_stock_strains)
     end
     
-    it 'should respond to :stored_in_clubs', :vcr do
+    it 'should respond to :stored_in_clubs' do
       @strain.should respond_to(:stored_in_clubs)
     end
     
-    it 'should create reverse association', :vcr do
+    it 'should create reverse association' do
       @strain.reverse_stock_strains.create(:club_id => @club.id)
       @strain.stored_in_clubs.should include(@club)
+    end
+  end
+  
+  describe 'instance method' do
+    describe 'query' do
+      
+      it 'should respond to :available_from' do
+        Strain.should respond_to(:available_from)
+      end
+      
+      it 'should return all strains from 1 club' do
+        num_of_strains = 10
+        
+        club = Factory(:club)
+        strain_array = []
+        num_of_strains.times do
+          strain_array <<  Factory(:strain, :name => Faker::Name.name).id
+        end
+        club.strains_in_inventory_ids = strain_array[0..num_of_strains-1]
+        club.save
+        
+        strain_list = Strain.available_from([club.id])
+        strain_list.count.should eq(num_of_strains)
+        
+        strain_array.each do |id|
+          strain_list.should include(Strain.find(id))
+        end
+      end
+      
+      it 'should return no duplicates from multiple clubs' do
+        num_of_strains = 100
+        num_of_clubs = 5
+        
+        strain_array = []
+        num_of_strains.times do 
+          strain_array << Factory(:strain,:name => Faker::Name.name).id
+        end
+        
+        num_of_clubs.times do |count|
+          name = Faker::Name.first_name
+          club = Factory(:club, :email => "#{name}@gmail.com", :name => name)
+          club.strains_in_inventory_ids = strain_array[(count*5)..(10+count*5-1)]
+        end
+        
+        strain_list = Strain.available_from(Club.all.map(&:id))
+        strain_list.count.should eq(30)
+        
+      end
     end
   end
   
@@ -109,17 +136,12 @@ describe Strain do
       lambda { @strain.destroy }.should change(Strain,:count).from(1).to(0)
     end
     
-    it 'should destroy StrainTag association if there is one' do
-      tag = Factory(:tag)
-      @strain.strain_tags.create(:tag_id => tag.id)
-      lambda { @strain.destroy }.should change(StrainTag,:count).from(1).to(0)
-    end
-    
-    it 'should destroy reverse association', :vcr do
+    it 'should destroy reverse association' do
+      StockStrain.any_instance.stubs(:destroy_all_likes).returns(true)
+      
       relationship = @strain.reverse_stock_strains.create(:club_id => Factory(:club).id)
       relationship.destroy
       @strain.destroy
-      #lambda {@strain.destroy}.should change(StockStrain,:count).from(1).to(0)
     end
   end
 end

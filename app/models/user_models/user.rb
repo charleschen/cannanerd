@@ -18,6 +18,7 @@
 #  zipcode            :string(255)
 #  top_strains        :text
 #  strain_history     :text
+#  tag_list           :text
 #
 
 require 'authlogic'
@@ -51,9 +52,6 @@ class User < ActiveRecord::Base
   
   ROLES = %w[unverified_member member admin]
   
-  has_many :related_tags, :dependent => :destroy, :foreign_key => 'user_id'
-  has_many :tags, :through => :related_tags, :source => :tag
-  
   has_many :quizzes, :dependent => :destroy
   
   
@@ -79,9 +77,23 @@ class User < ActiveRecord::Base
     self.roles = ['member']
   end
   
+  def latest_answers
+    quizzes.most_recent.answer_ids
+  end
+  
+  def update_tag_list!
+    answer_ids = self.latest_answers
+    answers = Answer.where(:id => answer_ids)
+    tag_list = answers.all_tag_counts.map(&:name).join(',')
+    self.tag_list = tag_list
+    save
+    
+    self.tag_list
+  end
+  
   def init_user
     send_registration_confirmation
-    update_user_tags
+    update_top_strain
   end
   
   ####################  Answership Functions  ####################  
@@ -104,7 +116,15 @@ class User < ActiveRecord::Base
       Resque::enqueue(SendUserMail, :registration_confirmation, self.id)
     end
     
-    def update_user_tags
-      Resque::enqueue(UpdateUserTags, self.id)
+    def update_top_strain
+      Resque::enqueue(UpdateTopStrain, self.id)
     end
+    
+    def send_top_strain_email
+      #Resque::enqueue(SendUserMail, :registration_confirmation, self.id)
+    end
+    
+    # def update_tag_list
+    #   Resque::enqueue(UpdateTagList, self.id)
+    # end
 end

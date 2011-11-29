@@ -1,3 +1,5 @@
+<% javascript 'answers/edit.js' %>
+
 <div class='sgParent sg-24'>
 <%= form_for @answer do |f| %>
 	<p>
@@ -7,7 +9,7 @@
 	
 	<p>
 		<%= f.label :tag_tokens, "Tags" %>
-		<%= f.text_area :tag_tokens, "data-pre" => @answer.tags.map(&:attributes).to_json %>
+		<%= f.text_area :tag_tokens, "data-pre" => @answer.tags.map{|t| {:id => t.name, :name => t.name}}.to_json %>
 	</p>
 	<%= f.submit 'Submit answer' %>
 <% end %>

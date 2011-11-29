@@ -5,6 +5,7 @@ require 'rspec/rails'
 require 'faker'
 require 'database_cleaner'
 require 'factory_girl_rails'
+require 'mocha'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -12,11 +13,13 @@ require 'factory_girl_rails'
 
 RSpec.configure do |config|
   
+  config.mock_with :mocha
+  
   # config.include(MailerMacros)
   # config.before(:each) do 
   #   reset_email
   # end
-  config.mock_with :rspec
+  #config.mock_with :rspec
   config.include Factory::Syntax::Methods
   
   

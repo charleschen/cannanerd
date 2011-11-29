@@ -11,13 +11,18 @@
 #  updated_at  :datetime
 #
 
+require 'acts-as-taggable-on'
+
 class Strain < ActiveRecord::Base
-  attr_reader :tag_tokens
+  acts_as_taggable
+  acts_as_taggable_on :flavors, :types, :conditions, :symptoms, :effects, :prices
+  
+  attr_accessible :name, :flavor_tokens, :type_tokens, :condition_tokens, :symptom_tokens, :effect_tokens, :price_tokens
+  attr_reader :flavor_tokens, :type_tokens, :condition_tokens, :symptom_tokens, :effect_tokens, :price_tokens
+  
+  #attr_reader :tag_tokens
   validates :name, :presence => true
   validates :id_str, :uniqueness => true
-  
-  has_many :strain_tags, :dependent => :destroy, :foreign_key => 'strain_id'
-  has_many :tags, :through => :strain_tags, :source => :tag
   
   has_many :reverse_stock_strains, :class_name => 'StockStrain', :dependent => :destroy, :foreign_key => 'strain_id'
   has_many :stored_in_clubs, :through => :reverse_stock_strains, :source => :club
@@ -32,8 +37,34 @@ class Strain < ActiveRecord::Base
     end
   end
   
-  def tag_tokens=(ids)
-    self.tag_ids = ids.split(',')
+  def self.available_from(club_id_array)
+    query_array = "(#{club_id_array.map(&:to_s).join(',')})"
+    query = %(SELECT strain_id FROM stock_strains WHERE club_id IN #{query_array})
+    where("id IN (#{query})")
+  end
+
+  def flavor_tokens=(ids)
+    self.flavor_list = ids
+  end
+  
+  def type_tokens=(ids)
+    self.type_list = ids
+  end
+  
+  def condition_tokens=(ids)
+    self.condition_list = ids
+  end
+  
+  def symptom_tokens=(ids)
+    self.symptom_list = ids
+  end
+  
+  def effect_tokens=(ids)
+    self.effect_list = ids
+  end
+  
+  def price_tokens=(ids)
+    self.price_list = ids
   end
   
   private

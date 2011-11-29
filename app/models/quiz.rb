@@ -21,7 +21,7 @@ class Quiz < ActiveRecord::Base
   
   scope :recently_updated, :order => 'updated_at DESC'
   
-  def self.recent_test
+  def self.most_recent
     recently_updated.first
   end
   

@@ -1,4 +1,5 @@
 require 'spec_helper'
+support_require 'data_generator'
 
 describe "QuestionnaireEditings" do
   let(:login_button) { "Login" }

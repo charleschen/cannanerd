@@ -1,4 +1,4 @@
-
+<% javascript 'strains/edit.js' %>
 
 <div class='sg-24'>
 <%= form_for @strain do |f| %>
@@ -13,8 +13,33 @@
 	</p>
 	
 	<p>
-		<%= f.label :tag_tokens, "Tags" %><br />
-		<%= f.text_area :tag_tokens, "data-pre" => @strain.tags.map(&:attributes).to_json %>
+		<%= f.label :flavor_tokens, "Flavors" %><br />
+		<%= f.text_area :flavor_tokens, "data-pre" => @strain.flavors.map{|t| {:id => t.name, :name => t.name}}.to_json %>
+	</p>
+	
+	<p>
+		<%= f.label :type_tokens, "Types" %><br />
+		<%= f.text_area :type_tokens, "data-pre" => @strain.types.map{|t| {:id => t.name, :name => t.name}}.to_json %>
+	</p>
+	
+	<p>
+		<%= f.label :condition_tokens, "Medical Conditions" %><br />
+		<%= f.text_area :condition_tokens, "data-pre" => @strain.conditions.map{|t| {:id => t.name, :name => t.name}}.to_json %>
+	</p>
+	
+	<p>
+		<%= f.label :symptom_tokens, "Treatable Symptoms" %><br />
+		<%= f.text_area :symptom_tokens, "data-pre" => @strain.symptoms.map{|t| {:id => t.name, :name => t.name}}.to_json %>
+	</p>
+	
+	<p>
+		<%= f.label :effect_tokens, "Effects" %><br />
+		<%= f.text_area :effect_tokens, "data-pre" => @strain.effects.map{|t| {:id => t.name, :name => t.name}}.to_json %>
+	</p>
+	
+	<p>
+		<%= f.label :price_tokens, "Prices" %><br />
+		<%= f.text_area :price_tokens, "data-pre" => @strain.prices.map{|t| {:id => t.name, :name => t.name}}.to_json %>
 	</p>
 	
 	<%= f.submit 'Enter Strain data' %>

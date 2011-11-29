@@ -1,11 +1,12 @@
 class AnswersController < ApplicationController
-  filter_resource_access
+  filter_access_to :all, :attribute_check => false
   
   def edit
-    
+    @answer = Answer.find(params[:id])
   end
   
   def update
+    @answer = Answer.find(params[:id])
     if @answer.update_attributes(params[:answer])
       flash[:success] = "Updated tag answer"
       redirect_to answers_path
@@ -19,9 +20,8 @@ class AnswersController < ApplicationController
     @answers = Answer.all
     
     current_page = params[:page]
-    current_page ||= 1
     
-    @answers_section1 = Answer.paginate(:page => current_page, :per_page => 6)
-    @answers_section2 = Answer.paginate(:page => (current_page.to_i+1), :per_page => 6)
+    @answers_section1 = Answer.paginate(:page => params[:page], :per_page => 6)
   end
+  
 end

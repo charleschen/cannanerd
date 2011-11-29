@@ -27,17 +27,23 @@ function return_content(link){
 
 
 $(function(){
-	$("#answer_tag_tokens").tokenInput("/tags.json",{
-		crossDomain: false,
-		prePopulate: $("#answer_tag_tokens").data("pre"),
-		theme: "facebook"
-	});
+	// $("#answer_tag_tokens").tokenInput("/tags.json",{
+	// 	crossDomain: false,
+	// 	prePopulate: $("#answer_tag_tokens").data("pre"),
+	// 	theme: "facebook"
+	// });
+	// 
+	// $("#strain_tag_tokens").tokenInput("/tags.json",{
+	// 	crossDomain: false,
+	// 	prePopulate: $("#answer_tag_tokens").data("pre"),
+	// 	theme: "facebook"
+	// });
 	
-	$("#strain_tag_tokens").tokenInput("/tags.json",{
-		crossDomain: false,
-		prePopulate: $("#answer_tag_tokens").data("pre"),
-		theme: "facebook"
-	});
+	// $("#strain_flavor_tokens").tokenInput("/strains/flavors.json",{
+	// 	crossDomain: false,
+	// 	prePopulate: $("strain_flavor_tokens").data("pre"),
+	// 	theme: "facebook"
+	// });
 	
 	// $(".pagination a").live("click",function(){
 	// 	alert(this.href);
@@ -57,10 +63,10 @@ $(function(){
 		return false;
 	});
 	
-	$("#strain_search_form").submit(function(){
-		$.get(this.action, $(this).serialize(), null, "script");
-		return false;
-	}); 
+	// $("#strain_search_form").submit(function(){
+	// 	$.get(this.action, $(this).serialize(), null, "script");
+	// 	return false;
+	// }); 
 	
 	jQuery('.jbar').jbar();
 });

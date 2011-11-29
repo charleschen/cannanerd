@@ -18,6 +18,7 @@
 #  zipcode            :string(255)
 #  top_strains        :text
 #  strain_history     :text
+#  tag_list           :text
 #
 
 #require File.dirname(__FILE__) + '/../spec_helper'
@@ -110,6 +111,80 @@ describe User do
     end
   end
   
+  describe 'instance method' do
+    before(:each) do
+      @user = User.create(@attr)
+    end
+    
+    describe 'latest_answers' do 
+      it 'should respond to :latest_answers' do
+        @user.should respond_to(:latest_answers)
+      end
+  
+      it 'should give the ids of answers from the latest quiz' do
+        answer_ids = [1,2,3,4]
+        Quiz.any_instance.stubs(:answer_ids).returns(answer_ids)
+    
+        quiz = Factory(:quiz)
+        quiz.update_attribute(:user_id, @user.id)
+    
+        @user.latest_answers.should eq(answer_ids)
+      end
+    end
+    
+    describe 'init_user' do
+      it 'should respond to :init_user' do
+        @user.should respond_to(:init_user)
+      end
+    end
+    
+    describe 'update_tag_list!' do
+      before(:each) do
+        @questionnaire = Questionnaire.create
+      end
+      
+      it 'should respond' do
+        @user.should respond_to(:update_tag_list!)
+      end
+      
+      it 'should complete' do
+        quiz = Factory(:quiz)
+        quiz.user_id = @user.id
+        quiz.save
+
+        @user.update_tag_list!
+      end
+      
+      it 'should generate the right user tags' do
+        answer_ids = []
+        tag_list = []
+        tag = Faker::Name::first_name
+        5.times do
+          tag = Faker::Name::first_name while(tag_list.include?(tag))
+          answer = Factory(:answer)
+          answer.tag_list.add(tag)
+          answer.save
+
+          answer_ids << answer.id
+          tag_list << tag
+        end
+
+        User.any_instance.stubs(:latest_answers).returns(answer_ids)
+        list = @user.update_tag_list!
+        
+        @user.reload
+        tag_list.each do |tag|
+          @user.tag_list.should include(tag)
+        end
+
+        tag_list.each do |tag|
+          list.should include(tag)
+        end
+
+      end
+    end
+  end
+  
   # describe '#deliver_registration_confirmation' do
   #   let(:user) do
   #     user = User.create(@attr)  
@@ -169,26 +244,6 @@ describe User do
     end
   end
   
-  describe 'RelatedTag relationship' do
-    before(:each) do
-      @user = Factory(:user)
-      @tag = Factory(:tag)
-    end
-    
-    it "should respond to related_tags association" do
-      @user.should respond_to(:related_tags)
-    end
-    
-    it "should respond to :tags" do
-      @user.should respond_to(:tags)
-    end
-    
-    it 'should create relationship and include tag in the relationship' do
-      @user.related_tags.create(:tag_id => @tag.id)
-      @user.tags.should include(@tag)
-    end
-  end
-  
   describe 'on destroy' do
     before(:each) do
       @user = User.create(@attr)
@@ -196,12 +251,6 @@ describe User do
     
     it "should destroy user instance" do
       lambda {@user.destroy}.should change(User,:count).from(1).to(0)
-    end
-    
-    it 'should destroy related_tag relationship' do
-      tag = Factory(:tag)
-      @user.related_tags.create(:tag_id => tag.id)
-      lambda {@user.destroy}.should change(RelatedTag,:count).from(1).to(0)
     end
   end
 end

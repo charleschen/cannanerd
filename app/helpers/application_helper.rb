@@ -18,4 +18,8 @@ module ApplicationHelper
   def javascript(*files)
     content_for(:javascript) { javascript_include_tag(*files)}
   end
+  
+  def tag_types
+    [:flavors,:types,:conditions,:symptoms,:effects,:prices]
+  end
 end
