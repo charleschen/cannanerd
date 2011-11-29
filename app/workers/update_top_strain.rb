@@ -34,7 +34,7 @@ class UpdateTopStrain
       search_radius += 5
     end
     
-    strain_hash = {}
+    strain_hash = Hash.new(0)
     
     user_tags.each do |tag|
       strain_ids_with_tag = Strain.tagged_with(tag.name).map(&:id)
@@ -43,13 +43,13 @@ class UpdateTopStrain
       strains_with_tag.each do |strain|
         #strain_hash[strain.id_str.to_sym] ||= 0
         #strain_hash[strain.id_str.to_sym] += 1
-        strain_hash["strain_#{strain.id}".to_sym] ||= 0
+        #strain_hash["strain_#{strain.id}".to_sym] ||= 0
         strain_hash["strain_#{strain.id}".to_sym] += 1
       end
     end
     
     sorted_strain_ids = strain_hash.sort {|a,b| b[1] <=> a[1] }.map{|h| h[0].to_s.split('strain_').last.to_i }
-    user.update_attribute(:top_strains, sorted_strain_ids[0..14].to_s)  # returns ids of top 14 strains
+    user.update_attribute(:top_strains, sorted_strain_ids[0..14].to_s)  # returns ids of top 15 strains
   end
   
 end
