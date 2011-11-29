@@ -26,7 +26,7 @@ authorization do
     has_permission_on [:tags], :to => [:new, :create, :edit,:update, :show, :index, :destroy]
     has_permission_on [:answers], :to => [:edit, :update,:index]
     
-    has_permission_on [:strains], :to => :manage
+    has_permission_on [:strains], :to => [:manage, :tags, :all_tags]
     
     has_permission_on [:stock_strains], :to => [:edit,:update,:show,:create,:destroy,:make_available,:make_unavailable]
   end

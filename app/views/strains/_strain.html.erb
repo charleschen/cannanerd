@@ -2,17 +2,18 @@
 	<td>
 		<p><%= strain.name %></p>
 		<span>
-			<ul class='tags'>
-				<li>Tags:</li>
-			<% strain.tags.each do |tag| %>
-				<li class='tag'><%= tag.name %></li>
+			<% tag_types.each do |tag_type| %>
+				<% if strain.tag_list_on(tag_type).any? %>
+					<ul class='tags'>
+						<li><%= "#{tag_type.to_s}:" %></li>
+						<li class='tag'><%= strain.tag_list_on(tag_type) %></li>
+					</ul>
+				<% end %>
 			<% end %>
-			</ul>
 		</span>
 	</td>
 	<td><%= truncate(strain.description,:length => 30) %></td>
-	<td>
-			<span><%= button_to 'edit', edit_strain_path(strain), :method => :get %>
-			<%= button_to 'delete',strain_path(strain),:confirm => 'Are you sure?',:method => :delete %></span>
+	<td><%= link_to 'edit', edit_strain_path(strain), :class => 'button' %>
+			<%= link_to 'delete',strain_path(strain),:confirm => 'Are you sure?',:method => :delete, :class => 'button' %>
 	</td>
 </tr>

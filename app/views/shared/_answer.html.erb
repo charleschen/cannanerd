@@ -1,5 +1,10 @@
 <% display_tags ||= false %>
 
 <li class='questionnaire_answer'>
+	<span>
 	<%= answer.content %>
+	<% answer.tags.each do |tag| %>
+		<span class='tag'><%= tag.name %></span>
+	<% end %>
+	</span>
 </li>

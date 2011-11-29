@@ -15,9 +15,10 @@ require 'acts-as-taggable-on'
 
 class Strain < ActiveRecord::Base
   acts_as_taggable
-  acts_as_taggable_on :taste
+  acts_as_taggable_on :flavors, :types, :conditions, :symptoms, :effects, :prices
   
-  attr_accessible :tag_list,:name
+  attr_accessible :name, :flavor_tokens, :type_tokens, :condition_tokens, :symptom_tokens, :effect_tokens, :price_tokens
+  attr_reader :flavor_tokens, :type_tokens, :condition_tokens, :symptom_tokens, :effect_tokens, :price_tokens
   
   #attr_reader :tag_tokens
   validates :name, :presence => true
@@ -41,11 +42,31 @@ class Strain < ActiveRecord::Base
     query = %(SELECT strain_id FROM stock_strains WHERE club_id IN #{query_array})
     where("id IN (#{query})")
   end
+
+  def flavor_tokens=(ids)
+    self.flavor_list = ids
+  end
   
-  # def tag_tokens=(ids)
-  #   self.tag_ids = ids.split(',')
-  # end
-  # 
+  def type_tokens=(ids)
+    self.type_list = ids
+  end
+  
+  def condition_tokens=(ids)
+    self.condition_list = ids
+  end
+  
+  def symptom_tokens=(ids)
+    self.symptom_list = ids
+  end
+  
+  def effect_tokens=(ids)
+    self.effect_list = ids
+  end
+  
+  def price_tokens=(ids)
+    self.price_list = ids
+  end
+  
   private
     def update_id_str
       self.id_str = self.name.split(/\W/).map{|w| w[0].upcase+w[1..w.length] if w.length>0 }.join.scan(/[A-Z]/).join + "_#{self.name.gsub(/\W/,"").length}"

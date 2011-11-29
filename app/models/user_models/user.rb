@@ -88,7 +88,7 @@ class User < ActiveRecord::Base
     self.tag_list = tag_list
     save
     
-    tag_list
+    self.tag_list
   end
   
   def init_user

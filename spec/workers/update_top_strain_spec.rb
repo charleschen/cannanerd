@@ -69,7 +69,7 @@ describe UpdateTopStrain do
     
     tag_num.times do |count|
       strain = Factory(:strain, :name => Faker::Name.name)
-      strain.set_tag_list_on(:random_context, tag_list[0..rand_list[count]])
+      strain.set_tag_list_on(("#{Faker::Name.first_name}_context".to_sym), tag_list[0..rand_list[count]])
       strain.save
       strain.reload
       
@@ -121,6 +121,4 @@ describe UpdateTopStrain do
     curr_user.reload
     curr_user.top_strains.should eq(top_strain_ids.to_s)
   end
-  
-  
 end
