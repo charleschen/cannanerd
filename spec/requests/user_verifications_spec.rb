@@ -20,4 +20,12 @@ describe "UserVerifications" do
     @user.reload
     @user.perishable_token.should_not eq(old_perishable_token)
   end
+  
+  describe 'after verification' do
+    before(:each) do
+      visit user_verification_path(@user.perishable_token)
+    end
+    
+    
+  end
 end

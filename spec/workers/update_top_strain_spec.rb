@@ -42,7 +42,7 @@ describe UpdateTopStrain do
       strain.save
       strain.reload
       
-      top_strain_ids[tag_num - 1 - rand_list[count]] = strain.id
+      top_strain_ids[tag_num - 1 - rand_list[count]] = [strain.id,rand_list[count]+1]
       
       club.add_to_inventory!(strain)
     end
@@ -73,7 +73,7 @@ describe UpdateTopStrain do
       strain.save
       strain.reload
       
-      top_strain_ids[tag_num - 1 - rand_list[count]] = strain.id
+      top_strain_ids[tag_num - 1 - rand_list[count]] = [strain.id,rand_list[count]+1]
       
       club.add_to_inventory!(strain)
     end
@@ -105,7 +105,7 @@ describe UpdateTopStrain do
       strain.save
       strain.reload
       
-      top_strain_ids[tag_num - 1 - rand_list[count]] = strain.id
+      top_strain_ids[tag_num - 1 - rand_list[count]] = [strain.id,rand_list[count]+1]
       
       name = Faker::Name.first_name
       club = Factory(:club, :email => "#{name}_#{count}@gmail.com", :name => "#{name}_#{count}")

@@ -60,3 +60,7 @@ Factory.define :strain do |strain|
   strain.id_str             'ogk_6'
   strain.description        'this is marijuana'
 end
+
+Factory.define :notification do |notification|
+  notification.content      'This is a notification'
+end

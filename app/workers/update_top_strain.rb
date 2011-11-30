@@ -48,7 +48,7 @@ class UpdateTopStrain
       end
     end
     
-    sorted_strain_ids = strain_hash.sort {|a,b| b[1] <=> a[1] }.map{|h| h[0].to_s.split('strain_').last.to_i }
+    sorted_strain_ids = strain_hash.sort {|a,b| b[1] <=> a[1] }.map{|h| [h[0].to_s.split('strain_').last.to_i,h[1].to_i] }
     user.update_attribute(:top_strains, sorted_strain_ids[0..14].to_s)  # returns ids of top 15 strains
   end
   
