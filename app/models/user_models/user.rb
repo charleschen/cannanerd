@@ -53,7 +53,7 @@ class User < ActiveRecord::Base
   ROLES = %w[unverified_member member admin]
   
   has_many :quizzes, :dependent => :destroy
-  
+  has_many :notifications, :dependent => :destroy
   
   
   def roles

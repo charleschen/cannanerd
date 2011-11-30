@@ -244,6 +244,18 @@ describe User do
     end
   end
   
+  describe 'has_many notification' do
+    let(:user){ User.create(@attr) }
+
+    it 'should respond to :notifications' do
+      user.should respond_to(:notifications)
+    end
+    
+    it 'should be able to create a notification' do
+      lambda { user.notifications.create(:content => 'hello!') }.should change(Notification,:count).from(0).to(1)
+    end
+  end
+  
   describe 'on destroy' do
     before(:each) do
       @user = User.create(@attr)
@@ -251,6 +263,11 @@ describe User do
     
     it "should destroy user instance" do
       lambda {@user.destroy}.should change(User,:count).from(1).to(0)
+    end
+    
+    it 'should destroy notification association' do 
+      @user.notifications.create(:content => "googog")
+      lambda { @user.destroy }.should change(Notification,:count).from(1).to(0)
     end
   end
 end
