@@ -4,6 +4,7 @@
 		<div class='zp-70'>
 			<ol>
 				<% if current_user %>
+					<li><%= render 'shared/notification_button', :notifications => current_user.notifications %></li>
 					<li><%= link_to 'Profile', current_user %></li>
 					<% if permitted_to? :create, :clubs %>
 					<li><%= link_to 'Clubs', clubs_path %></li>

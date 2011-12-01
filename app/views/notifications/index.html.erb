@@ -1,0 +1,8 @@
+<div>
+	<h1>Your Notifications</h1>
+	<ul class='notifications'>
+		<% @notifications.each do |notification| %>
+			<li class="<%="new" if notification.unread? %>"><h2><%= notification.content %> <span class='sub'><%= time_ago_in_words(notification.created_at) %> ago</span></h2></li>
+		<% end %>
+	</ul>
+</div>

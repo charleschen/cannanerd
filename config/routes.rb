@@ -5,7 +5,11 @@ Cannanerd::Application.routes.draw do
   delete 'likes/:resource_name/:resource_id' => 'likes#destroy', :as => 'like'
   post 'likes/:resource_name/:resource_id' => 'likes#create', :as => 'like'
   
-  resources :users
+  resources :users do
+    member do
+      resources :notifications, :only => [:index]
+    end
+  end
   match 'login', :to => 'user_sessions#new'
   post 'new_user_session', :to => 'user_sessions#create'
   match 'logout', :to => 'user_sessions#destroy'

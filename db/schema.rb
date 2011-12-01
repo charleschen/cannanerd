@@ -40,8 +40,9 @@ ActiveRecord::Schema.define(:version => 20111130064610) do
 
   create_table "notifications", :force => true do |t|
     t.text     "content"
-    t.boolean  "read",       :default => false
+    t.boolean  "unread",     :default => true
     t.integer  "user_id"
+    t.text     "redirect"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

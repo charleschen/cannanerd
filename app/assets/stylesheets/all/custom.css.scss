@@ -173,14 +173,16 @@ div#header{
 
 
 /****************** shared stuff *****************/
+
+
 a.action{
 	font-style: bold;
 }
 
 
 .sub{
-//	font-size: 85%;
-//	font-style: italic;
+	font-size: 85%;
+	font-style: italic;
 }
 
 table.index{
@@ -503,6 +505,58 @@ div#strains_search{
 		li{
 			float: left;
 		}
+	}
+}
+
+
+
+/***************** notification *********************/
+
+.bubble{
+//	display: inline-block;
+//	width: 14px;
+//	height: 14px;
+//	background: red;
+//	-moz-border-radius: 7px;
+//	-webkit-border-radius: 7px;
+//	
+//	font-size: 70%;
+//	
+//	color: white;
+//	text-align: center;
+	font-size: 70%;
+	color: white;
+	text-align: center;
+	position: absolute;
+	top: -15px;
+	left: 100px;
+	width: 30px;
+	height: 25px;
+	padding-bottom: 15px;
+	background: url("/assets/notification.png") no-repeat 0 6px;
+}
+
+div#notification_box{
+	display: block;
+	position: relative;
+}
+
+
+ul.notifications{
+	h2{
+		font-style: normal;
+		font-size: 130%;
+	}
+	
+	margin-top: 10px;
+	li{
+		border-top: 1px solid gray;
+
+		}
+		
+	.new{
+		font-weight: bold !important;
+		background-color: lighten($main-color,65%);
 	}
 }
 

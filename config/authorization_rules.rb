@@ -11,11 +11,15 @@ authorization do
   
   role :member do
     has_permission_on [:clubs], :to => [:show]
-    has_permission_on [:users], :to => [:show,:edit] do
+    has_permission_on [:users], :to => :self_manage do
       if_attribute :id => is { user.id }
     end
     
     has_permission_on [:likes], :to => [:create,:destroy]
+    has_permission_on [:notifications], :to => [:index] do
+      #if_permitted_to :self_manage, :user
+      if_attribute :id => is { user.id }
+    end
   end
   
   role :admin do
@@ -29,6 +33,8 @@ authorization do
     has_permission_on [:strains], :to => [:manage, :tags, :all_tags]
     
     has_permission_on [:stock_strains], :to => [:edit,:update,:show,:create,:destroy,:make_available,:make_unavailable]
+    
+    
   end
   
   role :unregistered do
@@ -43,5 +49,9 @@ end
 privileges do
   privilege :manage do
     includes :create, :new, :edit, :update, :destroy, :show, :index
+  end
+  
+  privilege :self_manage do
+    includes :show, :edit
   end
 end
