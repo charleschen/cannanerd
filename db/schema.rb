@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111130064610) do
+ActiveRecord::Schema.define(:version => 20111202011328) do
 
   create_table "answers", :force => true do |t|
     t.text     "content"
@@ -106,6 +106,13 @@ ActiveRecord::Schema.define(:version => 20111130064610) do
   add_index "stock_strains", ["club_id"], :name => "index_stock_strains_on_club_id"
   add_index "stock_strains", ["strain_id"], :name => "index_stock_strains_on_strain_id"
 
+  create_table "strain_histories", :force => true do |t|
+    t.integer  "user_id"
+    t.text     "list"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "strains", :force => true do |t|
     t.string   "name"
     t.string   "id_str"
@@ -133,21 +140,20 @@ ActiveRecord::Schema.define(:version => 20111130064610) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "name",                              :null => false
-    t.string   "email",                             :null => false
-    t.string   "crypted_password",                  :null => false
-    t.string   "password_salt",                     :null => false
-    t.string   "persistence_token",                 :null => false
-    t.integer  "login_count",        :default => 0, :null => false
-    t.integer  "failed_login_count", :default => 0, :null => false
-    t.string   "perishable_token",                  :null => false
+    t.string   "name",                                        :null => false
+    t.string   "email",                                       :null => false
+    t.string   "crypted_password",                            :null => false
+    t.string   "password_salt",                               :null => false
+    t.string   "persistence_token",                           :null => false
+    t.integer  "login_count",        :default => 0,           :null => false
+    t.integer  "failed_login_count", :default => 0,           :null => false
+    t.string   "perishable_token",   :default => "temptoken", :null => false
     t.string   "current_login_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "roles_mask",         :default => 1
     t.string   "zipcode"
     t.text     "top_strains"
-    t.text     "strain_history"
     t.text     "tag_list"
   end
 

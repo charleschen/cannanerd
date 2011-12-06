@@ -1,0 +1,5 @@
+Hi, <%= @user.name %>.  Here are you're top strains:
+
+<% @strains.each do |strain| %>
+	<%= strain.name %> - <%= strain.description %>.  Link: <%= strain_url(strain) %>
+<% end %>

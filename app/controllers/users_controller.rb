@@ -18,7 +18,6 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     if @user.save
       quiz_session.get_quiz.update_attribute(:user_id, @user.id)
-      #@user.deliver_registration_confirmation
       @user.init_user
       UserSession.create @user    # logs user in automatically
       flash[:notice] = "Registration successful"

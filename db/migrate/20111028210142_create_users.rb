@@ -10,7 +10,7 @@ class CreateUsers < ActiveRecord::Migration
       t.integer :login_count,               :null => false, :default => 0
       t.integer :failed_login_count,        :null => false, :default => 0
       
-      t.string  :perishable_token,          :null => false
+      t.string  :perishable_token,          :null => false, :default => 'temptoken'
       
       t.string :current_login_ip
       

@@ -4,8 +4,9 @@
 #
 #  id         :integer         not null, primary key
 #  content    :text
-#  read_state :integer         default(0)
+#  unread     :boolean         default(TRUE)
 #  user_id    :integer
+#  redirect   :text
 #  created_at :datetime
 #  updated_at :datetime
 #

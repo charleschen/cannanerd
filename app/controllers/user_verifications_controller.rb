@@ -4,6 +4,7 @@ class UserVerificationsController < ApplicationController
   def show
     unless @user.has_role?('member')
       @user.verify!
+      @user.check_and_send_top_strains
       flash[:notice] = 'Thank you for verifying your account'
     else
       flash[:notice] = "User already verified!"

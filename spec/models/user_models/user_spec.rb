@@ -24,6 +24,7 @@
 #require File.dirname(__FILE__) + '/../spec_helper'
 require 'spec_helper'
 support_require 'mailer_macros'
+require 'timecop'
 
 describe User do
   before(:each) do
@@ -116,6 +117,37 @@ describe User do
       @user = User.create(@attr)
     end
     
+    describe 'latest_picked_strain_ids' do
+      it 'should respond to :latest_picked_strain_ids' do
+        @user.should respond_to(:latest_picked_strain_ids)
+      end
+      
+      it 'should return strain ids from the latest strain history' do
+        strain_list = [{:strain_id => 5,:rank => 6},{:strain_id => 3,:rank => 4}]
+        
+        Timecop.freeze(Time.now)
+        @user.strain_histories.create(:list => strain_list.to_s)
+        Timecop.freeze(Time.now - 1.hour)
+        @user.strain_histories.create(:list => [].to_s)
+                                                
+        @user.latest_picked_strain_ids.should eq(strain_list.map{|i|i[:strain_id]})
+      end
+    end
+    
+    describe 'unread_notifications' do
+      it 'should respond to :unread_notifications' do
+        @user.should respond_to(:unread_notification_count)
+      end
+      
+      it 'should give out unread notifications' do
+        @user.notifications.create(:content => 'unread')
+        @user.notifications.create(:content => 'read').read!
+        @user.notifications.create(:content => 'unread')
+        
+        @user.unread_notification_count.should eq(2)
+      end
+    end
+    
     describe 'latest_answers' do 
       it 'should respond to :latest_answers' do
         @user.should respond_to(:latest_answers)
@@ -181,6 +213,52 @@ describe User do
           list.should include(tag)
         end
 
+      end
+    end
+    
+    describe 'check_and_send_top_strains' do
+      let(:valid_top_strains){[ { :strain_id => 3,:rank => 6 },
+                                { :strain_id => 4,:rank => 5 },
+                                { :strain_id => 2,:rank => 5 },
+                                { :strain_id => 6,:rank => 5 },
+                                { :strain_id => 1,:rank => 4 },
+                                { :strain_id => 13,:rank => 4 },
+                                { :strain_id => 14,:rank => 4 },
+                                { :strain_id => 12,:rank => 4 },
+                                { :strain_id => 16,:rank => 4 },
+                                { :strain_id => 11,:rank => 4 }].to_s }
+      let(:invalid_top_strains){[{ :strain_id => 3,:rank => 1 },
+                                { :strain_id => 4,:rank => 1 },
+                                { :strain_id => 2,:rank => 1 },
+                                { :strain_id => 6,:rank => 1 },
+                                { :strain_id => 1,:rank => 1 },
+                                { :strain_id => 3,:rank => 1 },
+                                { :strain_id => 4,:rank => 1 },
+                                { :strain_id => 2,:rank => 1 },
+                                { :strain_id => 6,:rank => 1 },
+                                { :strain_id => 1,:rank => 1 }].to_s }
+      
+      it 'should respond to :check_and_send_top_strains' do
+        @user.should respond_to(:check_and_send_top_strains)
+      end
+      
+      it 'should create a new notification if top_strains is nil' do
+        User.any_instance.stubs(:top_strains).returns(nil)
+        
+        lambda { @user.check_and_send_top_strains }.should change(Notification,:count).from(0).to(1)
+      end
+      
+      it 'should create notification about taking quiz again if top_strain is not valid' do
+        User.any_instance.stubs(:top_strains).returns(invalid_top_strains)
+        lambda { @user.check_and_send_top_strains }.should change(Notification,:count).from(0).to(1)
+        @user.notifications.created_order.first.content.should =~ /retake test/
+      end
+      
+      it 'should send mail for top strains' do
+        User.any_instance.stubs(:top_strains).returns(valid_top_strains)
+        Resque.inline = true
+        lambda { @user.check_and_send_top_strains }.should change(StrainHistory,:count).from(0).to(1)
+        Resque.inline = false
       end
     end
   end
@@ -256,6 +334,19 @@ describe User do
     end
   end
   
+  describe "has_many strain history association" do
+    let(:user){ User.create(@attr)}
+    
+    it 'should respond to :strain_histories' do
+      user.should respond_to(:strain_histories)
+    end
+    
+    it 'should be able to create strain_history' do
+      lambda { user.strain_histories.create(:list => [{:strain_id => 1,:rank => 4}].to_s) }.should change(StrainHistory,:count).from(0).to(1)
+    end
+  end
+
+  
   describe 'on destroy' do
     before(:each) do
       @user = User.create(@attr)
@@ -268,6 +359,11 @@ describe User do
     it 'should destroy notification association' do 
       @user.notifications.create(:content => "googog")
       lambda { @user.destroy }.should change(Notification,:count).from(1).to(0)
+    end
+    
+    it 'should destroy strain history association' do
+      @user.strain_histories.create(:list => [{:strain_id => 1,:rank => 4}].to_s)
+      lambda { @user.destroy }.should change(StrainHistory,:count).from(1).to(0)
     end
   end
 end

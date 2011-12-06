@@ -3,9 +3,7 @@ class NotificationsController < ApplicationController
   after_filter :notifications_read
   #filter_access_to :all
   def index
-    #raise params.inspect
     @notifications = current_user.notifications.created_order.limit(10)
-    #@notifications.each {|n| n.read!}
   end
   
   private
