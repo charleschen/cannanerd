@@ -1,14 +1,14 @@
 <div class='quiz_panel'>
 	<div class="quiz_statement g260">
 		<h2>Personalize Your Marijuana
-				</br>
+				<br />
 				Discover Cannabis
 		</h2>
 		<span class='description'>In <strong>one minute</strong>, discover the best cannabis strains and consumption methods that best fit your needs. <strong>Free</strong>. </span>
 	</div>
 	<div id="quiz" class="quiz g520" >
 	<% if quiz_session.new_quiz?  %>
-		<%= link_to take_quiz_path,:id=>'quiz_link',:remote => false do %>
+		<%= link_to take_quiz_path,:id=>'quiz_link',:remote => true do %>
 			<div class='quiz_intro'>
 				<div class='big-title title'>Get Started Now </div>
 			</div>
@@ -23,7 +23,7 @@
 <div class='quiz_info'>
 	<div class='steps g260'>
 		<span>1</span>
-		<h3 span class='small-title'><span>Take the quiz</span></h3>
+		<h3 class='small-title'><span>Take the quiz</span></h3>
 		<span class='description'>A fun and easy way to tell us what you like about your cannabis</span>
 	</div>
 	<div class='steps g260'>

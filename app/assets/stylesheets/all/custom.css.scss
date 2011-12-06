@@ -148,6 +148,8 @@ div#header{
 		margin-top: 10px;
 		border-top: 1px solid $dark-gray;
 		border-bottom: 1px solid $dark-gray;
+		float: left;
+		width: 100%;
 		li{
 			&:first-child{
 				margin-right: 19px;
