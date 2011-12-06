@@ -5,6 +5,7 @@ support_require 'redis'
 describe "ClubCreations" do
   let(:queue_list) { ['critical','high','medium','low'] }
   let(:login_button) { "Login" }
+  let(:logout){ "Sign out"}
   
   before(:each) do
     @admin_user = Factory(:user)
@@ -25,7 +26,7 @@ describe "ClubCreations" do
     page.should have_content('Logged in')
     
     visit root_path
-    click_link 'Logout'
+    click_link logout
     
     visit login_path
     fill_in 'user_session_email', :with => @admin_user.email

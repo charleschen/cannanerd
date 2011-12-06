@@ -1,10 +1,19 @@
 <li id='multi_answer' class="questions">
-	<%= "#{quiziation.question.content}" %>
-	<ul>
-	<% quiziation.question.answers.each do |answer| %>
-		<%= f.fields_for :quiziations, quiziation do |builder| %>
-			<li><%= builder.check_box :checked_answers, {}, "answer_#{answer.id};1","answer_#{answer.id};0" %><%= answer.content %></li>
+	<span class='small-title'><%= "#{quiziation.question.content}" %></span>
+	<div class='clear'></div>
+	<%= render_multi_column_answers(f,quiziation,quiziation.question.answers).html_safe if true %>
+	<% if false %>
+
+		<ul>
+		<% quiziation.question.answers.each do |answer| %>
+			<%= f.fields_for :quiziations, quiziation do |builder| %>
+				<li class='small'><%= builder.check_box :checked_answers, {}, "answer_#{answer.id};1","answer_#{answer.id};0" %><%= answer.content %></li>
+			<% end %>
 		<% end %>
+		</ul>
+
 	<% end %>
-	</ul>
 </li>
+
+
+

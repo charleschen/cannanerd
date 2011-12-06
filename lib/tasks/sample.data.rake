@@ -59,6 +59,15 @@ def make_clubs
   
   club.roles = ['registered']
   
+  
+  club = Club.create!( :email                  => 'werd@gmail.com',
+                :name                   => "Werd Club",
+                :password               => "password",
+                :password_confirmation  => "password",
+                :address                => "50 Alta Street, CA 91006")
+  
+  club.roles = ['registered']
+  
   addresses = ['2575 W Pico Blvd, Los Angeles, CA 90006', '465 S. La Cienega Boulevard, LA, CA 90048','1111 S Figueroa St, Los Angeles, CA 90015']
   
   3.times do |n|
@@ -76,24 +85,75 @@ end
 def make_questions_and_answers
   questionnaire = Questionnaire.create
   
-  question = questionnaire.questions.create(:content => "How much would you pay for an eighth of an ounce of weed?", :multichoice => true)
-  question.answers.create(:content => "40-50 dollars")
-  question.answers.create(:content => "50-60 dollars")
-  question.answers.create(:content => "60-70 dollars")
+  tag_types = [:flavors, :types, :conditions, :symptoms, :effects, :prices]
+  default_tags = %w(Sweet, Indica, Anxiety)
   
-  question = questionnaire.questions.create(:content => "How much would you pay for an eighth of an ounce of weed?")
-  question.answers.create(:content => "body")
-  question.answers.create(:content => "mind")
-  question.answers.create(:content => "both")
-  question.answers.create(:content => "body or mind")
+  ids = []
   
-  multi_choice = false
+  strains = [ {:name => "Jack Herer", :description => Faker::Lorem.paragraph},
+              {:name => "White Widow", :description => Faker::Lorem.paragraph},
+              {:name => "Afghan Diesel", :description => Faker::Lorem.paragraph},
+              {:name => "Afghan Kush", :description => Faker::Lorem.paragraph},
+              {:name => "Black Diesel", :description => Faker::Lorem.paragraph},
+              {:name => "Blue Champange", :description => Faker::Lorem.paragraph},
+              {:name => "Blue Dragon", :description => Faker::Lorem.paragraph},
+              {:name => "Blue OG", :description => Faker::Lorem.paragraph},
+              {:name => "Blue Rhino", :description => Faker::Lorem.paragraph},
+              {:name => "Ice Cream", :description => Faker::Lorem.paragraph},
+              {:name => "Jupiter Kush", :description => Faker::Lorem.paragraph}]
+              
+  strains.each do |strain|
+    new_strain = Strain.create(:name => strain[:name], :description => strain[:description])
+    3.times do |count|
+      new_strain.set_tag_list_on(tag_types[count],default_tags[count])
+    end
+    
+    new_strain.save
+    
+    ids << new_strain.id
+  end
   
-  12.times do 
-    question = questionnaire.questions.create(:content => Faker::Lorem.sentence(10), :multichoice => multi_choice)
-    multi_choice = !multi_choice
-    3.times do
-      question.answers.create(:content => Faker::Lorem.words(4))
+  Club.find_by_email('club@gmail.com').strains_in_inventory_ids = ids[0..4]
+  Club.find_by_email('werd@gmail.com').strains_in_inventory_ids = ids[5..9]
+  
+  strain = Strain.find_by_name("Jack Herer")
+  strain.tag_list_on(:prices).add("$25 - $45")
+  strain.save
+  
+  strain = Strain.find_by_name("White Widow")
+  strain.tag_list_on(:prices).add("$65+")
+  strain.save
+  
+  strain = Strain.find_by_name("Ice Cream")
+  strain.tag_list_on(:prices).add("$45 - $65")
+  strain.save
+  
+  answers = []
+  
+  answers[0] = %w(Aroused Energetic Focused)
+  # Happy Lazy Talkative Uplifted Creative Euphoric Giggly Hungry Sleepy Tingly
+  answers[1] = %w(Anxiety ADD Asthma)
+  # Cancer Depression Epilepsy Glaucoma HIV/AIDS Insomia lack-of-appetite migraines Muscle-Spasms Nausea Pain PMS PTSD Seizuers Stress Other
+  answers[2] = %w(Indica Sativa Hybrid)
+  answers[3] = %w(Sweet Sour Minty Spicy Earthy)
+  answers[4] = %w(Joint Pipe Bong Vaporizer)
+  answers[5] = ["$25 - $45","$45 - $65","$65+"]
+  
+  questions = [ "You like it when your bud makes you feel:",
+                "You want your bud to help you with:",
+                "What kind of bud do you like?",
+                "What kind of flavors do you like?",
+                "How do you like to medicate?",
+                "What is your price range for an 1/8 oz. of cannabis?" ]
+  
+  multichoice = [true,true,true,true,true,false]
+  
+  6.times do |count|
+    question = questionnaire.questions.create(:content => questions[count], :multichoice => multichoice[count])
+    answers[count].each do |answer|
+      created_answer = question.answers.create(:content => answer)
+      created_answer.tag_list.add(answer)
+      created_answer.save
     end
   end
   

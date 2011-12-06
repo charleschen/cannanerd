@@ -30,6 +30,19 @@ class Quiz < ActiveRecord::Base
     @current_page ||= 1
   end
   
+  def total_pages
+    ((questions.count+0.0)/questions.first.questionnaire.per_page).ceil
+  end
+  
+  def percentage_complete
+    #((questions.count+0.0)/questions.first.questionnaire.per_page).ceil
+    if first_page?
+      0
+    else
+      ((current_page-1.0)/(total_pages-1)).round(2)*100
+    end
+  end
+  
   def first_page?
     @current_page == 1
   end

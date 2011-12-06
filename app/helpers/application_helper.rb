@@ -22,4 +22,26 @@ module ApplicationHelper
   def tag_types
     [:flavors,:types,:conditions,:symptoms,:effects,:prices]
   end
+  
+  def render_multi_column_answers(f,quiziation,answers, cols=2)
+    returning (rendered="") do
+      answers.in_groups_of((answers.count/(cols+0.0)).ceil) do |group|
+        rendered << %{ <div class='narrow-col'><ul>}
+        group.each do |answer|
+          unless answer.nil?
+            answer_field = f.fields_for :quiziations, quiziation do |builder|
+              content = ""
+              content << "<li class='small'>" 
+              content <<  builder.check_box(:checked_answers,{},"answer_#{answer.id};1","answer_#{answer.id};0") 
+              content <<  answer.content 
+              content << "</li>"
+              content.html_safe
+            end
+            rendered << answer_field
+          end
+        end
+        rendered << %{ </ul></div> }
+      end
+    end
+  end
 end

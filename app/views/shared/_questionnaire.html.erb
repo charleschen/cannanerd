@@ -1,4 +1,5 @@
-<%= form_for quiz, :url => quiz_route, :remote => true do |f| %>
+<%= form_for quiz, {:url => quiz_route,:html => {:class => 'quiz_form', :remote => false}} do |f| %>
+<div class='title'>CannaNerd Survey</div>
 <ol>
 <% quiziations.each do |quiziation| %>
 	<% if quiziation.question.multichoice %>
@@ -8,11 +9,15 @@
 	<% end %>
 <% end %>
 </ol>
-<% if quiz.first_page? %>
-<div class='fake_button'><pre> </pre></div>
-<% else %>
-<div class='back_button'><%= f.submit 'back', {:name => 'prev_page'} %></div>
-<% end %>
+
+<div class='quiz_control'>
+<div class='back_button'><%= f.submit 'back', {:name => 'prev_page'} unless quiz.first_page? %></div>
 <div class='next_button'><%= f.submit 'next', {:name => 'next_page'} unless quiz.last_page?%></div>
 <div class='submit_button'><%= f.submit 'submit', {:name => 'submit'} if quiz.last_page? %></div>
+
+	<div class='completed'><%= "#{quiz.current_page} / #{quiz.total_pages}" %></div>
+	<div class='meter'>	
+		<span style="width:<%= number_to_percentage(quiz.percentage_complete,:precision => 0) %>"></span>
+	</div>
+</div>
 <% end %>

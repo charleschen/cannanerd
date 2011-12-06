@@ -1,38 +1,39 @@
-<div id='banner'>
-	
-	<div class='img'><%= image_tag 'banner.jpeg', :alt => 'cannanerd banner' %></div>
-	<h2>In <strong>one minute</strong>, discover the best cannabis strains and consumption methods that best fit your needs. <strong>Free</strong>. </h2>
-</div>
-
-<div class='guest_info zp-50'>
-	<ul>
-		<li>
-			<h2>Fill out your Cannabis Profile</h2>
-			<span class='sub'>A fun and easy way to tell us what you like about your cannabis.</span>
-		</li>
-		<li>
-			<h2>Discover the Best </h2>
-			<span class='sub'>Get curated recommendations based on your specific preferences for cannabis strains and consumption methods available in your local area</span>
-		</li>
-		<li>
-			<h2>Choose and Buy</h2>
-			<span class='sub'>We give you all the information you need to find and buy the products you love including special deals and coupons!.</span>
-		</li>
-	</ul>
-</div>
-
-<div class='guest_home zp-50'>
-	<div id='get_start_box'>
-		<h1>Get Started Here!</h1>
-		<p>Fill out your cannabis profile to start receiving your personalized cannabis menu every week. It only takes a few minutes.</p>
+<div class='quiz_panel'>
+	<div class="quiz_statement g260">
+		<h2>Personalize Your Marijuana
+				</br>
+				Discover Cannabis
+		</h2>
+		<span class='description'>In <strong>one minute</strong>, discover the best cannabis strains and consumption methods that best fit your needs. <strong>Free</strong>. </span>
 	</div>
-	<div id="questionnaire_real" >
+	<div id="quiz" class="quiz g520" >
 	<% if quiz_session.new_quiz?  %>
-		<%= form_tag take_quiz_path, :remote => true do %>
-			<%= submit_tag 'Take Quiz' %>
+		<%= link_to take_quiz_path,:id=>'quiz_link',:remote => false do %>
+			<div class='quiz_intro'>
+				<div class='big-title title'>Get Started Now </div>
+			</div>
 		<% end %>
 	<% else %>
 		<%= render 'shared/questionnaire', :quiz_route => root_path , :quiz => @quiz, :quiziations => @quiziations %>
 	<% end %>
+	</div>
+	<div class='clear'></div>
+</div>
+
+<div class='quiz_info'>
+	<div class='steps g260'>
+		<span>1</span>
+		<h3 span class='small-title'><span>Take the quiz</span></h3>
+		<span class='description'>A fun and easy way to tell us what you like about your cannabis</span>
+	</div>
+	<div class='steps g260'>
+		<span >2</span>
+		<h3 class='small-title'><span>Discover the Best</span></h3>
+		<span class='description'>Get recommendations for cannabis strains and consumption methods based on your preferences</span>
+	</div>
+	<div class='steps g260'>
+		<span>3</span>
+		<h3 class='small-title'><span>Choose and Buy</span></h3>
+		<span class='description'>We give you all the information you need to find and buy the products you love including special deals and coupons!</span>
 	</div>
 </div>

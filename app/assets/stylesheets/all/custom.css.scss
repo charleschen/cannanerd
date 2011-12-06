@@ -1,5 +1,8 @@
 $main-color: #597216;
 $gray-color: #F8F7F4;
+$dark-gray: #727272;
+
+// 10 px margin, 12 columns, 55px per column
 
 body {
 	background-color: $gray-color;
@@ -128,23 +131,31 @@ div#content{
 
 
 header {
-	border-top: 3px solid #597216;
+	border-top: 3px solid black;
 }
 
 div#header{
-	width: 970px;
-	margin: auto;
-	margin-top: 25px;
+	width: 790px;
+	margin: 0 auto;
+	
+	div.title_bar{
+		margin-left: 10px;
+		padding: 15px 0 15px 0;//95px;
+		//margin-left: 95px;
+	}
 	
 	ol{
+		margin-top: 10px;
+		border-top: 1px solid $dark-gray;
+		border-bottom: 1px solid $dark-gray;
 		li{
 			&:first-child{
-				margin-left: 0px;
+				margin-right: 19px;
 			}
-				
-			font-size: 150%;
+			
+			font-size: 120%;	
 			float: left;
-			margin-left: 35px;
+			margin-right: 25px;
 			
 			
 			a{
@@ -152,7 +163,7 @@ div#header{
 				color: #6D6D6D;
 				text-decoration: none;
 				&:hover{
-					color: black;
+					color: black
 				}
 			}
 		}
@@ -174,6 +185,79 @@ div#header{
 
 /****************** shared stuff *****************/
 
+.meter{
+	height: 20px;
+	position: relative;
+	background: #555;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	padding: 5px;
+	-webkit-box-shadow: inset 0 -1px 1px rgba(255,255,255,0.3);
+  -moz-box-shadow   : inset 0 -1px 1px rgba(255,255,255,0.3);
+  box-shadow        : inset 0 -1px 1px rgba(255,255,255,0.3);
+
+	span{
+		display: block;
+		        height: 100%;
+		           -webkit-border-top-right-radius: 8px;
+		        -webkit-border-bottom-right-radius: 8px;
+		               -moz-border-radius-topright: 8px;
+		            -moz-border-radius-bottomright: 8px;
+		                   border-top-right-radius: 8px;
+		                border-bottom-right-radius: 8px;
+		            -webkit-border-top-left-radius: 5px;
+		         -webkit-border-bottom-left-radius: 5px;
+		                -moz-border-radius-topleft: 5px;
+		             -moz-border-radius-bottomleft: 5px;
+		                    border-top-left-radius: 5px;
+		                 border-bottom-left-radius: 5px;
+		        background-color: rgb(43,194,83);
+		        background-image: -webkit-gradient(
+		          linear,
+		          left bottom,
+		          left top,
+		          color-stop(0, rgb(43,194,83)),
+		          color-stop(1, rgb(84,240,84))
+		         );
+		        background-image: -webkit-linear-gradient(
+		          center bottom,
+		          rgb(43,194,83) 37%,
+		          rgb(84,240,84) 69%
+		         );
+		        background-image: -moz-linear-gradient(
+		          center bottom,
+		          rgb(43,194,83) 37%,
+		          rgb(84,240,84) 69%
+		         );
+		        background-image: -ms-linear-gradient(
+		          center bottom,
+		          rgb(43,194,83) 37%,
+		          rgb(84,240,84) 69%
+		         );
+		        background-image: -o-linear-gradient(
+		          center bottom,
+		          rgb(43,194,83) 37%,
+		          rgb(84,240,84) 69%
+		         );
+		        -webkit-box-shadow:
+		          inset 0 2px 9px  rgba(255,255,255,0.3),
+		          inset 0 -2px 6px rgba(0,0,0,0.4);
+		        -moz-box-shadow:
+		          inset 0 2px 9px  rgba(255,255,255,0.3),
+		          inset 0 -2px 6px rgba(0,0,0,0.4);
+		        position: relative;
+		        overflow: hidden;
+	}
+}
+
+a.none{
+	color: black;
+	text-decoration: none;
+	&:hover{
+		color: black;
+	}
+}
 
 a.action{
 	font-style: bold;
@@ -239,6 +323,7 @@ ul.list_buttons{
 input[type='button'], input[type='submit'], input[type='file']{
 	border: 1px solid #CCC;
 	border-color: #999 #858585 #666;
+	cursor: pointer;
 }
 
 input {
@@ -277,37 +362,109 @@ div.quiz_button{
 
 // guest stuff
 
-div#banner{
-	clear: both;
-	padding-bottom: 20px;
-	border-bottom: 1px solid #6D6D6D;
-	
-	div.img{
-		width: 760px;
-		margin: auto;
-		padding: 0 26px 0 26px;
+div.quiz_panel{
+	padding: 20px 0 0px 0;
+	h1{
+		font-size: 20px;// defaults to 36px size and line height 
 	}
-	
-	h2{
-		margin: auto;
-		width: 620px;
+	h3{
+		font-weight: normal;
+	}
+}
+
+div.quiz_statement{
+}
+
+div.quiz{
+	width: 510px;
+	height: 350px;
+	overflow: hidden; 
+	position: relative;
+	//box-shadow: 0 0 0 6px #000, 0 0 0 12px $main-color;
+	background: url("/assets/quiz_intro.jpg") no-repeat -80px -80px;
+	background-size: 694px 600px;
+	a{
+			text-decoration:none;
+			color: white;
+		&:hover{
+			//color: #B0AC4E;
+			text-decoration:underline;
+		}
+	}
+	.quiz_intro{
 		
-		text-align: center;
-		font-size: 160%;
-		margin-bottom: 5px;
-		margin-top: 10px;
+		
+		div.title{
+			position: absolute;
+			//width: 210px;
+			top: 5px;
+			left: 5px;
+			background: rgba(0,1,0,.4);
+			//background: -webkit-gradient(linear, left top, right top, from(rgba(0,0,0,.8)),to(rgba(0,0,0,.05))); //rgba(0,0,0, .6);
+			padding: 15px 20px 15px 20px;
+		}
+		
+
+		height: 100%;
+		width: 100%;
+	}
+	
+	.quiz_form{
+		//display: block-inline;
+		//border: 10px solid black;
+		//border: 1px solid black;
+		background: rgba(178,178,178,.85); //lighten($dark-gray,25%);
+		height: 100%;
+		padding: 20px;
+		
+		div.narrow-col{
+			float: left;
+			width: 10em;
+		}
+		
+		div.quiz_control{
+			//border: 1px solid black;
+			// .meter is 20px
+			padding: 5px 0px 5px 0px;
+			position:absolute;
+			width: 470px;
+			top: 300px;
+			height: 50px;
+			div.back_button{
+				position: absolute;
+				top: -25px;
+				left: 300px;
+			}
+			
+			div.next_button{
+				position: absolute;
+				left: 350px;
+				top: -25px;
+			}
+			
+			div.submit_button{
+				position: absolute;
+				top: -25px;
+			}
+			
+			div.completed{
+				position: absolute;
+				top: 10px;
+				left: 10px;
+				z-index: 100;
+			}
+		}
 	}
 }
 
-div#guest_home{
-}
-
-div.guest_info{
-
-}
-
-div#get_start_box{
-
+div.quiz_info{
+	margin-top: 20px;
+	text-align: center;
+	background-color: black;
+	
+	.steps{
+		//margin: 0px 10px 0 10px;
+	}
 }
 
 /*************** answer ******************/
@@ -421,27 +578,27 @@ div#questionnaire_real {
 		}
 	}
 	
-	div.fake_button{
-		//font-color: white !important;
-		font-style: italic;
-		width: 46px;
-		float: left;
-	}
-	
-	div.next_button{
-		float: left;
-		margin-left: 5px;
-	}
-	
-	div.back_button{
-		margin-left: 50px;
-		float: left;
-	}
-	
-	div.submit_button{
-		margin-right: 10px;
-		float: right;
-	}
+//	div.fake_button{
+//		//font-color: white !important;
+//		font-style: italic;
+//		width: 46px;
+//		float: left;
+//	}
+//	
+//	div.next_button{
+//		float: left;
+//		margin-left: 5px;
+//	}
+//	
+//	div.back_button{
+//		margin-left: 50px;
+//		float: left;
+//	}
+//	
+//	div.submit_button{
+//		margin-right: 10px;
+//		float: right;
+//	}
 }
 
 

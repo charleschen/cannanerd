@@ -43,4 +43,7 @@ class QuizSession
     Quiz.find(@session[:quiz_attempt_id]).update_attributes(quiz_params)
   end
   
+  def reset_quiz
+    @session[:quiz_attempt_id] = nil
+  end
 end

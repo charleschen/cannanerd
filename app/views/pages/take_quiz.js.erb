@@ -1,1 +1,1 @@
-$('div#questionnaire_real').html("<%= escape_javascript(render('shared/questionnaire',:quiz_route => root_path , :quiz => @quiz, :quiziations => @quiziations))%>");
+$('div#quiz').html("<%= escape_javascript(render('shared/questionnaire',:quiz_route => root_path , :quiz => @quiz, :quiziations => @quiziations))%>");

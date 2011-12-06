@@ -6,6 +6,8 @@ support_require 'data_generator'
 support_require 'helper'
 
 describe "SignUpProcesses" do
+  let(:logout) { 'Sign out'}
+  let(:take_quiz) { page.click_link 'quiz_link' }
   let(:next_button) { 'next' }
   let(:back_button) { 'back' }
   let(:freeze_time) { Time.parse('2011-09-20 13:00:00 UTC') }
@@ -37,19 +39,19 @@ describe "SignUpProcesses" do
   it 'should start with no quiz created' do
     visit root_path
     Quiz.count.should eq(0)
-    page.should have_button('Take Quiz')
+    page.should have_link('quiz_link',:href => take_quiz_path)
   end
   
   it 'should create new quiz when pressing button' do
     visit root_path
-    lambda {click_button 'Take Quiz'}.should change(Quiz,:count).from(0).to(1)
+    lambda {take_quiz}.should change(Quiz,:count).from(0).to(1)
     current_path.should eq(root_path)
   end
   
   describe 'questionnaire sequence' do
     before(:each) do
       visit root_path
-      click_button 'Take Quiz'
+      take_quiz
     end
     
     it 'should have only 1 question per page and navigation button' do
@@ -123,23 +125,23 @@ describe "SignUpProcesses" do
   describe 'session timed out' do
     before(:each) do
       visit root_path
-      click_button 'Take Quiz'
+      take_quiz
     end
     
     it 'should create new quiz after 15 minutes of no update' do
-      page.should_not have_button('Take Quiz')
+      page.should_not have_link('quiz_link')
       Timecop.freeze(freeze_time + 15.minute)
       visit root_path
-      page.should have_button('Take Quiz')
+      page.should have_link('quiz_link')
       
-      lambda {click_button 'Take Quiz' }.should change(Quiz,:count).from(1).to(2)
+      lambda {page.click_link 'quiz_link' }.should change(Quiz,:count).from(1).to(2)
     end
   end
   
   describe 'user signup' do
     before(:each) do
       visit root_path
-      click_button 'Take Quiz'
+      take_quiz
       check('quiz[quiziations_attributes][0][checked_answers]')
       check('quiz[quiziations_attributes][2][checked_answers]')
       click_button next_button
@@ -224,7 +226,7 @@ describe "SignUpProcesses" do
           strain.tag_list.add(tag_list[0..rand_list[count]])
           strain.save
           strain.reload
-          top_strain_ids[tag_num - 1 - rand_list[count]] = [strain.id, rand_list[count]+1]
+          top_strain_ids[tag_num - 1 - rand_list[count]] = { :strain_id => strain.id, :rank => rand_list[count]+1 }
           club.add_to_inventory!(strain)
         end
         User.any_instance.stubs(:update_tag_list!).returns(tag_list)
@@ -252,17 +254,17 @@ describe "SignUpProcesses" do
     
       it 'should be able to sign out' do
         page.should have_content("success")
-        page.should have_link('Logout')
-        click_link 'Logout'
+        page.should have_link(logout)
+        click_link logout
       end
     
       it 'should not be able to sign up again' do
-        click_link 'Logout'
+        click_link logout
         visit new_user_path
         page.should have_content('Need to take questionnaire')
         
         visit root_path
-        page.should have_button 'Take Quiz'
+        page.should have_link 'quiz_link'
       end
       
       

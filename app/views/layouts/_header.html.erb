@@ -1,11 +1,40 @@
 <header>
 	<div id="header">
+		<div class='title_bar'>
+			<h1 class='left'><%= link_to 'CannaNerd', root_path, :class => 'none' %></h1>
+			<ul class='side_nav right'>
+				<% if guest? %>
+				<li><%= link_to 'Sign in', login_path, :rel => 'facebox' %></li>
+				<% else %>
+					<% if current_user %>
+						<li><%= current_user.name %> <%= link_to 'Sign out', logout_path %></li>
+					<% end %>
+				<% end %>
+			</ul>
+		</div>
+		<div class='clear'></div>
+		<nav>
+			<ol>
+				<% if current_user %>
+				<li><%= render 'shared/notification_button', :notifications => current_user.notifications %></li>
+				<li><%= link_to 'Profile', current_user %></li>
+				<% else %>
+				<li><%= image_tag 'icon.jpg' %></li>
+				<li><%= link_to 'How it works', about_path %></li>
+				<li><%= link_to 'Collectives', about_path %></li>
+				<li><%= link_to 'About', about_path %></li>
+				<% end %>
+				<div class='clear'></div>
+			</ol>
+		</nav>
+		
+		<% if false %>
+		<div class='clear'></div>
 		<%= link_to logo, root_path, :class => 'zp-30' %>
 		<div class='zp-70'>
 			<ol>
 				<% if current_user %>
-					<li><%= render 'shared/notification_button', :notifications => current_user.notifications %></li>
-					<li><%= link_to 'Profile', current_user %></li>
+
 					<% if permitted_to? :create, :clubs %>
 					<li><%= link_to 'Clubs', clubs_path %></li>
 					<li><%= link_to 'Questionnaire', questionnaires_path %></li>
@@ -23,6 +52,9 @@
 				<% end %>
 			</ul>
 		</div>
+		<% end %>
+		
+		
 		<% if permitted_to? :create, :clubs %>
 		<ul class='jbar'>
 			<li>
@@ -41,7 +73,7 @@
 				</ul>
 			</li>
 			<li>
-				<a href="/">Strain</a>
+				<%= link_to 'Strains', strains_path %>
 				<ul>
 					
 					<li><%= link_to 'Strains', strains_path  %></li>

@@ -13,18 +13,18 @@
 <body>
 	<%= render 'layouts/header' %>
 	<div class='zp-wrapper'>
-		<div id='flash'>
-		<% flash.each do |key,value| %>
-			<div class="<%= key %>"><%= value %></div>
-		<% end %>
-		</div>
-		<div >
+		<div>
 			<%= render 'layouts/navbar' %>
 			<div >
 				<%= yield %>
 				<div class='clear'></div>
 			</div>
 			<%= render 'layouts/footer' %>
+		</div>
+		<div id='flash'>
+		<% flash.each do |key,value| %>
+			<div class="<%= key %>"><%= value %></div>
+		<% end %>
 		</div>
 	</div>
 </body>
