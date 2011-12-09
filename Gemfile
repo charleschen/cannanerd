@@ -4,7 +4,7 @@ gem 'rails', '3.1.0'
 gem 'rake', '0.9.2.2'
 gem 'will_paginate', '3.0.2'
 gem 'authlogic'
-gem 'resque', :require => "resque/server"
+gem 'resque', :require => "resque/server", git: 'git://github.com/defunkt/resque.git'
 gem 'resque-scheduler', :require => 'resque_scheduler', git: 'git://github.com/bvandenbos/resque-scheduler'
 gem 'resque-status'
 gem 'exceptional'
@@ -18,6 +18,7 @@ gem 'likeable', git: 'git://github.com/schneems/Likeable.git'
 gem 'sendgrid'
 gem 'acts-as-taggable-on', git: 'git://github.com/mbleigh/acts-as-taggable-on.git'
 
+gem 'active_dashboard', git: 'git://github.com/charleschen/active_dashboard.git'
 group :asset do
 	gem 'sass-rails', "~> 3.1.0"
 	gem 'coffee-rails', "~> 3.1.0"
@@ -62,6 +63,7 @@ group :my_test do
 	gem 'likeable', git: 'git://github.com/schneems/Likeable.git'
 	gem 'sendgrid'
 	gem 'acts-as-taggable-on', git: 'git://github.com/mbleigh/acts-as-taggable-on.git'
+	gem 'active_dashboard', git: 'git://github.com/charleschen/active_dashboard.git'
 end
 
 group :production do
