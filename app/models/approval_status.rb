@@ -28,4 +28,10 @@ class ApprovalStatus < ActiveRecord::Base
     self.states_mask = (states & STATES).map { |state| 2**STATES.index(state) }.sum
     save!
   end
+  
+  def append_to_comment!(str)
+    self.comment ||= ''
+    self.comment << str
+    save!
+  end
 end

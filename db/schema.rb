@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111213225049) do
+ActiveRecord::Schema.define(:version => 20111214000757) do
 
   create_table "answers", :force => true do |t|
     t.text     "content"
@@ -129,6 +129,7 @@ ActiveRecord::Schema.define(:version => 20111213225049) do
     t.text     "data"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "approval_club_id"
   end
 
   create_table "taggings", :force => true do |t|

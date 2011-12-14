@@ -17,7 +17,7 @@ class Strain < ActiveRecord::Base
   acts_as_taggable
   acts_as_taggable_on :flavors, :types, :conditions, :symptoms, :effects, :prices
   
-  attr_accessible :name, :flavor_tokens, :type_tokens, :condition_tokens, :symptom_tokens, :effect_tokens, :price_tokens
+  attr_accessible :name, :approval_club_id, :flavor_tokens, :type_tokens, :condition_tokens, :symptom_tokens, :effect_tokens, :price_tokens
   attr_reader :flavor_tokens, :type_tokens, :condition_tokens, :symptom_tokens, :effect_tokens, :price_tokens
   
   #attr_reader :tag_tokens
@@ -68,6 +68,12 @@ class Strain < ActiveRecord::Base
   
   def price_tokens=(ids)
     self.price_list = ids
+  end
+  
+  def approve!
+    raise NoApprovalClubIdError, "Tried to approve strain without club id, it should be impossible to do this" if self.approval_club_id.nil?
+    self.approval_status.states = ['approved']
+    self.approval_status.append_to_comment!("approved by club(:id=>#{self.approval_club_id}) at #{Time.now.utc.to_s};")
   end
   
   private

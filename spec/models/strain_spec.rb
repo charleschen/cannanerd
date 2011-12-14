@@ -84,54 +84,71 @@ describe Strain do
     
     it 'should create a approval status when creating strain' do
       lambda { strain }.should change(ApprovalStatus, :count).from(0).to(1)
+      strain.approval_status.should_not be_nil
     end
   end
   
-  describe 'instance method' do
-    describe 'query' do
+  describe 'query methods' do
+    
+    it 'should respond to :available_from' do
+      Strain.should respond_to(:available_from)
+    end
+    
+    it 'should return all strains from 1 club' do
+      num_of_strains = 10
       
-      it 'should respond to :available_from' do
-        Strain.should respond_to(:available_from)
+      club = Factory(:club)
+      strain_array = []
+      num_of_strains.times do
+        strain_array <<  Factory(:strain, :name => Faker::Name.name).id
+      end
+      club.strains_in_inventory_ids = strain_array[0..num_of_strains-1]
+      club.save
+      
+      strain_list = Strain.available_from([club.id])
+      strain_list.count.should eq(num_of_strains)
+      
+      strain_array.each do |id|
+        strain_list.should include(Strain.find(id))
+      end
+    end
+    
+    it 'should return no duplicates from multiple clubs' do
+      num_of_strains = 100
+      num_of_clubs = 5
+      
+      strain_array = []
+      num_of_strains.times do 
+        strain_array << Factory(:strain,:name => Faker::Name.name).id
       end
       
-      it 'should return all strains from 1 club' do
-        num_of_strains = 10
-        
-        club = Factory(:club)
-        strain_array = []
-        num_of_strains.times do
-          strain_array <<  Factory(:strain, :name => Faker::Name.name).id
-        end
-        club.strains_in_inventory_ids = strain_array[0..num_of_strains-1]
-        club.save
-        
-        strain_list = Strain.available_from([club.id])
-        strain_list.count.should eq(num_of_strains)
-        
-        strain_array.each do |id|
-          strain_list.should include(Strain.find(id))
-        end
+      num_of_clubs.times do |count|
+        name = Faker::Name.first_name
+        club = Factory(:club, :email => "#{name}@gmail.com", :name => name)
+        club.strains_in_inventory_ids = strain_array[(count*5)..(10+count*5-1)]
       end
       
-      it 'should return no duplicates from multiple clubs' do
-        num_of_strains = 100
-        num_of_clubs = 5
-        
-        strain_array = []
-        num_of_strains.times do 
-          strain_array << Factory(:strain,:name => Faker::Name.name).id
-        end
-        
-        num_of_clubs.times do |count|
-          name = Faker::Name.first_name
-          club = Factory(:club, :email => "#{name}@gmail.com", :name => name)
-          club.strains_in_inventory_ids = strain_array[(count*5)..(10+count*5-1)]
-        end
-        
-        strain_list = Strain.available_from(Club.all.map(&:id))
-        strain_list.count.should eq(30)
-        
-      end
+      strain_list = Strain.available_from(Club.all.map(&:id))
+      strain_list.count.should eq(30)
+      
+    end
+  end
+  
+  describe 'approval methods' do
+    let(:club) { Factory(:club) }
+    let(:strain) { Strain.create(@attr) }
+    
+    it 'should respond to approve!' do
+      strain.should respond_to(:approve!)
+    end
+    
+    it 'approve! should approve the strain' do
+      strain.stubs(:approval_club_id).returns(club.id)
+      
+      strain.approve!
+      
+      strain.approval_status.states.should include('approved')
+      strain.approval_status.comment.should =~ /approved by club\(:id=>#{club.id}\)/
     end
   end
   

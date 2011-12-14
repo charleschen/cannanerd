@@ -37,8 +37,13 @@ class StockStrain < ActiveRecord::Base
     save
   end
   
+  def approve!
+    self.approval_status.states = ['approved']
+    self.approval_status.append_to_comment!("approved at #{Time.now.utc};")
+  end
+  
   private
     def create_approval_status
-      approval_status = ApprovalStatus.create
+      self.approval_status = ApprovalStatus.create
     end
 end

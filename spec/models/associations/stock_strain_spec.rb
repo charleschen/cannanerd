@@ -13,6 +13,7 @@
 #
 
 require 'spec_helper'
+require 'timecop'
 
 describe StockStrain do
   before(:all) do
@@ -64,6 +65,26 @@ describe StockStrain do
     
     it 'should create approval status relationship after creation' do
       lambda { stock_strain }.should change(ApprovalStatus,:count).by(1)
+      stock_strain.approval_status.should_not be_nil
+    end
+  end
+  
+  describe 'approval methods' do
+    let(:stock_strain) { club.stock_strains.create(:strain_id => @strain.id) }
+    
+    it 'should respond to approve!' do
+      stock_strain.should respond_to(:approve!)
+    end
+    
+    it 'approve! should approve the stock_strain' do
+      Timecop.freeze(Time.now)
+      stock_strain
+      stock_strain.approve!
+      
+      stock_strain.approval_status.states.should include('approved')
+      stock_strain.approval_status.comment.should =~ /approved at #{Time.now.utc}/
+      
+      Timecop.return
     end
   end
   

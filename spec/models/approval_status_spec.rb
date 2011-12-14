@@ -54,4 +54,22 @@ describe ApprovalStatus do
     end
     
   end
+  
+  describe 'comment methods' do
+    let(:approval_status) { ApprovalStatus.create(default_attr) }
+    
+    it 'should respond to append_to_comment' do
+      approval_status.should respond_to(:append_to_comment!)
+    end
+    
+    it 'should add text to comments' do
+      str1 = "here we go"
+      str2 = "stop it"
+      approval_status.append_to_comment!(str1)
+      approval_status.comment.should == str1
+      
+      approval_status.append_to_comment!(str2)
+      approval_status.comment.should == str1 + str2
+    end
+  end
 end
