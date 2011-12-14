@@ -1,6 +1,11 @@
 require "spec_helper"
 
 describe UserMailer do
+  let(:club) do
+    Club.any_instance.stubs(:get_geocode).returns(true)
+    Factory(:club)
+  end
+  
   before(:each) do
     @email_from = "cannanerds@gmail.com"
     @verification_subject = "User account verification from Cannaerd"
@@ -30,7 +35,7 @@ describe UserMailer do
       strain_list = []
       5.times do |count|
         rand = 'a'*count
-        strain_list << Factory(:strain, :name => "#{Faker::Name.first_name}#{rand}").id
+        strain_list << Factory(:strain, :club_id => club.id, :name => "#{Faker::Name.first_name}#{rand}").id
       end
       User.any_instance.stubs(:latest_picked_strain_ids).returns(strain_list)
       

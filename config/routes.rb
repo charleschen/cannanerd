@@ -31,12 +31,12 @@ Cannanerd::Application.routes.draw do
     end  
   end
   
-  resources :stock_strains, :only => [:edit,:update,:show,:create,:destroy] do
-    member do
-      post :make_available
-      post :make_unavailable
-    end
-  end
+  # resources :stock_strains, :only => [:edit,:update,:show,:create,:destroy] do
+  #   member do
+  #     post :make_available
+  #     post :make_unavailable
+  #   end
+  # end
   
   resources :answers, :only => [:edit,:update,:index]
   resources :quizzes

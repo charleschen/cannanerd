@@ -37,14 +37,12 @@ describe UpdateTopStrain do
     top_strain_ids = []
     
     tag_num.times do |count|
-      strain = Factory(:strain, :name => Faker::Name.name)
+      strain = Factory(:strain, :club_id => club.id, :name => Faker::Name.name)
       strain.tag_list.add(tag_list[0..rand_list[count]])
       strain.save
       strain.reload
       
       top_strain_ids[tag_num - 1 - rand_list[count]] = { :strain_id => strain.id, :rank => rand_list[count]+1 }
-      
-      club.add_to_inventory!(strain)
     end
     
     User.any_instance.stubs(:update_tag_list!).returns(tag_list)
@@ -68,14 +66,12 @@ describe UpdateTopStrain do
     top_strain_ids = []
     
     tag_num.times do |count|
-      strain = Factory(:strain, :name => Faker::Name.name)
+      strain = Factory(:strain, :club_id => club.id, :name => Faker::Name.name)
       strain.set_tag_list_on(("#{Faker::Name.first_name}_context".to_sym), tag_list[0..rand_list[count]])
       strain.save
       strain.reload
       
       top_strain_ids[tag_num - 1 - rand_list[count]] = { :strain_id => strain.id, :rank => rand_list[count]+1 }
-      
-      club.add_to_inventory!(strain)
     end
     
     User.any_instance.stubs(:update_tag_list!).returns(tag_list)
@@ -100,17 +96,16 @@ describe UpdateTopStrain do
     top_strain_ids = []
     
     tag_num.times do |count|
-      strain = Factory(:strain, :name => Faker::Name.name)
+      name = Faker::Name.first_name
+      club = Factory(:club, :email => "#{name}_#{count}@gmail.com", :name => "#{name}_#{count}")
+      club_list << club
+      
+      strain = Factory(:strain, :club_id => club.id, :name => Faker::Name.name)
       strain.set_tag_list_on(:random_context, tag_list[0..rand_list[count]])
       strain.save
       strain.reload
       
       top_strain_ids[tag_num - 1 - rand_list[count]] = { :strain_id => strain.id, :rank => rand_list[count]+1 } #[strain.id,rand_list[count]+1]
-      
-      name = Faker::Name.first_name
-      club = Factory(:club, :email => "#{name}_#{count}@gmail.com", :name => "#{name}_#{count}")
-      club.add_to_inventory!(strain)
-      club_list << club
     end
     
     User.any_instance.stubs(:update_tag_list!).returns(tag_list)

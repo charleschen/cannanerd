@@ -10,7 +10,7 @@
 #  persistence_token  :string(255)     not null
 #  login_count        :integer         default(0), not null
 #  failed_login_count :integer         default(0), not null
-#  perishable_token   :string(255)     not null
+#  perishable_token   :string(255)     default("temptoken"), not null
 #  current_login_ip   :string(255)
 #  created_at         :datetime
 #  updated_at         :datetime

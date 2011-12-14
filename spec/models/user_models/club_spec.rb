@@ -120,6 +120,18 @@ describe Club do
     end
   end
   
+  describe "has_many strain relationship" do
+    let(:club) {Factory(:club)}
+    
+    it "should respond to :strains" do
+      club.should respond_to(:strains)
+    end
+    
+    it 'should be able to create strains' do
+      lambda { club.strains.create(:name => "OG Kush") }.should change(Strain,:count).from(0).to(1)
+    end
+  end
+  
   describe 'roles' do
     let(:club){Club.create(@attr)}
     before(:each) do
@@ -170,51 +182,6 @@ describe Club do
     end
   end
   
-  describe 'StockStrain association' do
-    before(:each) do
-      @club = Club.create(@attr)
-      @strain = Factory(:strain)
-    end
-    
-    it 'should respond to :stock_strains' do
-      @club.should respond_to(:stock_strains)
-    end
-    
-    it 'should respond to :strains_in_inventory' do
-      @club.should respond_to(:strains_in_inventory)
-    end
-    
-    it 'should create association with includes strain' do
-      @club.stock_strains.create(:strain_id => @strain.id)
-      @club.strains_in_inventory.should include(@strain)
-    end
-    
-    it 'should respond to :add_to_inventory' do
-      @club.should respond_to(:add_to_inventory!)
-    end
-    
-    it ':add_to_inventory should create association' do
-      @club.add_to_inventory!(@strain)
-      @club.strains_in_inventory.should include(@strain)
-    end
-    
-    it 'should respond to :remove_from_inventory' do
-      @club.should respond_to(:remove_from_inventory!)
-    end
-    
-    it ':remove_from_inventory should destroy association' do
-      @club.add_to_inventory!(@strain)
-      lambda {@club.remove_from_inventory!(@strain)}.should change(StockStrain,:count).from(1).to(0)
-      @club.strains_in_inventory.should_not include(@strain)
-    end
-    
-    it 'should respond to :in_inventory?' do
-      @club.should respond_to(:in_inventory?)
-      @club.add_to_inventory!(@strain)
-      @club.should be_in_inventory(@strain)
-    end
-  end
-  
   describe 'on destroy' do
     before(:each) do
       @club = Club.create(@attr)
@@ -224,9 +191,9 @@ describe Club do
       lambda {@club.destroy}.should change(Club,:count).from(1).to(0)
     end
     
-    it 'should destroy strain association' do
-      @club.stock_strains.create(:strain_id => Factory(:strain).id)
-      lambda {@club.destroy}.should change(StockStrain,:count).from(1).to(0)
+    it 'should destroy strains associated to it' do
+      @club.strains.create(:name => "whatever")
+      lambda {@club.destroy}.should change(Strain,:count).from(1).to(0)
     end
   end
 end
