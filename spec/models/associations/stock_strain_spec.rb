@@ -27,6 +27,7 @@ describe StockStrain do
   
   before(:each) do
     @strain = Factory(:strain)
+    Club.any_instance.stubs(:get_geocode).returns(true)
   end
   
   it 'should not create without associations' do
@@ -34,19 +35,17 @@ describe StockStrain do
   end
   
   it 'should not create without strain association' do
-    Club.any_instance.stubs(:get_geocode).returns(true)
+    
     
     club.stock_strains.create.should_not be_valid
   end
   
   it 'should create with strain association' do
-    Club.any_instance.stubs(:get_geocode).returns(true)
     
     club.stock_strains.create!(:strain_id => @strain.id)
   end
   
   it 'available attribute should be true by default' do
-    Club.any_instance.stubs(:get_geocode).returns(true)
     
     stock_strain = club.stock_strains.create(:strain_id => @strain.id)
     stock_strain.should be_available
@@ -60,9 +59,16 @@ describe StockStrain do
     stock_strain.should be_available
   end
   
+  describe 'approval status relationship' do
+    let(:stock_strain) { club.stock_strains.create(:strain_id => @strain.id) }
+    
+    it 'should create approval status relationship after creation' do
+      lambda { stock_strain }.should change(ApprovalStatus,:count).by(1)
+    end
+  end
+  
   describe 'on destroy' do
     it 'should be successful' do
-      Club.any_instance.stubs(:get_geocode).returns(true)
       StockStrain.any_instance.stubs(:destroy_all_likes).returns(true)   # so we don't need redis to destroy StockStrain
       
       association = club.stock_strains.create(:strain_id => @strain.id)

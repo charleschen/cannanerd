@@ -11,11 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111202011328) do
+ActiveRecord::Schema.define(:version => 20111213225049) do
 
   create_table "answers", :force => true do |t|
     t.text     "content"
     t.text     "old_content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "approval_statuses", :force => true do |t|
+    t.integer  "states_mask",     :default => 1
+    t.integer  "strain_id"
+    t.integer  "stock_strain_id"
+    t.text     "comment"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

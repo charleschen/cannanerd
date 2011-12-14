@@ -23,6 +23,10 @@ class StockStrain < ActiveRecord::Base
   validates :club_id, :presence => true
   validates :strain_id, :presence => true
   
+  has_one :approval_status, :dependent => :destroy
+  
+  after_create :create_approval_status
+  
   def make_available!
     self.available = true
     save
@@ -32,4 +36,9 @@ class StockStrain < ActiveRecord::Base
     self.available = false
     save
   end
+  
+  private
+    def create_approval_status
+      approval_status = ApprovalStatus.create
+    end
 end

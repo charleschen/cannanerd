@@ -79,6 +79,14 @@ describe Strain do
     end
   end
   
+  describe 'approval status relationship' do
+    let(:strain) { Strain.create(@attr) }
+    
+    it 'should create a approval status when creating strain' do
+      lambda { strain }.should change(ApprovalStatus, :count).from(0).to(1)
+    end
+  end
+  
   describe 'instance method' do
     describe 'query' do
       
@@ -136,6 +144,10 @@ describe Strain do
       lambda { @strain.destroy }.should change(Strain,:count).from(1).to(0)
     end
     
+    it 'should destroy approval status relationship' do
+      lambda { @strain.destroy }.should change(ApprovalStatus, :count).from(1).to(0)
+    end
+    
     it 'should destroy reverse association' do
       StockStrain.any_instance.stubs(:destroy_all_likes).returns(true)
       
@@ -143,5 +155,6 @@ describe Strain do
       relationship.destroy
       @strain.destroy
     end
+    
   end
 end
