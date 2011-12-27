@@ -48,8 +48,11 @@ class Club < ActiveRecord::Base
     c.maintain_sessions = false
   end
   
-  has_many :stock_strains, :dependent => :destroy, :foreign_key => 'club_id'
-  has_many :strains_in_inventory, :through => :stock_strains, :source => :strain
+  # has_many :stock_strains, :dependent => :destroy, :foreign_key => 'club_id'
+  # has_many :strains_in_inventory, :through => :stock_strains, :source => :strain
+  
+  has_many :strains, :dependent => :destroy
+  has_many :notifications, :dependent => :destroy
   
   attr_accessible :email, :name, :password, :password_confirmation, :address
   after_save :get_geocode, :if => :address_changed?
@@ -73,17 +76,27 @@ class Club < ActiveRecord::Base
     self.roles = ['registered']
   end
   
-  def add_to_inventory!(strain)
-    self.stock_strains.create!(:strain_id => strain.id)
+  def unread_notification_count
+    self.notifications.all_unread.count
   end
   
-  def remove_from_inventory!(strain)
-    self.stock_strains.find_by_strain_id(strain).destroy
+  def self.selection_list
+    Club.all.map do |club|
+      [club.name,club.id]
+    end
   end
   
-  def in_inventory?(strain)
-    self.strains_in_inventory.include?(strain)
-  end
+  # def add_to_inventory!(strain)
+  #   self.stock_strains.create!(:strain_id => strain.id)
+  # end
+  # 
+  # def remove_from_inventory!(strain)
+  #   self.stock_strains.find_by_strain_id(strain).destroy
+  # end
+  # 
+  # def in_inventory?(strain)
+  #   self.strains_in_inventory.include?(strain)
+  # end
   
   private
     def get_geocode

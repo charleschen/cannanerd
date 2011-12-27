@@ -1,0 +1,7 @@
+<% javascript 'strains/edit.js' %>
+
+<table summary='index of editable strains'>
+<% @strains.each do |strain| %>
+	<%= render 'form', :strain => strain %>
+<% end %>
+</table>

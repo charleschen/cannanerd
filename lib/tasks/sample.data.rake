@@ -103,7 +103,7 @@ def make_questions_and_answers
               {:name => "Jupiter Kush", :description => Faker::Lorem.paragraph}]
               
   strains.each do |strain|
-    new_strain = Strain.create(:name => strain[:name], :description => strain[:description])
+    new_strain = Club.first.strains.create(:name => strain[:name], :description => strain[:description])
     3.times do |count|
       new_strain.set_tag_list_on(tag_types[count],default_tags[count])
     end
@@ -113,8 +113,8 @@ def make_questions_and_answers
     ids << new_strain.id
   end
   
-  Club.find_by_email('club@gmail.com').strains_in_inventory_ids = ids[0..4]
-  Club.find_by_email('werd@gmail.com').strains_in_inventory_ids = ids[5..9]
+  #Club.find_by_email('club@gmail.com').strains_in_inventory_ids = ids[0..4]
+  #Club.find_by_email('werd@gmail.com').strains_in_inventory_ids = ids[5..9]
   
   strain = Strain.find_by_name("Jack Herer")
   strain.tag_list_on(:prices).add("$25 - $45")

@@ -11,9 +11,20 @@
 #  updated_at :datetime
 #
 
+class UserOrClubIDValidator < ActiveModel::Validator
+  def validate(record)
+    if record.club_id.nil? && record.user_id.nil?
+      record.errors[:base] << "Must have a club or user id reference"
+    end
+  end
+end
+
+
+
 class Notification < ActiveRecord::Base
   validates :content, :presence => true
-  validates :user_id, :presence => true
+  #validates :user_id, :presence => true
+  validates_with UserOrClubIDValidator
   
   attr_accessible :unread, :content
   
@@ -29,4 +40,7 @@ class Notification < ActiveRecord::Base
     self.unread = false
     save
   end
+  
 end
+
+

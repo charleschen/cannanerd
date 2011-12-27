@@ -3,6 +3,10 @@ support_require 'mailer_macros'
 
 describe SendUserMail do
   let(:user) { Factory(:user) }
+  let(:club) do 
+    Club.any_instance.stubs(:get_geocode).returns(true)
+    Factory(:club)
+  end
   
   before(:each) do
     reset_email
@@ -23,13 +27,13 @@ describe SendUserMail do
   end
   
   it 'should be able to perform top_strains method' do
-    Strain.stubs(:where).returns([Factory(:strain)])
+    Strain.stubs(:where).returns([Factory(:strain, :club_id => club.id)])
     User.any_instance.stubs(:latest_picked_strain_ids).returns([])
     SendUserMail.perform(:top_strains, user.id)
   end
   
   it 'top_strains method should send email' do
-    Strain.stubs(:where).returns([Factory(:strain)])
+    Strain.stubs(:where).returns([Factory(:strain, :club_id => club.id)])
     User.any_instance.stubs(:latest_picked_strain_ids).returns([])
     @user = user
     SendUserMail.perform(:top_strains, @user.id)
@@ -37,7 +41,7 @@ describe SendUserMail do
   end
   
   it 'top_strains method should create a new notification about email sent' do
-    Strain.stubs(:where).returns([Factory(:strain)])
+    Strain.stubs(:where).returns([Factory(:strain, :club_id => club.id)])
     User.any_instance.stubs(:latest_picked_strain_ids).returns([])
     @user = user
     

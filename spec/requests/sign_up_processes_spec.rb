@@ -222,12 +222,12 @@ describe "SignUpProcesses" do
         club = Factory(:club)
         top_strain_ids = []
         tag_num.times do |count|
-          strain = Factory(:strain, :name => Faker::Name.name)
+          strain = Factory(:strain, :club_id => club.id, :name => Faker::Name.name)
           strain.tag_list.add(tag_list[0..rand_list[count]])
           strain.save
           strain.reload
           top_strain_ids[tag_num - 1 - rand_list[count]] = { :strain_id => strain.id, :rank => rand_list[count]+1 }
-          club.add_to_inventory!(strain)
+          #club.add_to_inventory!(strain)
         end
         User.any_instance.stubs(:update_tag_list!).returns(tag_list)
         Club.stubs(:near).returns([club])

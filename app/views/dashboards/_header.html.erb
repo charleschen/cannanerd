@@ -1,0 +1,25 @@
+<header>
+	<div id='header'>
+		<ul class='side_nav right'>
+			<% if current_club %>
+			<li><%= current_user.name %> <%= link_to 'sign out', club_logout_path %></li>
+			<% elsif current_user %>
+			<li><%= current_user.name %> <%= link_to 'sign out', logout_path %></li>
+			<% end %>
+		</ul>
+		<div class='clear'></div>
+		<nav>
+			<ol>
+				
+				<li><%= link_to 'Admin', dashboards_path %></li>
+				<% if has_club_id? %>
+				<li><%= link_to 'Main', dash_path %></li>
+				<li><%= link_to 'Strains', dash_path(:strains) %></li>
+				<% end %>
+				<div class='clear'></div>
+			</ol>
+		</nav>
+	</div>
+	<div class='clear'></div>
+
+</header>

@@ -6,8 +6,10 @@
 				<% if guest? %>
 				<li><%= link_to 'Sign in', login_path, :rel => 'facebox' %></li>
 				<% else %>
-					<% if current_user %>
+					<% if current_cannanerd_user %>
 						<li><%= current_user.name %> <%= link_to 'Sign out', logout_path %></li>
+					<% elsif current_club %>
+						<li><%= current_user.name %> <%= link_to 'Sign out', club_logout_path %></li>
 					<% end %>
 				<% end %>
 			</ul>
@@ -17,43 +19,23 @@
 				<% if current_user %>
 				<li><%= render 'shared/notification_button', :notifications => current_user.notifications %></li>
 				<li><%= link_to 'Profile', current_user %></li>
+				
+				<% if permitted_to?(:select_club, :dashboards) %>
+				<li><%= link_to 'Dashboard', dashboards_path %></li>
+				<% elsif permitted_to?(:show, :dashboards) %>
+				<li><%= link_to_if permitted_to?(:show, :dashboards), 'Dashboard', dash_path %></li>
+				<% end %>
+				
 				<% else %>
 				<li><%= image_tag 'icon.jpg' %></li>
 				<li><%= link_to 'How it works', about_path %></li>
-				<li><%= link_to 'Collectives', about_path %></li>
+				<li><%= link_to 'Collectives', collectives_path %></li>
 				<li><%= link_to 'About', about_path %></li>
 				<% end %>
 				
 			</ol>
 			<div class='clear'></div>
 		</nav>
-		
-		<% if false %>
-		<div class='clear'></div>
-		<%= link_to logo, root_path, :class => 'zp-30' %>
-		<div class='zp-70'>
-			<ol>
-				<% if current_user %>
-
-					<% if permitted_to? :create, :clubs %>
-					<li><%= link_to 'Clubs', clubs_path %></li>
-					<li><%= link_to 'Questionnaire', questionnaires_path %></li>
-					<% end %>
-				<% end %>
-			</ol>
-			<ol class='side_nav right'>
-				<% if guest? %>
-				<li><%= link_to 'Clubs', contact_path %></li>
-				<li><%= link_to 'Login', login_path, :rel => 'facebox' %></li>
-				<% else %>
-					<% if current_user %>
-						<li><%= link_to 'Logout', logout_path %></li>
-					<% end %>
-				<% end %>
-			</ul>
-		</div>
-		<% end %>
-		
 		
 		<% if permitted_to? :create, :clubs %>
 		<ul class='jbar'>
