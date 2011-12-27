@@ -1,0 +1,6 @@
+<%= form_tag select_club_dashboards_path, :method => :get do %>
+	<%= select_tag "club_id", options_from_collection_for_select(@clubs, "id", "name") %>
+	<%= submit_tag 'enter'%>
+<% end %>
+
+<%= render 'clubs/form' %>

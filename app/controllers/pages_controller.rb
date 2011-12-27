@@ -47,6 +47,10 @@ class PagesController < ApplicationController
 
   def contact
   end
+  
+  def collectives
+    @club_session = ClubSession.new
+  end
 
   def about
   end

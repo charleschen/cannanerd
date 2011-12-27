@@ -42,10 +42,27 @@ Cannanerd::Application.routes.draw do
   resources :quizzes
 
   root            :to => 'pages#home'
-  match 'take_quiz',   :to => 'pages#take_quiz'
-  match 'about',  :to => 'pages#about'
-  match 'contact', :to => 'pages#contact'
-  match 'next_page', :to => 'pages#next_page'
+  match 'take_quiz',    :to => 'pages#take_quiz'
+  match 'about',        :to => 'pages#about'
+  match 'contact',      :to => 'pages#contact'
+  match 'next_page',    :to => 'pages#next_page'
+  match 'collectives',  :to => 'pages#collectives'
+  
+  # match 'dashboard/:id' , :to => 'dashboards#show'
+  # match 'dashboard'     , :to => 'dashboards#admin'
+  # match 'select_club',    :to => 'dashboards#select_club'
+  
+  resources :dashboards, :only => [:show, :index] do
+    collection do
+      get :select_club
+    end
+    
+    member do
+      scope :module => 'dashboards' do
+        resources :strains, :only => [:index,:update]
+      end
+    end
+  end
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

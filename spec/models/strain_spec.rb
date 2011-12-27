@@ -51,6 +51,7 @@ describe Strain do
     end
     
     it 'should change id_str when :name attribute is changed' do
+      strain
       strain.update_attribute(:name, 'white widow')
       strain.id_str.should eq('WW_10')
       
@@ -63,6 +64,14 @@ describe Strain do
       strain
       club.strains.create(@attr.merge(:name => strain.name)).should_not be_valid
     end
+    
+    it 'should not be able to update to a strain with the same id_str'
+    #   new_strain = club.strains.create(@attr.merge(:name => 'Tahoe OG'))
+    #   
+    #   new_strain.update_attribute(:name, @attr[:name])
+    #   new_strain.should_not be_valid
+    #  # strain.id_str.should_not == new_strain.id_str
+    # end
   end
   
 

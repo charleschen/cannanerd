@@ -132,6 +132,32 @@ describe Club do
     end
   end
   
+  describe 'has_many notification' do
+    let(:club){ Club.create(@attr) }
+
+    it 'should respond to :notifications' do
+      club.should respond_to(:notifications)
+    end
+    
+    it 'should be able to create a notification' do
+      lambda { club.notifications.create(:content => 'hello!') }.should change(Notification,:count).from(0).to(1)
+    end
+  end
+  
+  describe 'class method' do
+    describe 'selection_list' do
+      it 'should respond' do
+        Club.should respond_to(:selection_list)
+      end
+      
+      it 'should give the selection list of existing club' do
+        club = Factory(:club)
+        
+        Club.selection_list.should == [[club.name,club.id]]
+      end
+    end
+  end
+  
   describe 'roles' do
     let(:club){Club.create(@attr)}
     before(:each) do
@@ -194,6 +220,11 @@ describe Club do
     it 'should destroy strains associated to it' do
       @club.strains.create(:name => "whatever")
       lambda {@club.destroy}.should change(Strain,:count).from(1).to(0)
+    end
+    
+    it 'should destroy notification association' do 
+      @club.notifications.create(:content => "googog")
+      lambda { @club.destroy }.should change(Notification,:count).from(1).to(0)
     end
   end
 end

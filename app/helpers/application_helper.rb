@@ -1,4 +1,8 @@
 module ApplicationHelper
+  def curr_path
+    request.env['PATH_INFO']
+  end
+  
   def link_to_remove_fields(name, f)
     f.hidden_field(:_destroy) + button_to_function(name, "remove_fields(this)", :id => "delete_#{f.object_name}")
   end

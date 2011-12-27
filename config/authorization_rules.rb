@@ -1,6 +1,8 @@
 authorization do
   role :guest do
     has_permission_on :users, :to => [:create, :new]
+    #has_permission_on :user_sessions, :to => [:create, :new]
+    has_permission_on :club_sessions, :to => [:create, :new]
   end
   
   role :unverified_member do
@@ -24,7 +26,7 @@ authorization do
   
   role :admin do
     has_permission_on [:clubs], :to => [:new, :create, :edit, :show, :index]
-    has_permission_on [:users], :to => [:new, :create, :edit, :show, :index]
+    has_permission_on [:users], :to => [:new, :create, :edit, :show, :update, :index]
     has_permission_on [:questionnaires], :to => [:index, :edit, :update, :sort]
     
     has_permission_on [:tags], :to => [:new, :create, :edit,:update, :show, :index, :destroy]
@@ -34,15 +36,20 @@ authorization do
     
     has_permission_on [:stock_strains], :to => [:edit,:update,:show,:create,:destroy,:make_available,:make_unavailable]
     
-    
+    has_permission_on [:dashboards], :to => [:show, :select_club, :index]
+    has_permission_on [:dashboards_strains], :to => [:index]
   end
   
   role :unregistered do
     has_permission_on [:clubs], :to => [:show]
+    #has_permission_on [:dashboards], :to => [:main]
   end
   
   role :registered do
-    
+    has_permission_on [:dashboards], :to => [:show] do
+      #if_attribute :id => is {}
+      if_attribute :id => is { user.id }
+    end
   end
 end
 

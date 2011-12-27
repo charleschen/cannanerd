@@ -52,6 +52,7 @@ class Club < ActiveRecord::Base
   # has_many :strains_in_inventory, :through => :stock_strains, :source => :strain
   
   has_many :strains, :dependent => :destroy
+  has_many :notifications, :dependent => :destroy
   
   attr_accessible :email, :name, :password, :password_confirmation, :address
   after_save :get_geocode, :if => :address_changed?
@@ -73,6 +74,16 @@ class Club < ActiveRecord::Base
   
   def register!
     self.roles = ['registered']
+  end
+  
+  def unread_notification_count
+    self.notifications.all_unread.count
+  end
+  
+  def self.selection_list
+    Club.all.map do |club|
+      [club.name,club.id]
+    end
   end
   
   # def add_to_inventory!(strain)

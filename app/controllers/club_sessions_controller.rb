@@ -7,7 +7,7 @@ class ClubSessionsController < ApplicationController
     @club_session = ClubSession.new(params[:club_session])
     if @club_session.save
       flash[:notice] = "Club logged in!"
-      if current_user
+      if current_cannanerd_user
         UserSession.find.destroy
       end
       redirect_to root_url

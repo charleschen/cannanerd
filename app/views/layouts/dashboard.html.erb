@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+	<title><%= content_for?(:title) ? yield(:title) : "CannaNerd" %></title>
+  <%= stylesheet_link_tag    "dashboard", :media => 'all' %>
+	<!--[if lte IE 8]>
+	    <%= stylesheet_link_tag "dashboard-ie", :media => "all" %>
+	<![endif]-->
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+	<%= yield :javascript %>
+</head>
+<body>
+	<%= render 'dashboards/header' %>
+	<div class='zp-wrapper'>
+		<div>
+			<%= render 'dashboards/navbar' if current_user %>
+			<div >
+				<%= yield %>
+				<div class='clear'></div>
+			</div>
+			<%= render 'layouts/footer' %>
+		</div>
+		<div id='flash'>
+		<% flash.each do |key,value| %>
+			<div class="<%= key %>"><%= value %></div>
+		<% end %>
+		</div>
+	</div>
+</body>
+</html>
