@@ -74,11 +74,17 @@ describe Strain do
     # end
   end
   
-
+  describe 'approval status relationship' do
+    let(:strain) { club.strains.create(@attr) }
+    
+    it 'should create a approval status when creating strain' do
+      lambda { strain }.should change(ApprovalStatus, :count).from(0).to(1)
+      strain.approval_status.should_not be_nil
+    end
+  end
   
   describe 'instance method' do
     describe 'query' do
-      
       it 'should respond to :available_from' do
         Strain.should respond_to(:available_from)
       end
@@ -119,6 +125,23 @@ describe Strain do
     end
   end
   
+  describe 'approval methods' do
+    let(:strain) { club.strains.create(@attr) }
+    
+    it 'should respond to approve!' do
+      strain.should respond_to(:approve!)
+    end
+    
+    it 'approve! should approve the strain' do
+      strain.stubs(:approval_club_id).returns(club.id)
+      
+      strain.approve!
+      
+      strain.approval_status.states.should include('approved')
+      strain.approval_status.comment.should =~ /approved by club\(:id=>#{club.id}\)/
+    end
+  end
+  
   describe 'on destroy' do
     before(:each) do
       @strain = club.strains.create(@attr)
@@ -127,5 +150,10 @@ describe Strain do
     it 'should be successful' do
       lambda { @strain.destroy }.should change(Strain,:count).from(1).to(0)
     end
+    
+    it 'should destroy approval status relationship' do
+      lambda { @strain.destroy }.should change(ApprovalStatus, :count).from(1).to(0)
+    end
+    
   end
 end
