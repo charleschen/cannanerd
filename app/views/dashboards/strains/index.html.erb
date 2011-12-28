@@ -1,7 +1,19 @@
 <% javascript 'strains/edit.js' %>
 
-<table summary='index of editable strains'>
+<% content_for(:navbar) do %>
+<div class='new_strain_panel left'>
+	<h2>Create New Strain</h2>
+	<%= render 'new_form', :new_strain => @new_strain %>
+</div>
+<% end %>
+
+<div class='strain_panel left'>
+<div class="apple_pagination">
+	<%= will_paginate @strains %>
+</div>
+<table class='strain_list' summary='index of editable strains'>
 <% @strains.each do |strain| %>
-	<%= render 'form', :strain => strain %>
+	<%= render 'edit_form', :strain => strain %>
 <% end %>
 </table>
+</div>

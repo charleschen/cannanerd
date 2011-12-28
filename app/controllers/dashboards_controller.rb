@@ -2,10 +2,12 @@ class DashboardsController < ApplicationController
   filter_access_to :show,         :attribute_check => true, :load_method => :find_club
   filter_access_to :select_club, :index,  :attribute_check => false
   layout "dashboard"
-  
+
   def index
     @club = Club.new
-    @clubs = Club.all
+    @clubs = Club.alpha.paginate(:page => params[:page], :per_page => 20)
+    
+    @recent_clubs = Club.recently_created.limit(5)
   end
   
   def select_club

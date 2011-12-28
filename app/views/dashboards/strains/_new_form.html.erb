@@ -1,0 +1,47 @@
+<%= form_for new_strain, :url => "#{curr_path}" do |f| %>
+	<%= render 'shared/error_messages', :object => f.object %>
+	<div class='column left'>
+		<p>
+			<%= f.label :name %>
+			<%= f.text_field :name %>	
+		</p>
+
+		<p>
+			<%= f.label :description %>
+			<%= f.text_area :description %>
+		</p>
+	</div>
+	
+	<div class='column left'>
+		<p>
+			<%= f.label :flavor_tokens, "Flavors" %><br />
+			<%= f.text_area :flavor_tokens, "data-pre" => new_strain.flavors.map{|t| {:id => t.name, :name => t.name}}.to_json %>
+		</p>
+
+		<p>
+			<%= f.label :type_tokens, "Types" %><br />
+			<%= f.text_area :type_tokens, "data-pre" => new_strain.types.map{|t| {:id => t.name, :name => t.name}}.to_json %>
+		</p>
+
+		<p>
+			<%= f.label :condition_tokens, "Medical Conditions" %>
+			<%= f.text_area :condition_tokens, "data-pre" => new_strain.conditions.map{|t| {:id => t.name, :name => t.name}}.to_json %>
+		</p>
+
+		<p>
+			<%= f.label :symptom_tokens, "Treatable Symptoms" %>
+			<%= f.text_area :symptom_tokens, "data-pre" => new_strain.symptoms.map{|t| {:id => t.name, :name => t.name}}.to_json %>
+		</p>
+
+		<p>
+			<%= f.label :effect_tokens, "Effects" %>
+			<%= f.text_area :effect_tokens, "data-pre" => new_strain.effects.map{|t| {:id => t.name, :name => t.name}}.to_json %>
+		</p>
+
+		<p>
+			<%= f.label :price_tokens, "Prices" %>
+			<%= f.text_area :price_tokens, "data-pre" => new_strain.prices.map{|t| {:id => t.name, :name => t.name}}.to_json %>
+		</p>
+	</div>
+	<%= f.submit 'Enter Strain data' %>
+<% end %>

@@ -82,27 +82,44 @@ div#error_explanation{
 	}
 }
 
+/**************** dashboard *****************/
 
+div.new_club_panel{
+	width: 250px;
+	margin: 14px 7px 0 7px;
+	padding: 7px;
+	border: 1px solid black;
+}
+
+div.clubs_panel{
+	width: 800px;
+	margin: 14px 7px 0 7px;
+	padding: 7px;
+	border: 1px solid black;
+	
+	table{
+		width: 100%;
+	}
+	
+	div.index_clubs{
+		margin-bottom: 7px;
+	}
+	
+	div.recent_clubs{
+		padding-top: 7px;
+		margin-top: 7px;
+		border-top: 1px solid gray;
+	}
+}
 
 
 /**************** navbar *****************/
 
 div.navbar{
 	background: $gray-color;
+	margin: 14px 0px 0 7px;
 	padding: 7px;
-	float: right;
-	ul{
-		float: left;
-		padding-left: 7px;
-	}
-	
-	li{
-		clear: both;
-	}
-	
-	a{
-		height: 20px;
-	}
+	float: left;
 }
 
 
@@ -178,7 +195,30 @@ div#header{
 
 /***************** strain stuff ************/
 
+div.new_strain_panel{
+	width: 529px;
+	padding: 14px;
+	
+	border: 1px solid black;
+	
+	div.column{
+		width: 264px;
+	}
+}
+
+div.strain_panel{
+	padding: 14px;
+	width: 50%;
+}
+
+table.strain_list{
+	width: 100%;
+}
+
 tr.strain_edit_form{
+	padding: 7px;
+	border-top: 1px solid black;
+	
 	input#strain_name{
 		width: 140px;
 	}

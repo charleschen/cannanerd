@@ -78,7 +78,7 @@ class Strain < ActiveRecord::Base
   end
   
   def approve!
-    raise NoApprovalClubIdError, "Tried to approve strain without club id, it should be impossible to do this" if self.approval_club_id.nil?
+    raise NoApprovalClubIdError, "Tried to approve strain without club id, it should be impossible to do this" if self.club_id.nil?
     self.approval_status.states = ['approved']
     self.approval_status.append_to_comment!("approved by club(:id=>#{self.approval_club_id}) at #{Time.now.utc.to_s};")
   end

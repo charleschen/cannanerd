@@ -1,6 +1,33 @@
-<%= form_tag select_club_dashboards_path, :method => :get do %>
-	<%= select_tag "club_id", options_from_collection_for_select(@clubs, "id", "name") %>
-	<%= submit_tag 'enter'%>
-<% end %>
 
-<%= render 'clubs/form' %>
+
+<div class='new_club_panel left'>
+	<h2>Create New Club</h2>
+	<%= render 'dashboards/clubs/form', :club => @club %>
+</div>
+
+<div class='clubs_panel left'>
+	<%= form_tag select_club_dashboards_path, :method => :get do %>
+		<%= select_tag "club_id", options_from_collection_for_select(@clubs, "id", "name") %>
+		<%= submit_tag 'enter'%>
+	<% end %>
+	
+	<div class='index_clubs'>
+		<table>
+			<% @clubs.each do |club| %>
+				<%= render 'dashboards/clubs/index_club', :club => club %>
+			<% end %>
+		</table>
+		<div class="apple_pagination">
+			<%= will_paginate @clubs %>
+		</div>
+	</div>
+	
+	<div class='recent_clubs'>
+		<h3>Recently Created Clubs</h3>
+		<table>
+			<% @recent_clubs.each do |club| %>
+				<%= render 'dashboards/clubs/index_club', :club => club %>
+			<% end %>
+		</table>
+	</div>
+</div>

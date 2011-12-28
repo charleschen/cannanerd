@@ -55,11 +55,14 @@ Cannanerd::Application.routes.draw do
   resources :dashboards, :only => [:show, :index] do
     collection do
       get :select_club
+      scope :module => 'dashboards' do
+        resources :clubs, :only => [:create]
+      end
     end
     
     member do
       scope :module => 'dashboards' do
-        resources :strains, :only => [:index,:update]
+        resources :strains, :only => [:index,:update,:create, :destroy]
       end
     end
   end

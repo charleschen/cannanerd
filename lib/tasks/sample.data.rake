@@ -109,6 +109,7 @@ def make_questions_and_answers
     end
     
     new_strain.save
+    new_strain.approve!
     
     ids << new_strain.id
   end

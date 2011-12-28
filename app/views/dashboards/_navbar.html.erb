@@ -1,9 +1,7 @@
 <% if has_club_id? %>
 <div class='navbar'>
 	<%= render 'dashboards/clubs/club', :club => curr_club %>
-	<ul>
 		<%= yield :navbar %>
-	</ul>
 	<div class='clear'></div>
 </div>
 <% end %>

@@ -3,8 +3,25 @@ class Dashboards::StrainsController < ApplicationController
   
   layout "dashboard"
   
+  def create
+    #raise params.inspect
+    @club = Club.find(params[:id])
+    @new_strain = @club.strains.new(params[:strain])
+    @strains = @club.strains.paginate(:page => params[:page], :per_page => 6)
+    
+    if @new_strain.save
+      
+    else
+      render 'index', :page => params[:page]
+    end
+    
+  end
+  
   def index
-    @strains = Club.find(params[:id]).strains.paginate(:page => params[:page], :per_page => 6)
+    @club = Club.find(params[:id])
+    
+    @strains = @club.strains.paginate(:page => params[:page], :per_page => 6)
+    @new_strain = @club.strains.new
   end
   
   def update
@@ -17,6 +34,12 @@ class Dashboards::StrainsController < ApplicationController
       flash.now[:error] = 'Could not update strain'
       render 'index', :page => params[:page]
     end
+  end
+  
+  def destroy
+    @strain = Strain.find(params[:id])
+    @strain.destroy
+    redirect_to :back
   end
   
   protected

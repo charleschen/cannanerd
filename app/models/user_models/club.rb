@@ -48,6 +48,9 @@ class Club < ActiveRecord::Base
     c.maintain_sessions = false
   end
   
+  scope :alpha, :order => 'name ASC'
+  scope :recently_created, :order => 'created_at DESC'
+  
   # has_many :stock_strains, :dependent => :destroy, :foreign_key => 'club_id'
   # has_many :strains_in_inventory, :through => :stock_strains, :source => :strain
   
