@@ -52,7 +52,7 @@ Cannanerd::Application.routes.draw do
   # match 'dashboard'     , :to => 'dashboards#admin'
   # match 'select_club',    :to => 'dashboards#select_club'
   
-  resources :dashboards, :key => :dashboard_id, :only => [:show, :index] do
+  resources :dashboards, :only => [:show, :index] do
     collection do
       get :select_club
       scope :module => 'dashboards' do

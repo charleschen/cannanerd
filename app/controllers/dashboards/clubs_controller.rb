@@ -29,4 +29,17 @@ class Dashboards::ClubsController < ApplicationController
       end
     end
   end
+  
+  protected
+    def permission_denied
+      redirect_to root_url
+    end
+    
+    def find_club
+      @club = Club.find(club_id_param)
+    end
+    
+    def club_id_param
+      request.env['PATH_INFO'][/dashboards\/([0-9]+)/,1]
+    end
 end
