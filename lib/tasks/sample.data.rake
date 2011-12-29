@@ -131,13 +131,13 @@ def make_questions_and_answers
   
   answers = []
   
-  answers[0] = %w(Aroused Energetic Focused)
+  answers[0] = %w(aroused energetic focused)
   # Happy Lazy Talkative Uplifted Creative Euphoric Giggly Hungry Sleepy Tingly
-  answers[1] = %w(Anxiety ADD Asthma)
+  answers[1] = %w(anxiety add asthma)
   # Cancer Depression Epilepsy Glaucoma HIV/AIDS Insomia lack-of-appetite migraines Muscle-Spasms Nausea Pain PMS PTSD Seizuers Stress Other
-  answers[2] = %w(Indica Sativa Hybrid)
-  answers[3] = %w(Sweet Sour Minty Spicy Earthy)
-  answers[4] = %w(Joint Pipe Bong Vaporizer)
+  answers[2] = %w(indica sativa hybrid)
+  answers[3] = %w(sweet sour minty spicy earthy)
+  answers[4] = %w(joint pipe bong vaporizer)
   answers[5] = ["$25 - $45","$45 - $65","$65+"]
   
   questions = [ "You like it when your bud makes you feel:",
