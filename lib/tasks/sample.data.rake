@@ -86,7 +86,7 @@ def make_questions_and_answers
   questionnaire = Questionnaire.create
   
   tag_types = [:flavors, :types, :conditions, :symptoms, :effects, :prices]
-  default_tags = %w(Sweet, Indica, Anxiety)
+  default_tags = %w(sweet, indica, anxiety)
   
   ids = []
   
