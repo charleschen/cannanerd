@@ -1,0 +1,17 @@
+<tr>
+	<td>
+		<p><%= strain.name %></p>
+		<span>
+			<% tag_types.each do |tag_type| %>
+				<% if strain.tag_list_on(tag_type).any? %>
+					<ul class='tags'>
+						<li><%= "#{tag_type.to_s}:" %></li>
+						<li class='tag'><%= strain.tag_list_on(tag_type) %></li>
+					</ul>
+				<% end %>
+			<% end %>
+		</span>
+	</td>
+	<td><%= strain.description %></td>
+	<td><%= strain.created_at.to_s(:short) %></td>
+</tr>

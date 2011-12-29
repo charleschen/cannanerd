@@ -1,24 +1,39 @@
 <header>
-	<div id='header'>
-		<ul class='side_nav right'>
-			<% if current_club %>
-			<li><%= current_user.name %> <%= link_to 'sign out', club_logout_path %></li>
-			<% elsif current_user %>
-			<li><%= current_user.name %> <%= link_to 'sign out', logout_path %></li>
-			<% end %>
-		</ul>
-		<div class='clear'></div>
+	<div class='header'>
 		<nav>
-			<ol>
-				
-				<li><%= link_to 'Admin', dashboards_path %></li>
-				<% if has_club_id? %>
-				<li><%= link_to 'Main', dash_path %></li>
-				<li><%= link_to 'Strains', dash_path(:strains) %></li>
+			<ol class='left'>
+				<li>
+					Dashboard
+				</li>
+				<% if permitted_to?(:index, :dashboards) %>
+				<li>
+					<%= form_tag select_club_dashboards_path, :method => :get do %>
+						<%= select_tag "club_id", options_from_collection_for_select(Club.all, "id", "name") %>
+						<%= submit_tag 'enter'%>
+					<% end %>
+				</li>
+				<%= tag_with_current_class('li','dashboards','index') %> <%= link_to 'Admin', dashboards_path %></li>
 				<% end %>
-				<div class='clear'></div>
+				
+				<% if has_club_id? %>
+				<%= tag_with_current_class('li','dashboards','show') %> <%= link_to 'Main', dash_path %></li>
+				<%= tag_with_current_class('li','dashboards/strains','index') %> <%= link_to 'Edit Strains', dash_path(:strains) %></li>
+				<% end %>
+
 			</ol>
+			
+			<ul class='side_nav right'>
+				<li><%= link_to 'Home', root_url %></li>
+				<% if current_club %>
+				<li><%= current_user.name %> <%= link_to 'sign out', club_logout_path %></li>
+				<% elsif current_user %>
+				<li><%= current_user.name %> <%= link_to 'sign out', logout_path %></li>
+				<% end %>
+				
+			</ul>
+
 		</nav>
+		<div class='clear'></div>
 	</div>
 	<div class='clear'></div>
 

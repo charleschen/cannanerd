@@ -74,6 +74,9 @@ GEM
       activerecord (>= 3.0.7)
       activerecord (>= 3.0.7)
     bcrypt-ruby (3.0.1)
+    best_in_place (1.0.3)
+      jquery-rails
+      rails (~> 3.1.0)
     builder (3.0.0)
     capybara (1.1.1)
       mime-types (>= 1.16)
@@ -274,6 +277,7 @@ DEPENDENCIES
   acts_as_list!
   annotate (= 2.4.0)
   authlogic
+  best_in_place
   capybara
   coffee-rails (~> 3.1.0)
   database_cleaner

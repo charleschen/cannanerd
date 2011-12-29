@@ -1,38 +1,37 @@
 class Dashboards::StrainsController < ApplicationController
-  #filter_access_to :all, :attribute_check => true, :load_method => :find_club
-  
+  filter_access_to :all, :attribute_check => true, :load_method => :find_club
   layout "dashboard"
   
   def create
-    #raise params.inspect
-    @club = Club.find(params[:id])
+    #@club = Club.find(params[:id])
     @new_strain = @club.strains.new(params[:strain])
     @strains = @club.strains.paginate(:page => params[:page], :per_page => 6)
     
     if @new_strain.save
-      
+      redirect_to :back
     else
       render 'index', :page => params[:page]
     end
-    
   end
   
   def index
-    @club = Club.find(params[:id])
+    #@club = Club.find(params[:id])
     
     @strains = @club.strains.paginate(:page => params[:page], :per_page => 6)
     @new_strain = @club.strains.new
   end
   
   def update
-    #raise params.inspect
     @strain = Strain.find(params[:id])
-    if @strain.update_attributes(params[:strain])
-      flash[:success] = 'Updated strain!'
-      redirect_to :back
-    else
-      flash.now[:error] = 'Could not update strain'
-      render 'index', :page => params[:page]
+    
+    respond_to do |format|
+      if @strain.update_attributes(params[:strain])
+        format.json { respond_with_bip(@strain) }
+        format.html { redirect_to :back }
+      else
+        format.json { respond_with_bip(@strain)}
+        format.html { render 'index', :page => params[:page] }
+      end
     end
   end
   
@@ -48,6 +47,10 @@ class Dashboards::StrainsController < ApplicationController
     end
     
     def find_club
-      Club.find(params[:id])
+      @club = Club.find(club_id_param)
+    end
+    
+    def club_id_param
+      request.env['PATH_INFO'][/dashboards\/([0-9]+)/,1]
     end
 end

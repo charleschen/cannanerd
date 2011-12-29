@@ -9,6 +9,7 @@
 #  redirect   :text
 #  created_at :datetime
 #  updated_at :datetime
+#  club_id    :integer
 #
 
 class UserOrClubIDValidator < ActiveModel::Validator

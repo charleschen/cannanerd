@@ -18,6 +18,7 @@ gem 'likeable', git: 'git://github.com/schneems/Likeable.git'
 gem 'sendgrid'
 gem 'acts-as-taggable-on', git: 'git://github.com/mbleigh/acts-as-taggable-on.git'
 
+
 group :asset do
 	gem 'sass-rails', "~> 3.1.0"
 	gem 'coffee-rails', "~> 3.1.0"
@@ -25,6 +26,8 @@ group :asset do
 end
 
 gem 'jquery-rails'
+gem 'best_in_place'
+
 
 group :development do
   gem 'rspec-rails', '2.7.0'

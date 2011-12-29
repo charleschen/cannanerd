@@ -25,7 +25,7 @@ authorization do
   end
   
   role :admin do
-    has_permission_on [:clubs], :to => [:new, :create, :edit, :show, :index]
+    has_permission_on [:clubs], :to => [:new, :create, :edit, :show, :update, :index]
     has_permission_on [:users], :to => [:new, :create, :edit, :show, :update, :index]
     has_permission_on [:questionnaires], :to => [:index, :edit, :update, :sort]
     
@@ -37,7 +37,8 @@ authorization do
     has_permission_on [:stock_strains], :to => [:edit,:update,:show,:create,:destroy,:make_available,:make_unavailable]
     
     has_permission_on [:dashboards], :to => [:show, :select_club, :index]
-    has_permission_on [:dashboards_strains], :to => [:index]
+    has_permission_on [:dashboards_strains], :to => [:index, :create, :update]
+    has_permission_on [:dashboards_clubs], :to => [:create, :update]
   end
   
   role :unregistered do
@@ -50,6 +51,12 @@ authorization do
       #if_attribute :id => is {}
       if_attribute :id => is { user.id }
     end
+    
+    has_permission_on [:dashboards_strains], :to => [:index, :create, :update] do
+      if_attribute :id => is { user.id }
+    end
+    
+    has_permission_on [:strains], :to => [:tags, :all_tags]
   end
 end
 

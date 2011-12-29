@@ -18,6 +18,7 @@
 #  updated_at         :datetime
 #  roles_mask         :integer         default(1)
 #  address            :string(255)
+#  data               :text            default("{}")
 #
 
 require 'authlogic'
@@ -57,7 +58,23 @@ class Club < ActiveRecord::Base
   has_many :strains, :dependent => :destroy
   has_many :notifications, :dependent => :destroy
   
-  attr_accessible :email, :name, :password, :password_confirmation, :address
+  attr_accessible :email, :name, :password, :password_confirmation, :address, :phone_number
+  attr_reader :phone_number
+  
+  DATA = %w[phone_number hours_open]
+  
+  DATA.each do |method_name|
+    define_method(method_name+'=') do |data|
+      hash_data = eval(self.data).merge(method_name.to_sym => data)
+      self.data = hash_data.to_s
+      self.save
+    end
+    
+    define_method(method_name) do
+      eval(self.data)[method_name.to_sym]
+    end
+  end
+  
   after_save :get_geocode, :if => :address_changed?
   
   ROLES = %w[unregistered registered]

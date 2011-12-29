@@ -158,6 +158,39 @@ describe Club do
     end
   end
   
+  describe 'data methods' do
+    let(:club){ Club.create(@attr) }
+    let(:data_methods) { %w[phone_number hours_open]}
+    
+    it 'should have global variable DATA' do
+      Club::DATA.should == data_methods
+    end
+    
+    it 'should respond to getters defined by DATA' do
+      data_methods.each do |method|
+        club.should respond_to(method.to_sym)
+      end
+    end
+    
+    it 'should respond to setters defined by DATA' do
+      data_methods.each do |method|
+        club.should respond_to((method+'=').to_sym)
+      end
+    end
+    
+    it 'should be able to set and read data' do
+      rand_data = []
+      data_methods.count.times { rand_data << Faker::Name.first_name }
+      
+      data_methods.each do |method|
+        data = Faker::Name.first_name
+        club.send((method+'=').to_sym,data)
+        
+        club.send(method).should == data
+      end
+    end
+  end
+  
   describe 'roles' do
     let(:club){Club.create(@attr)}
     before(:each) do

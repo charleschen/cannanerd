@@ -1,0 +1,8 @@
+<div class='recent_strains left'>
+	<h3>Recently Added Strains</h3>
+	<table class='with_tags'>
+		<% @strains.each do |strain| %>
+			<%= render 'dashboards/strains/table_strain', :strain => strain %>
+		<% end %>
+	</table>
+</div>

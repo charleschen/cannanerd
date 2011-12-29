@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111220013955) do
+ActiveRecord::Schema.define(:version => 20111228093540) do
 
   create_table "answers", :force => true do |t|
     t.text     "content"
@@ -30,14 +30,14 @@ ActiveRecord::Schema.define(:version => 20111220013955) do
   end
 
   create_table "clubs", :force => true do |t|
-    t.string   "email",                             :null => false
-    t.string   "name",                              :null => false
-    t.string   "crypted_password",                  :null => false
-    t.string   "password_salt",                     :null => false
-    t.string   "persistence_token",                 :null => false
-    t.integer  "login_count",        :default => 0, :null => false
-    t.integer  "failed_login_count", :default => 0, :null => false
-    t.string   "perishable_token",                  :null => false
+    t.string   "email",                                :null => false
+    t.string   "name",                                 :null => false
+    t.string   "crypted_password",                     :null => false
+    t.string   "password_salt",                        :null => false
+    t.string   "persistence_token",                    :null => false
+    t.integer  "login_count",        :default => 0,    :null => false
+    t.integer  "failed_login_count", :default => 0,    :null => false
+    t.string   "perishable_token",                     :null => false
     t.float    "latitude"
     t.float    "longitude"
     t.string   "current_login_ip"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(:version => 20111220013955) do
     t.datetime "updated_at"
     t.integer  "roles_mask",         :default => 1
     t.string   "address"
+    t.text     "data",               :default => "{}"
   end
 
   create_table "notifications", :force => true do |t|

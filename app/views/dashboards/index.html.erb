@@ -1,16 +1,10 @@
-
-
 <div class='new_club_panel left'>
 	<h2>Create New Club</h2>
 	<%= render 'dashboards/clubs/form', :club => @club %>
 </div>
 
 <div class='clubs_panel left'>
-	<%= form_tag select_club_dashboards_path, :method => :get do %>
-		<%= select_tag "club_id", options_from_collection_for_select(@clubs, "id", "name") %>
-		<%= submit_tag 'enter'%>
-	<% end %>
-	
+	<h3> List of Clubs</h3>
 	<div class='index_clubs'>
 		<table>
 			<% @clubs.each do |club| %>

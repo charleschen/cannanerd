@@ -7,6 +7,8 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
+//= require best_in_place
+//= require jquery.purr
 //= require_tree ./public
 
 function remove_fields(link) {
@@ -27,6 +29,8 @@ function return_content(link){
 
 
 $(function(){
+	$('.best_in_place').best_in_place();
+	
 	// $("#answer_tag_tokens").tokenInput("/tags.json",{
 	// 	crossDomain: false,
 	// 	prePopulate: $("#answer_tag_tokens").data("pre"),

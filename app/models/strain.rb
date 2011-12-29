@@ -19,14 +19,15 @@ class Strain < ActiveRecord::Base
   acts_as_taggable
   acts_as_taggable_on :flavors, :types, :conditions, :symptoms, :effects, :prices
   
-  attr_accessible :name, :description, :flavor_tokens, :type_tokens, :condition_tokens, :symptom_tokens, :effect_tokens, :price_tokens, :club_id
-  attr_accessible :name, :approval_club_id, :flavor_tokens, :type_tokens, :condition_tokens, :symptom_tokens, :effect_tokens, :price_tokens
+  attr_accessible :name, :approval_club_id, :description, :flavor_tokens, :type_tokens, :condition_tokens, :symptom_tokens, :effect_tokens, :price_tokens, :club_id
   attr_reader :flavor_tokens, :type_tokens, :condition_tokens, :symptom_tokens, :effect_tokens, :price_tokens
     
   #attr_reader :tag_tokens
   validates :club_id, :presence => true
   validates :name, :presence => true
   validates :id_str, :uniqueness => { :scope => :club_id, :message => "strains should be unique in each club" }
+  
+  scope :recently_created, :order => 'created_at DESC'
   
   # has_many :reverse_stock_strains, :class_name => 'StockStrain', :dependent => :destroy, :foreign_key => 'strain_id'
   # has_many :stored_in_clubs, :through => :reverse_stock_strains, :source => :club

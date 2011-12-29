@@ -1,11 +1,13 @@
 <tr class='strain_edit_form'>
+	<td>
+		<%= best_in_place strain, :name,				:path => "#{curr_path}/#{strain.id}" %><br />
+		<%= best_in_place strain, :description, :paht => "#{curr_path}/#{strain.id}",:type => :textarea %>
+	</td>
+	
 	<%= form_for strain, :url => "#{curr_path}/#{strain.id}" do |f| %>
 		<%= hidden_field :strain, :club_id, :value => strain.club_id %>
 	
-		<td>
-			<%= f.text_field :name %><br />
-			<%= f.text_area :description %>
-		</td>
+
 		<td>
 			<%= f.label :flavor_tokens, "Flavors" %><br />
 			<%= f.text_area :flavor_tokens, "data-pre" => strain.flavors.map{|t| {:id => t.name, :name => t.name}}.to_json %>

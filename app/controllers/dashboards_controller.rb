@@ -16,7 +16,8 @@ class DashboardsController < ApplicationController
   end
   
   def show
-    
+    @club = Club.find(params[:id])
+    @strains = @club.strains.recently_created.limit(20)
   end
   
   # def goodbye

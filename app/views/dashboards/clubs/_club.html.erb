@@ -1,7 +1,24 @@
 <div class='club_info'>
-	<ul>
-		<li><%= club.name %></li>
-		<li><%= club.email %></li>
-		<li><%= club.address %></li>
-	</ul>
+<table>
+	<tr>
+		<td>Club Name: 	</td>
+		<td><%= best_in_place club, :name, 				:path => "#{dashboards_path}/clubs/#{club.id}", :nil => "" %></td>
+	</tr>
+	<tr>
+		<td>Email:</td>
+		<td><%= best_in_place club, :email, 			:path => "#{dashboards_path}/clubs/#{club.id}", :nil => ""  %></td>
+	</tr>
+	<tr>
+		<td>Phone:</td>
+		<td><%= best_in_place club, :phone_number,:path => "#{dashboards_path}/clubs/#{club.id}", :nil => "<a>Click to edit</a>"  %></td>
+	</tr>
+	<tr>
+		<td>Hours:</td>
+		<td><%= best_in_place club, :hours_open, 	:path => "#{dashboards_path}/clubs/#{club.id}", :nil => "<a>Click to edit</a>"  %></td>
+	</tr>
+	<tr>
+		<td>Address: 		</td>
+		<td><%= best_in_place club, :address, 		:path => "#{dashboards_path}/clubs/#{club.id}", :nil => "<a>Click to edit</a>", :type => :textarea  %></td>
+	</tr>
+</table>
 </div>

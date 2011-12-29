@@ -113,6 +113,25 @@ div.clubs_panel{
 }
 
 
+
+//   show
+
+div.recent_strains{
+	margin: 14px 0 0 7px;
+	width: 900px;
+	
+	table{
+		tr{
+			td:first-child{
+				width: 400px;
+			}
+			td{
+				width: 200px;
+			}
+		}
+	}
+}
+
 /**************** navbar *****************/
 
 div.navbar{
@@ -149,46 +168,55 @@ div#content{
 
 
 header {
-	border-top: 3px solid black;
 }
 
-div#header{
+div.header{
+	background: #6a7176;
+  background: -webkit-gradient(linear, left top, left bottom, from(#6a7176), to(#4d5256));
+  background: -moz-linear-gradient(-90deg, #6a7176, #4d5256);
+	
 	width: 100%;
 	margin: 0 auto;
+	border-top: 1px solid $dark-gray;
+	border-bottom: 1px solid $dark-gray;
+	line-height: 37px;
 	
-	div.title_bar{
-		margin-left: 10px;
-		padding: 15px 0 15px 0;//95px;
-		//margin-left: 95px;
-	}
-	
+	color: white;
 	ol{
-		margin-top: 10px;
-		border-top: 1px solid $dark-gray;
-		border-bottom: 1px solid $dark-gray;
+		line-height: 37px;
 		li{
-			&:first-child{
-				margin-right: 19px;
-			}
-			
 			font-size: 120%;	
 			float: left;
 			margin-right: 25px;
 			
+			line-height: 37px;
 			
+			padding: 0 7px 0 7px;
+			
+			&:first-child{
+				margin-left: 50px;
+				margin-right: 70px;
+			}
 			a{
-				line-height: 37px;
-				color: #6D6D6D;
+				font-size: 80%;
+				color: $gray-color;
 				text-decoration: none;
 				&:hover{
 					color: black
 				}
 			}
 		}
+		
+		li.current{
+			border: 1px dotted white;
+		}
 	}
 	
 	ul.side_nav{
-		
+		li{
+			float: left;
+			margin-right: 7px;
+		}
 	}
 }
 
@@ -238,6 +266,18 @@ tr.strain_edit_form{
 
 
 /****************** shared stuff *****************/
+
+.purr {
+  position: fixed;
+  top: 30px;
+  right: 100px;
+  width: 250px;
+  padding: 20px;
+  background-color: #FCC;
+  border: solid 2px #C66;
+  &:first-letter { text-transform: uppercase; }
+}
+
 
 .meter{
 	height: 20px;

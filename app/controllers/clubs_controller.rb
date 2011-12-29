@@ -1,5 +1,6 @@
 class ClubsController < ApplicationController
   filter_resource_access
+  respond_to :html, :json
   
   def new
     @club = Club.new
@@ -23,13 +24,16 @@ class ClubsController < ApplicationController
   end
   
   def update
-    if @club.update_attribute(params[:club])
-      flash[:success] = 'Club info updated'
-      redirect_to @club
-    else
-      flash.now[:eror] = 'Club was not updated'
-      render 'edit'
-    end
+    @club.update_attributes(params[:club])
+    respond_with @club
+    
+    # if @club.update_attributes(params[:club])
+    #   flash[:success] = 'Club info updated'
+    #   redirect_to @club
+    # else
+    #   flash.now[:eror] = 'Club was not updated'
+    #   render 'edit'
+    # end
   end
   
   def index
