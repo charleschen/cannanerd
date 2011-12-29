@@ -8,12 +8,12 @@
 <% end %>
 
 <div class='strain_panel left'>
-<div class="apple_pagination">
-	<%= will_paginate @strains %>
-</div>
-<table class='strain_list' summary='index of editable strains'>
-<% @strains.each do |strain| %>
-	<%= render 'edit_form', :strain => strain %>
-<% end %>
-</table>
+	<div class="apple_pagination">
+		<%= will_paginate @strains %>
+	</div>
+	<table class='strain_list' summary='index of editable strains'>
+		<% @strains.each do |strain| %>
+			<%= render 'edit_form', :strain => strain %>
+		<% end %>
+	</table>
 </div>

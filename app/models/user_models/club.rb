@@ -64,6 +64,9 @@ class Club < ActiveRecord::Base
   DATA = %w[phone_number hours_open]
   
   DATA.each do |method_name|
+    attr_accessible method_name.to_sym
+    attr_reader method_name.to_sym
+    
     define_method(method_name+'=') do |data|
       hash_data = eval(self.data).merge(method_name.to_sym => data)
       self.data = hash_data.to_s

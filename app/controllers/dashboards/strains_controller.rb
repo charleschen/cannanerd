@@ -17,7 +17,7 @@ class Dashboards::StrainsController < ApplicationController
   def index
     #@club = Club.find(params[:id])
     
-    @strains = @club.strains.paginate(:page => params[:page], :per_page => 6)
+    @strains = @club.strains.recently_created.paginate(:page => params[:page], :per_page => 6)
     @new_strain = @club.strains.new
   end
   

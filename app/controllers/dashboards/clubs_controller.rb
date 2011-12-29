@@ -1,6 +1,6 @@
 class Dashboards::ClubsController < ApplicationController
-  filter_access_to :all, :attribute_check => true, :load_method => :find_club
-  layout "dashboard"
+  filter_access_to :update, :attribute_check => true, :load_method => :find_club
+  filter_access_to :create, :attribute_check => false
   
   def create
     @clubs = Club.all
@@ -19,8 +19,6 @@ class Dashboards::ClubsController < ApplicationController
   end
   
   def update
-    @club = Club.find(params[:id])
-    
     respond_to do |format|
       if @club.update_attributes(params[:club])
         format.json { respond_with_bip(@club) }
@@ -36,10 +34,6 @@ class Dashboards::ClubsController < ApplicationController
     end
     
     def find_club
-      @club = Club.find(club_id_param)
-    end
-    
-    def club_id_param
-      request.env['PATH_INFO'][/dashboards\/([0-9]+)/,1]
+      @club = Club.find(params[:id])
     end
 end

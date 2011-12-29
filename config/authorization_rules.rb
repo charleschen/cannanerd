@@ -37,7 +37,7 @@ authorization do
     has_permission_on [:stock_strains], :to => [:edit,:update,:show,:create,:destroy,:make_available,:make_unavailable]
     
     has_permission_on [:dashboards], :to => [:show, :select_club, :index]
-    has_permission_on [:dashboards_strains], :to => [:index, :create, :update]
+    has_permission_on [:dashboards_strains], :to => [:index, :create, :update, :destroy]
     has_permission_on [:dashboards_clubs], :to => [:create, :update]
   end
   
@@ -52,7 +52,11 @@ authorization do
       if_attribute :id => is { user.id }
     end
     
-    has_permission_on [:dashboards_strains], :to => [:index, :create, :update] do
+    has_permission_on [:dashboards_clubs], :to => [:update] do
+      if_attribute :id => is { user.id }
+    end
+    
+    has_permission_on [:dashboards_strains], :to => [:index, :create, :update, :destroy] do
       if_attribute :id => is { user.id }
     end
     

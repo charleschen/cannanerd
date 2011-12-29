@@ -241,6 +241,13 @@ div.strain_panel{
 
 table.strain_list{
 	width: 100%;
+	
+	tr{
+		td:first-child{
+			width: 220px;
+			padding-right: 14px;
+		}
+	}
 }
 
 tr.strain_edit_form{
