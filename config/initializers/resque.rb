@@ -27,6 +27,11 @@ Likeable.setup do |c|
   end
 end
 
+
+Resque::Server.use(Rack::Auth::Basic) do |user, password|
+  password = ENV["MASTER_PASSWORD"]
+end
+
 # if Rails.env.production? || Rails.env.staging?
 #   
 #   Resque.redis = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)

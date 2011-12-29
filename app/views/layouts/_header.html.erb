@@ -22,6 +22,7 @@
 				
 				<% if permitted_to?(:select_club, :dashboards) %>
 				<li><%= link_to 'Dashboard', dashboards_path %></li>
+				<li><%= link_to 'Resque', resque_server_path %></li>
 				<% elsif permitted_to?(:show, :dashboards) %>
 				<li><%= link_to_if permitted_to?(:show, :dashboards), 'Dashboard', dash_path %></li>
 				<% end %>
